@@ -1,0 +1,71 @@
++-------------------------------------------------------+
+|	Informação	      |		Queries		|
++-----------------------------|-------------------------+
+|	ID Titulo   	      |		1,2,6,7,10 	|
+|	ID Revisão  	      |		3,10		|
+|       ID Contribuidor       |		4,5 		|
+|       Nome Contribuidor     |		5		|
+|       Texto/(bytes,palavras)|		6		|
+|	Titulo Artigo  	      |		7,9,10		|
+|	Número Artigo  	      |		8		|
+|	Timestamp             |		10		|
++-------------------------------------------------------+
+
+Estruturas de dados possíveis:
+	Query 1: Variavel
+	Query 2: Variavel
+	Query 3: Variavel
+	Query 4: (Maxheap vs HashTable) de Contribuidores
+	Query 5: (Maxheap vs HashTable) de Contribuidores
+	Query 6: Maxheap (derivada da HashTable) de artigos
+	Query 7: Hashtable de artigos
+	Query 8: Maxheap (derivada da HashTable) de artigos
+	Query 9: HashTable de artigos -> *VER*
+	Query 10: HashTable de artigos
+
+*VER*: Compromisso tempo/memória
+
+Estruturas:
+
+	(Maxheap vs Hashtable) de Contribuidores:
+		- Nome Contribuidor
+		- ID Contribuidor
+		- Número de contribuições
+
+	(Maxheap & Hashtable) de artigos:
+		- Titulo Artigo
+		- ID Titulo
+		- Número de Bytes/Palavras
+		- *LLigada* de Revisões
+
+	LLigada de Revisões:
+		- ID Revisão
+		- Timestamp
+
+
+Tarefas (sujeito a alterações):
+
+Bolt 	 -> Módulo da Maxheap (derivada da Hashtable), Outros.
+Tippler	 -> Modulo da Hashtable de Contribuidores e/ou Módulo da Hashtable de artigos.
+Sabático -> Módulo da LLigada de Revisões.
+
+
+Informações Uteis:
+	Caso Médio:
+	Hashtable:
+		-Procura: Teta(1)
+		-Inserção: Teta(1)
+		-Remoção: Teta(1)
+	
+	Pior Caso:
+	Heap:
+		-Procurar máximo: Teta(1)
+		-Inserção: O(Log N)
+		-Remoção: O(Log N)
+
+	Pior Caso:
+	LLigada:
+		-Procura: O(N)
+		-Inserção: O(1)
+		-Remoção: O(1)
+
