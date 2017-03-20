@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h>
-#include "LinkedListRevisions.h"
+#include "linkedListRevisions.h"
 
 typedef struct TCD_istruct * TAD_istruct;
 
