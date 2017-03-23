@@ -1,13 +1,15 @@
 #include "interface.h"
 
-
 struct TCD_istruct{
-	hastable_contribuidores ht_contrib;
-	hastable_artigos ht_art;
-	heap_artigos maxheap_art;
+	int all_articles, unique_articles, all_revisions;
+	maxHeapContrib ht_contrib;
+	hashTArt ht_art;
+	maxHeapArt maxheap_art;
 };
 
-TAD_istruct init();
+TAD_istruct init(){
+
+};
 
 TAD_istruct load(TAD_istruct qs, int nsnaps, char * snaps_paths[]);
 
