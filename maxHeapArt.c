@@ -1,7 +1,7 @@
 #include "maxHeapArt.h"
 
 void swap (hashTArt h, int a, int b){
-	artNodo* t = h[a];
+	artNodo t = h[a];
 	h[a] = h[b];
 	h[b] = t;
 }
@@ -23,9 +23,9 @@ int bubbleUp (hashTArt a, int i) {
 }
 
 int maxHeapArt_Insert(maxHeapArt h, artNodo *x) {
-	int idx = x->heapInd;
+	int idx = (*x)->heapInd;
 	if(idx == -1){
-		h->heap[h->used] = x;
+		h->heap[h->used] = *x;
 		(h->used)++;
 		return bubbleUp(h->heap, h->used-1);
 	}
@@ -43,4 +43,9 @@ void bubbleDown(hashTArt a, int used) {
     }
     if (LEFT(i) < used && a[LEFT(i)] < a[i])
         swap(a, i, LEFT(i));
+}
+
+void maxHeapArt_Clean(maxHeapArt mh){
+	hashTArt_Clean(mh->heap);
+	free(mh);
 }

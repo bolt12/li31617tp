@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h>
-#include "maxHeapArt.h"
+#include "hashTArt.h"
 
 typedef struct TCD_istruct * TAD_istruct;
 

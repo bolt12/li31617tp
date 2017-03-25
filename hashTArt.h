@@ -15,6 +15,7 @@ typedef struct hashtable{
 	struct hashtable * next;	
 }*hashTArt[SIZE], artNodo;
 
+// #include "maxHeapArt.h"
 
 int hashCode (long title_ID);
 void hashTArt_Init (hashTArt h);

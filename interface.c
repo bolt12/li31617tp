@@ -2,7 +2,7 @@
 
 struct TCD_istruct{
 	long all_articles, unique_articles, all_revisions;
-	maxHeapContrib ht_contrib;
+	maxHeapContrib maxheap_contrib;
 	hashTArt ht_art;
 	maxHeapArt maxheap_art;
 };
@@ -12,7 +12,7 @@ TAD_istruct init(){
 	init->all_articles=init->all_revisions=init->unique_articles=0;
 	hashTArt_Init(init->ht_art);
 	maxHeapArt_Init(init->maxheap_art);
-	//maxHeapContrib_Init(init->ht_contrib);
+	//maxHeapContrib_Init(init->maxheap_contrib);
 	return init;
 };
 
@@ -77,13 +77,46 @@ char** titles_with_prefix(char* prefix, TAD_istruct qs);
 
 char* article_timestamp(long article_id, long revision_id, TAD_istruct qs);
 
-TAD_istruct clean (TAD_istruct qs);
+TAD_istruct clean (TAD_istruct qs){
+	//maxHeapContrib_Clean(qs->maxheap_contrib);
+	hashTArt_Clean(qs->ht_art);
+	maxHeapArt_Clean(qs->maxheap_art);
+	return qs;
+}
 
-//TODO
-void parseText(xmlNodePtr cur, int* nbytes, int* nwords);
 
-//TODO
-void parseContributors(xmlNodePtr cur, xmlChar** cont_name, xmlChar** cont_id);
+
+/* Funções de parsing
+ *
+ * parseText -> Pega no texto dos artigos e devolve por referencia o numero de bytes e palavras do texto.
+ * parseContributors -> Pega no nodo de contribuidores do xml e devolve por referencia o seu nome e id.
+ * parseRevision -> Pega no nodo de revisão de um artigo e vai buscar a informação com o auxilio das duas funções anteriores.
+ * parsePage -> Pega no nodo de uma página de artigo e extrai dela toda a informação para carregar na estrutura de dados.
+ *
+ */
+
+void parseText(xmlNodePtr cur, int* nbytes, int* nwords){
+	char* text = (char*) xmlNodeGetContent(cur);
+	int i, words= 0, count=0;
+	for(i=0; text[i]!='\0';i++)
+		if(text[i]==' ' || text[i]=='\n') words++;
+	*nbytes = i-1;
+	*nwords = words;
+	free(text);
+}
+
+void parseContributors(xmlNodePtr cur, xmlChar** cont_name, xmlChar** cont_id){
+
+	cur = cur->xmlChildrenNode;
+
+	while(cur){
+		if((!xmlStrcmp(cur->name, BAD_CAST "username")))
+			*cont_name = xmlNodeGetContent(cur);
+		if((!xmlStrcmp(cur->name, BAD_CAST "id")))
+			*cont_id = xmlNodeGetContent(cur);
+		cur = cur->next;
+	}
+}
 
 void parseRevision(xmlNodePtr cur, xmlChar** rv_id, xmlChar** tstamp, xmlChar** cont_name, xmlChar** cont_id, int* nbytes, int* nwords){
 
@@ -105,7 +138,7 @@ void parseRevision(xmlNodePtr cur, xmlChar** rv_id, xmlChar** tstamp, xmlChar** 
 }
 
 void parsePage(TAD_istruct qs, xmlNodePtr cur){
-	
+
 	int i;
 	char* revisionID;
 	xmlChar* title, *title_id, *revision_id, *timestamp, *contributor_name, *contributor_id;
@@ -121,8 +154,9 @@ void parsePage(TAD_istruct qs, xmlNodePtr cur){
 			parseRevision(cur, &revision_id, &timestamp, &contributor_name, &contributor_id, &n_bytes, &n_words);
 
 		cur = cur->next;
-	};
-	hashTArt_Add(qs->ht_art, (char*)title, (long) atoi(title_id), n_bytes, n_words, (long) atoi(revision_id), (char*) timestamp, (char*) contributor_name, (long) atoi(contributor_id));
+	}
+
+	hashTArt_Add(qs->ht_art, (char*)title, (long) atoi(title_id), n_bytes, n_words, (long) atoi(revision_id), (char*) timestamp, (char*) contributor_name, (long) atoi(contributor_id), qs->maxheap_art);
 	xmlFree(title);
 	xmlFree(title_id);
 	xmlFree(revision_id);
