@@ -1,4 +1,7 @@
+#ifndef __LINKEDLIST__H__
 #include <stdlib.h>
+#include <stdio.h>
+#endif
 
 typedef struct revisionsList{
 	long revision_id;

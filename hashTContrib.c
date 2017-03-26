@@ -10,6 +10,12 @@
 int hashTContribHash(long contributor_id){
 	return contributor_id % SIZE;
 }
+void hashTContribInit(hashTContrib ht){
+	int i;
+	for (i = 0; i < SIZE; i++){
+		ht[i] = NULL;
+	}
+}
 int hashTContribAdd(hashTContrib ht, char* contributor_name, long contributor_id){
 	int position = hashTContribHash(contributor_id);
 	//Vou usar um apontador de apontador para poupar uma variável.
@@ -53,15 +59,15 @@ int hashTContribRetrieveContributions(hashTContrib ht, long contributor_id){
 }
 void hashTContribClean(hashTContrib ht){
 	int indice;
-	Contrib *head, *next;
+	Contrib *ant, *prox;
 	for(indice = 0; indice < SIZE; indice++){
-		next = ht[indice];
+		prox = ht[indice];
 		//printf("%d\n", indice);
-		while(next){
-			printf("Eliminar %s\n", next->contributor_name);
-			head = next;
-			next = next->next;
-			free(head);
+		while(prox){
+			ant = prox;
+			prox = prox->next;
+			free(ant);
 		}
+		ht[indice] = NULL;
 	}
 }

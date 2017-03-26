@@ -36,9 +36,10 @@ int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_wor
 		new-> next = NULL;
 		if (!h[pos]) h[pos] = new;
 		else ant->next = new;
+		aux = new;
 	}
-	
-	res += insertRevision(&new->revisions, revision_id, timestamp);
+
+	res += insertRevision(&aux->revisions, revision_id, timestamp);
 	// if (res) aux-> heapInd = maxHeapArt_Insert(maxHeapArt mh, aux);
 
 	
@@ -78,7 +79,7 @@ void hashTArt_Clean (hashTArt h){
 		aux = h[i];
 		while (aux){
 			free (aux-> title);
-			cleanList(&aux-> revisions);
+			cleanList(&aux->revisions);
 			ant = aux;
 			aux = aux->next;
 			free(ant);

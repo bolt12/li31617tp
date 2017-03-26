@@ -1,10 +1,47 @@
 #include "interface.h"
 
+
+void testes_hastTableArtigos()
+{
+	
+	hashTArt h;
+	//hashTArt_Print(h);
+	hashTArt_Init(h);
+	
+	if(hashTArt_Add (h, "Title_A", 71, 10, 2, 502, "21 Novembro 2001",
+						 "Luís Gomes", 78701, 1))
+		printf("Adicionado artigo: Title_A\n");
+	if(hashTArt_Add (h, "Title_C", 7, 10, 2, 500, "2 Janeiro 2001",
+						 "Luís Gomes", 78701, 1))
+		printf("Adicionado artigo: Title_C\n");
+	if(hashTArt_Add (h, "Title_B", 17, 10, 2, 500, "1 Novembro 2009",
+						 "Luís Gomes", 78701, 1 ))
+		printf("Adicionado artigo: Title_B\n");
+	//Adicionar nova revisão a artigo já existente
+	if(hashTArt_Add (h, "Title_B", 17, 15, 33, 501, "2 Novembro 2010",
+						 "Luís Gomes", 78701, 1 ))
+		printf("Adicionada revisão ao artigo: Title_B\n");
+	
+	printf("\n");
+	char * c1 = hashTArt_GetTitle (h, 71);
+	char * c2 = hashTArt_Timestamp (h, 71, 502);
+
+	printf("Title: %s; Timestamp: %s\n",c1, c2 );
+	char * c3 = hashTArt_GetTitle (h, 17);
+	char * c4 = hashTArt_Timestamp (h, 17, 501);
+
+	printf("Title: %s; Timestamp: %s\n",c3, c4 );
+
+	hashTArt_Clean(h);
+	printf("Done!\n");
+}
+
 void testes_hastTableContribuidores(){
 
 	hashTContrib hash_teste;
 	char * nome;
 	int contribuicoes;
+	hashTContribInit(hash_teste);
 
 	if(hashTContribAdd(hash_teste, "Zeca", 312312512))
 		printf("Adicionado o Zeca\n");
@@ -86,6 +123,15 @@ int main(int argc, char const* argv[])
 {
 
 	printf("Hello world! \n");
+	printf("\n----------Iniciar testes-------------\n");
 	testes_hastTableContribuidores();
+	printf("\n-Testes hashtable contribuidores done-\n");
+	printf("\n-------------------------------------\n");
+	testes_lista_revisoes();
+	printf("\n-----Testes listas revisões done-----\n");
+	printf("\n-------------------------------------\n");
+	testes_hastTableArtigos();
+	printf("\n----Testes hashtable artigos done----\n");
+	printf("\n----------Testes finalizados---------\n");
 	return 0;
 }

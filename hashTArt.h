@@ -1,7 +1,10 @@
+#ifndef __HASHTART__H__
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include "linkedListRevisions.h"
+#endif
+
 
 /*	ATENCAO : NOTAS IMPORTANTES -> Alterar !!!!
 	Para testar:
@@ -9,8 +12,8 @@
 	---> SIZE definido como 10
 
 */
-//#define SIZE 19889 // Número primo mais baixo e mais próximo de 19886, número de revisões únicas
-#define SIZE 10 
+#define SIZE 19889 // Número primo mais baixo e mais próximo de 19886, número de revisões únicas
+//#define SIZE 10 
 
 typedef struct hashtable{
 	char * title;
