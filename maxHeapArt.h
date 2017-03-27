@@ -9,8 +9,6 @@ typedef struct maxheapart{
 	hashTArt heap;
 } *maxHeapArt;
 
-//typedef struct hashtable *artNodo;
-
 void maxHeapArt_Init(maxHeapArt mh);
 int maxHeapArt_Insert(maxHeapArt mh, artNodo* node);
 long* maxHeapArt_Top20(maxHeapArt mh); // Querie 6

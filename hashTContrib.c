@@ -1,11 +1,12 @@
 #include "hashTContrib.h"
+
 /*
-1-Criar e implemetar hashtable de contribuidores
-2-Criar e implemetar maxheap de contribuidores
-3-juntar ambas as estruturas
-4-criar testes
-5-implementar queries relacionadas com contribuidores
-*/
+   1-Criar e implemetar hashtable de contribuidores
+   2-Criar e implemetar maxheap de contribuidores
+   3-juntar ambas as estruturas
+   4-criar testes
+   5-implementar queries relacionadas com contribuidores
+   */
 
 int hashTContribHash(long contributor_id){
 	return contributor_id % SIZE;
@@ -47,6 +48,7 @@ char* hashTContribRetrieveName(hashTContrib ht, long contributor_id){
 	}
 	return NULL;
 }
+
 int hashTContribRetrieveContributions(hashTContrib ht, long contributor_id){
 	int position = hashTContribHash(contributor_id);
 	Contrib *head = ht[position];

@@ -15,11 +15,11 @@ void maxHeapArt_Init(maxHeapArt mh){
 
 int bubbleUp (hashTArt a, int i) {
 
-    while (i!=0 && a[i]->n_bytes < a[PARENT(i)]->n_bytes) {
-        swap(a, i, PARENT(i));
-        i = PARENT(i);
-    }
-    return i;
+	while (i!=0 && a[i]->n_bytes < a[PARENT(i)]->n_bytes) {
+		swap(a, i, PARENT(i));
+		i = PARENT(i);
+	}
+	return i;
 }
 
 int maxHeapArt_Insert(maxHeapArt h, artNodo *x) {
@@ -35,14 +35,14 @@ int maxHeapArt_Insert(maxHeapArt h, artNodo *x) {
 }
 
 void bubbleDown(hashTArt a, int used) {
-    int i = 0, min ;
+	int i = 0, min ;
 
-    while (RIGHT(i) < used && a[min = a[LEFT(i)] < a[RIGHT(i)] ? LEFT(i) : RIGHT(i)] < a[i]) {
-        swap(a, i, min);
-        i = min;
-    }
-    if (LEFT(i) < used && a[LEFT(i)] < a[i])
-        swap(a, i, LEFT(i));
+	while (RIGHT(i) < used && a[min = a[LEFT(i)] < a[RIGHT(i)] ? LEFT(i) : RIGHT(i)] < a[i]) {
+		swap(a, i, min);
+		i = min;
+	}
+	if (LEFT(i) < used && a[LEFT(i)] < a[i])
+		swap(a, i, LEFT(i));
 }
 
 void maxHeapArt_Clean(maxHeapArt mh){
