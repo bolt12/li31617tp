@@ -26,7 +26,7 @@ int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_wor
 	if(!aux){
 		res++;
 		new = malloc (sizeof (struct hashtable));
-		new-> title = malloc (sizeof (title));
+		new-> title = malloc (strlen(title) + 1);
 		strcpy (new-> title, title);
 		new-> title_ID = title_ID;
 		new-> n_bytes = n_bytes;
@@ -85,14 +85,13 @@ void hashTArt_Clean (hashTArt h){
 		h[i] = NULL;
 	}
 }
-
 void hashTArt_Print (hashTArt h){
 	int i;
 	artNodo aux;
 	for(i = 0; i < SIZE; i++){
 		printf("%p \t%d -> ",h[i], i );
 		for(aux = h[i]; aux; aux = aux-> next){
-			printf("Title: %s\t",aux->title);
+			printf("#TitleID: %ld\t",aux->title_ID);
 		}
 		printf("\n");
 	}

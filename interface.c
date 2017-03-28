@@ -8,13 +8,15 @@ struct TCD_istruct{
 };
 
 TAD_istruct init(){
-	TAD_istruct init = malloc(sizeof(struct TCD_istruct));
-	init->all_articles=init->all_revisions=init->unique_articles=0;
-	hashTArt_Init(init->ht_art);
+	TAD_istruct qs = malloc(sizeof(struct TCD_istruct));
+	qs->all_articles = qs->all_revisions = qs->unique_articles = 0;
+	hashTArt_Init(qs->ht_art);
 	//maxHeapArt_Init(init->maxheap_art);
 	//maxHeapContrib_Init(init->maxheap_contrib);
-	return init;
+	return qs;
 };
+
+
 
 void parsePage(TAD_istruct qs, xmlNodePtr cur);
 
@@ -27,6 +29,8 @@ TAD_istruct load(TAD_istruct qs, int nsnaps, char * snaps_paths[]){
 	for(i=0; i<nsnaps; i++){
 
 		doc = xmlReadFile(snaps_paths[i],NULL,0);
+
+		cur = xmlDocGetRootElement (doc);
 
 		if (cur == NULL) {
 			fprintf(stderr,"empty document\n");
@@ -49,6 +53,7 @@ TAD_istruct load(TAD_istruct qs, int nsnaps, char * snaps_paths[]){
 
 		xmlFreeDoc(doc);
 	}
+	hashTArt_Print(qs->ht_art);
 	return qs;
 }
 
@@ -142,6 +147,7 @@ void parsePage(TAD_istruct qs, xmlNodePtr cur){
 
 	xmlChar* title, *title_id, *revision_id, *timestamp, *contributor_name, *contributor_id;
 	int n_bytes, n_words;
+	int add_code = 0;
 
 	cur = cur->xmlChildrenNode;
 	while(cur){
@@ -154,8 +160,12 @@ void parsePage(TAD_istruct qs, xmlNodePtr cur){
 
 		cur = cur->next;
 	}
+	add_code = hashTArt_Add (qs->ht_art, (char*)title, (long) atoi( (char*) title_id), n_bytes, n_words, (long) atoi( (char*) revision_id), (char*) timestamp, (char*) contributor_name, (long) atoi( (char*) contributor_id), 12);//qs->maxheap_art
+	qs->all_articles++;
+	if (add_code) qs-> all_revisions++;
+	if (add_code == 2) qs-> unique_articles++;
 
-	hashTArt_Add(qs->ht_art, (char*)title, (long) atoi( (char*) title_id), n_bytes, n_words, (long) atoi( (char*) revision_id), (char*) timestamp, (char*) contributor_name, (long) atoi( (char*) contributor_id), 12);//qs->maxheap_art
+
 	xmlFree(title);
 	xmlFree(title_id);
 	xmlFree(revision_id);

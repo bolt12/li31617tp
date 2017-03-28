@@ -121,7 +121,7 @@ void testes_lista_revisoes(){
 
 int main(int argc, char const* argv[])
 {
-
+	/*
 	printf("Hello world! \n");
 	printf("\n----------Iniciar testes-------------\n");
 	testes_hastTableContribuidores();
@@ -133,5 +133,23 @@ int main(int argc, char const* argv[])
 	testes_hastTableArtigos();
 	printf("\n----Testes hashtable artigos done----\n");
 	printf("\n----------Testes finalizados---------\n");
+
+	*/
+
+	char ** datasets = (char**) argv+1;
+	long x;
+	TAD_istruct qs;
+	qs = init();
+
+	printf("%s\n","init feito" );
+
+	load (qs,argc-1, datasets);
+
+	x = all_articles (qs);
+	printf("%ld\n",x );
+	x = unique_articles (qs);
+	printf("%ld\n",x );
+	x = all_revisions (qs);
+	printf("%ld\n",x );
 	return 0;
 }
