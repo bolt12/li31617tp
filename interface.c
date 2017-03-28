@@ -2,16 +2,16 @@
 
 struct TCD_istruct{
 	long all_articles, unique_articles, all_revisions;
-	maxHeapContrib maxheap_contrib;
+	//maxHeapContrib maxheap_contrib;
 	hashTArt ht_art;
-	maxHeapArt maxheap_art;
+	//maxHeapArt maxheap_art;
 };
 
 TAD_istruct init(){
 	TAD_istruct init = malloc(sizeof(struct TCD_istruct));
 	init->all_articles=init->all_revisions=init->unique_articles=0;
 	hashTArt_Init(init->ht_art);
-	maxHeapArt_Init(init->maxheap_art);
+	//maxHeapArt_Init(init->maxheap_art);
 	//maxHeapContrib_Init(init->maxheap_contrib);
 	return init;
 };
@@ -49,6 +49,7 @@ TAD_istruct load(TAD_istruct qs, int nsnaps, char * snaps_paths[]){
 
 		xmlFreeDoc(doc);
 	}
+	return qs;
 }
 
 long all_articles(TAD_istruct qs){
@@ -80,7 +81,7 @@ char* article_timestamp(long article_id, long revision_id, TAD_istruct qs);
 TAD_istruct clean (TAD_istruct qs){
 	//maxHeapContrib_Clean(qs->maxheap_contrib);
 	hashTArt_Clean(qs->ht_art);
-	maxHeapArt_Clean(qs->maxheap_art);
+	//maxHeapArt_Clean(qs->maxheap_art);
 	return qs;
 }
 
@@ -97,7 +98,7 @@ TAD_istruct clean (TAD_istruct qs){
 
 void parseText(xmlNodePtr cur, int* nbytes, int* nwords){
 	char* text = (char*) xmlNodeGetContent(cur);
-	int i, words= 0, count=0;
+	int i, words= 0;
 	for(i=0; text[i]!='\0';i++)
 		if(text[i]==' ' || text[i]=='\n') words++;
 	*nbytes = i-1;
@@ -139,8 +140,6 @@ void parseRevision(xmlNodePtr cur, xmlChar** rv_id, xmlChar** tstamp, xmlChar** 
 
 void parsePage(TAD_istruct qs, xmlNodePtr cur){
 
-	int i;
-	char* revisionID;
 	xmlChar* title, *title_id, *revision_id, *timestamp, *contributor_name, *contributor_id;
 	int n_bytes, n_words;
 
@@ -156,7 +155,7 @@ void parsePage(TAD_istruct qs, xmlNodePtr cur){
 		cur = cur->next;
 	}
 
-	hashTArt_Add(qs->ht_art, (char*)title, (long) atoi(title_id), n_bytes, n_words, (long) atoi(revision_id), (char*) timestamp, (char*) contributor_name, (long) atoi(contributor_id), qs->maxheap_art);
+	hashTArt_Add(qs->ht_art, (char*)title, (long) atoi( (char*) title_id), n_bytes, n_words, (long) atoi( (char*) revision_id), (char*) timestamp, (char*) contributor_name, (long) atoi( (char*) contributor_id), 12);//qs->maxheap_art
 	xmlFree(title);
 	xmlFree(title_id);
 	xmlFree(revision_id);
