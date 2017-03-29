@@ -4,13 +4,14 @@ struct TCD_istruct{
 	long all_articles, unique_articles, all_revisions;
 	//maxHeapContrib maxheap_contrib;
 	hashTArt ht_art;
-	//maxHeapArt maxheap_art;
+	avlArt avlA;
 };
 
 TAD_istruct init(){
 	TAD_istruct qs = malloc(sizeof(struct TCD_istruct));
 	qs->all_articles = qs->all_revisions = qs->unique_articles = 0;
 	hashTArt_Init(qs->ht_art);
+	qs->avlA = avlArt_Init(qs->avlA);
 	//maxHeapArt_Init(init->maxheap_art);
 	//maxHeapContrib_Init(init->maxheap_contrib);
 	return qs;
@@ -160,7 +161,7 @@ void parsePage(TAD_istruct qs, xmlNodePtr cur){
 
 		cur = cur->next;
 	}
-	add_code = hashTArt_Add (qs->ht_art, (char*)title, (long) atoi( (char*) title_id), n_bytes, n_words, (long) atoi( (char*) revision_id), (char*) timestamp, (char*) contributor_name, (long) atoi( (char*) contributor_id), 12);//qs->maxheap_art
+	add_code = hashTArt_Add (qs->ht_art, (char*)title, (long) atoi( (char*) title_id), n_bytes, n_words, (long) atoi( (char*) revision_id), (char*) timestamp, (char*) contributor_name, (long) atoi( (char*) contributor_id), &(qs->avlA));//qs->maxheap_art
 	qs->all_articles++;
 	if (add_code) qs-> all_revisions++;
 	if (add_code == 2) qs-> unique_articles++;
