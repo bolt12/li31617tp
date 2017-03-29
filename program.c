@@ -1,27 +1,28 @@
 #include "interface.h"
 
-
 void testes_hastTableArtigos()
 {
-	
+
+	int i;
 	hashTArt h;
+	avlArt avl = NULL;
 	//hashTArt_Print(h);
 	hashTArt_Init(h);
-	
-	if(hashTArt_Add (h, "Title_A", 71, 10, 2, 502, "21 Novembro 2001",
-						 "Luís Gomes", 78701, 1))
+
+	if(hashTArt_Add (h, "Title_A", 71, 9, 2, 502, "21 Novembro 2001",
+				"Luís Gomes", 78701, &avl))
 		printf("Adicionado artigo: Title_A\n");
 	if(hashTArt_Add (h, "Title_C", 7, 10, 2, 500, "2 Janeiro 2001",
-						 "Luís Gomes", 78701, 1))
+				"Luís Gomes", 78701, &avl))
 		printf("Adicionado artigo: Title_C\n");
-	if(hashTArt_Add (h, "Title_B", 17, 10, 2, 500, "1 Novembro 2009",
-						 "Luís Gomes", 78701, 1 ))
+	if(hashTArt_Add (h, "Title_B", 17, 12, 2, 500, "1 Novembro 2009",
+				"Luís Gomes", 78701, &avl))
 		printf("Adicionado artigo: Title_B\n");
 	//Adicionar nova revisão a artigo já existente
-	if(hashTArt_Add (h, "Title_B", 17, 15, 33, 501, "2 Novembro 2010",
-						 "Luís Gomes", 78701, 1 ))
+	if(hashTArt_Add (h, "Title_B", 17, 8, 33, 501, "2 Novembro 2010",
+				"Luís Gomes", 78701, &avl))
 		printf("Adicionada revisão ao artigo: Title_B\n");
-	
+
 	printf("\n");
 	char * c1 = hashTArt_GetTitle (h, 71);
 	char * c2 = hashTArt_Timestamp (h, 71, 502);
@@ -32,7 +33,30 @@ void testes_hastTableArtigos()
 
 	printf("Title: %s; Timestamp: %s\n",c3, c4 );
 
+	printf("\n----------- avlArt ------------\n");
+
+	/*
+	for(i=0; i<SIZE; i++){
+		if(h[i]){
+			avl = avlArt_Insert(avl,h[i]);
+			printf("Adicionado artigo %s à AVL\n", h[i]->title);
+		}
+	}
+	*/
+
+	printf("\nROOT DA AVL: %s; %d\n", avl->artigo->title, avl->artigo->n_bytes);
+
+	avlArt_Print(avl);
+
+	//avlArt_Remove(avl,h[17]);
+
+	putchar('\n');
+
+	avlArt_Print(avl);
+	
+
 	hashTArt_Clean(h);
+	avlArt_Clean(avl);
 	printf("Done!\n");
 }
 
@@ -80,9 +104,9 @@ void testes_hastTableContribuidores(){
 		printf("3º Teste de busca de nome passou\n");
 
 	contribuicoes = hashTContribRetrieveContributions(hash_teste, 865742);
-		printf("O armando tem %i contribuições.\n", contribuicoes);
+	printf("O armando tem %i contribuições.\n", contribuicoes);
 	contribuicoes = hashTContribRetrieveContributions(hash_teste, 987654567);
-		printf("O luis tem %i contribuições\n", contribuicoes);
+	printf("O luis tem %i contribuições\n", contribuicoes);
 
 	hashTContribClean(hash_teste);
 }
@@ -131,11 +155,11 @@ int main(int argc, char const* argv[])
 	printf("\n-----Testes listas revisões done-----\n");
 	printf("\n-------------------------------------\n");
 	testes_hastTableArtigos();
-	printf("\n----Testes hashtable artigos done----\n");
+	printf("\n----Testes hashtable artigos & avl artigos done----\n");
 	printf("\n----------Testes finalizados---------\n");
-
+	return 0;
 	*/
-
+	
 	char ** datasets = (char**) argv+1;
 	long x;
 	TAD_istruct qs;
@@ -151,5 +175,6 @@ int main(int argc, char const* argv[])
 	printf("%ld\n",x );
 	x = all_revisions (qs);
 	printf("%ld\n",x );
-	return 0;
+
+
 }

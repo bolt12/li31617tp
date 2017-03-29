@@ -6,6 +6,9 @@ STRUCTS = linkedListRevisions.o hashTArt.o hashTContrib.o
 program: $(STRUCTS)
 	$(CC) $(CFLAGS) $(STRUCTS) program.c -o program $(LIBS)
 
+interface: $(STRUCTS)
+	$(CC) $(CFLAGS) $(STRUCTS) interface.c -o interface $(LIBS)
+
 test_hashTArt: $(STRUCTS)
 	$(CC) $(CFLAGS) $(STRUCTS) test_hash.c -o test_hash $(LIBS)
 

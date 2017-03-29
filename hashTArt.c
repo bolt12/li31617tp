@@ -1,4 +1,7 @@
+#include <string.h>
 #include "hashTArt.h"
+
+/* Funções referentes à hashTArt */
 
 int hashCode (long title_ID){
 	return (title_ID % SIZE);
@@ -12,13 +15,12 @@ void hashTArt_Init (hashTArt h){
 }
 
 /*
-   Se res == 0 -> Não foi adicionado nenhum artigo nem nenhuma revisão
-   Se res == 1 -> Foi adicionada apenas uma revisão
-   Se res == 2 -> Foi adicionada um novo artigo (consequentemente uma nova revisão)
+   Se res == 0->Não foi adicionado nenhum artigo nem nenhuma revisão
+   Se res == 1->Foi adicionada apenas uma revisão
+   Se res == 2->Foi adicionada um novo artigo (consequentemente uma nova revisão)
    */
-
 int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_words, long revision_id, char* timestamp,
-								char * contributor_name, long contributor_id, int mh){
+		char * contributor_name, long contributor_id, avlArt *avl){
 	int pos = hashCode (title_ID);
 	artNodo ant, aux, new = NULL;
 	int res = 0;
@@ -26,35 +28,43 @@ int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_wor
 	if(!aux){
 		res++;
 		new = malloc (sizeof (struct hashtable));
-		new-> title = malloc (strlen(title) + 1);
+		new-> title = malloc (strlen(title)+1);
 		strcpy (new-> title, title);
 		new-> title_ID = title_ID;
 		new-> n_bytes = n_bytes;
 		new-> n_words = n_words;
 		new-> revisions = NULL;
 		new-> next = NULL;
-		if(!h[pos]) h[pos] = new;
-		else ant->next = new;
+		if(!h[pos]){
+		       	h[pos] = new;
+			*avl = avlArt_Insert(*avl,new);
+		}
+		else{
+		       	ant->next = new;
+			*avl = avlArt_Insert(*avl,new);
+		}
 		aux = new;
 	}
-
-	res += insertRevision(&aux->revisions, revision_id, timestamp);
-	// if (res) aux-> heapInd = maxHeapArt_Insert(maxHeapArt mh, aux);
+	else{
+		*avl=avlArt_Remove(*avl,aux);
+		res += insertRevision(&aux->revisions, revision_id, timestamp);
+		aux->n_bytes=n_bytes;
+		aux->n_words=n_words;
+		*avl=avlArt_Insert(*avl, aux);
+	}
 
 	return res;
 }
 
-
 char *hashTArt_GetTitle (hashTArt h, long title_ID){
 	int pos = hashCode (title_ID);
 	artNodo aux;
-	for(aux = h[pos]; aux && aux -> title_ID != title_ID; aux = aux-> next);
+	for(aux = h[pos]; aux && aux->title_ID != title_ID; aux = aux-> next);
 	if(aux)
 		return (aux-> title);
 
 	return NULL;
 }
-
 char** hashTArt_Prefix (hashTArt h, char* prexix){
 	return NULL;
 }
@@ -62,10 +72,10 @@ char** hashTArt_Prefix (hashTArt h, char* prexix){
 char* hashTArt_Timestamp (hashTArt h, long title_ID, long revision_id){
 	int pos = hashCode (title_ID);
 	artNodo aux;
-	for(aux = h[pos]; aux && aux -> title_ID != title_ID; aux = aux-> next);
+	for(aux = h[pos]; aux && aux->title_ID != title_ID; aux = aux-> next);
 	if(aux)
 		return (retrieveTimestamp(aux->revisions, revision_id));
-	
+
 	return NULL;
 }
 
@@ -85,15 +95,173 @@ void hashTArt_Clean (hashTArt h){
 		h[i] = NULL;
 	}
 }
+
 void hashTArt_Print (hashTArt h){
 	int i;
 	artNodo aux;
 	for(i = 0; i < SIZE; i++){
-		printf("%p \t%d -> ",h[i], i );
+		printf("%p \t%d->",h[i], i );
 		for(aux = h[i]; aux; aux = aux-> next){
-			printf("#TitleID: %ld\t",aux->title_ID);
+			printf("Title: %s\t",aux->title);
 		}
 		printf("\n");
 	}
 }
 
+/* Funções referentes à avlArt */
+
+avlArt avlArt_Init(avlArt avl){
+	avl = malloc(sizeof(struct avlart));
+	return avl;
+}
+
+avlArt new_avlArt(artNodo n)
+{
+	avlArt new = malloc(sizeof(struct avlart));
+
+	new-> artigo  = n;
+	new->height = 1;
+	new->left   = NULL;
+	new->right  = NULL;
+
+	return new;
+}
+
+int max(int a, int b)
+{
+	return a > b ? a : b;
+}
+
+int height(avlArt p)
+{
+	return p ? p->height : 0;
+}
+
+void recalc(avlArt p)
+{
+	p->height = 1 + max(height(p->left), height(p->right));
+}
+
+avlArt rotate_right(avlArt p)
+{
+	avlArt q = p->left;
+
+	p->left = q->right;
+	q->right = p;
+
+	recalc(p);
+	recalc(q);
+
+	return q;
+}
+
+avlArt rotate_left(avlArt p)
+{
+	avlArt q = p->right;
+	p->right = q->left;
+	q->left = p;
+
+	recalc(p);
+	recalc(q);
+
+	return q;
+}
+
+avlArt balance(avlArt p)
+{
+	recalc(p);
+
+	if ( height(p->left) - height(p->right) == 2 )
+	{
+		if ( height(p->left->right) > height(p->left->left) )
+			p->left = rotate_left(p->left);
+		return rotate_right(p);
+	}
+	else if ( height(p->right) - height(p->left) == 2 )
+	{
+		if ( height(p->right->left) > height(p->right->right) )
+			p->right = rotate_right(p->right);
+		return rotate_left(p);
+	}
+
+	return p;
+}
+
+avlArt avlArt_Insert(avlArt p, artNodo n)
+{
+	if ( !p )
+		return new_avlArt(n);
+
+	if ( n->n_bytes < p->artigo->n_bytes )
+		p->left = avlArt_Insert(p->left, n);
+	else if ( n->n_bytes > p->artigo->n_bytes )
+		p->right = avlArt_Insert(p->right, n);
+	else if (p->artigo->title_ID == n->title_ID)
+		p->artigo = n;
+
+	return balance(p);
+}
+
+avlArt find_min(avlArt p)
+{
+	if ( p->left != NULL )
+		return find_min(p->left);
+	else
+		return p;
+}
+
+avlArt remove_min(avlArt p)
+{
+	if ( p->left == NULL )
+		return p->right;
+
+	p->left = remove_min(p->left);
+	return balance(p);
+}
+
+avlArt avlArt_Remove(avlArt p, artNodo n)
+{
+	if ( !p )
+		return NULL;
+
+	if ( n->n_bytes < p->artigo->n_bytes)
+		p->left = avlArt_Remove(p->left, n);
+	else if ( n->n_bytes > p->artigo->n_bytes )
+		p->right = avlArt_Remove(p->right, n);
+	else if (p->artigo->title_ID == n->title_ID)
+	{
+		avlArt l = p->left;
+		avlArt r = p->right;
+		free(p);
+
+		if ( r == NULL )
+			return l;
+
+		avlArt m = find_min(r);
+		m->right = remove_min(r);
+		m->left = l;
+
+		return balance(m);
+	}
+
+	return balance(p);
+}
+
+void avlArt_Print(avlArt p){
+	if(p){
+	avlArt_Print(p->left);
+	printf("Title: %s; n_bytes: %d\n", p->artigo->title, p->artigo->n_bytes);
+	avlArt_Print(p->right);
+	}
+	return;
+}
+
+void avlArt_Clean(avlArt p)
+{
+	if ( !p )
+		return;
+
+	avlArt_Clean(p->left);
+	avlArt_Clean(p->right);
+	free(p);
+}
