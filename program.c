@@ -59,57 +59,6 @@ void testes_hastTableArtigos()
 	printf("Done!\n");
 }
 
-void testes_hastTableContribuidores(){
-
-	hashTContrib hash_teste;
-	char * nome;
-	int contribuicoes;
-	hashTContribInit(hash_teste);
-
-	if(hashTContribAdd(hash_teste, "Zeca", 312312512))
-		printf("Adicionado o Zeca\n");
-	else{
-		printf("Atualizado o Zeca\n");
-	}
-	if(hashTContribAdd(hash_teste, "Miguel", 65413245))
-		printf("Adicionado o Miguel\n");
-	else{
-		printf("Atualizado o Miguel\n");
-	}
-	if(hashTContribAdd(hash_teste, "Armando", 865742))
-		printf("Adicionado o Armando\n");
-	else{
-		printf("Atualizado o Armando\n");
-	}
-	if(hashTContribAdd(hash_teste, "Luis", 987654567))
-		printf("Adicionado o Luis\n");
-	else{
-		printf("Atualizado o Luis\n");
-	}
-	if(hashTContribAdd(hash_teste, "Armando", 865742))
-		printf("Adicionado o Armando\n");
-	else{
-		printf("Atualizado o Armando\n");
-	}
-
-	nome = hashTContribRetrieveName(hash_teste,987654567);
-	if(strcmp(nome, "Luis") == 0)
-		printf("1º Teste de busca de nome passou\n");
-	nome = hashTContribRetrieveName(hash_teste, 865742);
-	if(strcmp(nome, "Armando") == 0)
-		printf("2º Teste de busca de nome passou\n");
-	nome = hashTContribRetrieveName(hash_teste, 8765987);
-	if(nome == NULL)
-		printf("3º Teste de busca de nome passou\n");
-
-	contribuicoes = hashTContribRetrieveContributions(hash_teste, 865742);
-	printf("O armando tem %i contribuições.\n", contribuicoes);
-	contribuicoes = hashTContribRetrieveContributions(hash_teste, 987654567);
-	printf("O luis tem %i contribuições\n", contribuicoes);
-
-	hashTContribClean(hash_teste);
-}
-
 void testes_lista_revisoes(){
 
 	Revisions lista = NULL;
