@@ -18,7 +18,7 @@ void testes_hastTableArtigos()
 				"Luís Gomes", 78701, &avl))
 		printf("Adicionado artigo: Title_B\n");
 	//Adicionar nova revisão a artigo já existente
-	if(hashTArt_Add (h, "Title_B2", 17, 8, 33, 501, "2 Novembro 2010",
+	if(hashTArt_Add (h, "Title_B", 17, 8, 33, 501, "2 Novembro 2010",
 				"Luís Gomes", 78701, &avl))
 		printf("Adicionada revisão ao artigo: Title_B\n");
 
@@ -33,7 +33,7 @@ void testes_hastTableArtigos()
 	printf("Title: %s; Timestamp: %s\n",c3, c4 );
 
 	printf("\n----------- avlArt ------------\n");
-	printf("\n\n\n\n------------%s---------------\n",hashTArt_GetTitle(h,17) );
+
 	/*
 	for(i=0; i<SIZE; i++){
 		if(h[i]){
@@ -174,6 +174,5 @@ int main(int argc, char const* argv[])
 	printf("%ld\n",x );
 	x = all_revisions (qs);
 	printf("%ld\n",x );
-	
 
 }
