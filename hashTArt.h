@@ -1,10 +1,11 @@
 #ifndef __HASHTART__H__
+#define __HASHTART__H__
+
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include "linkedListRevisions.h"
-//#include "maxHeapArt.h"
-#endif
+#include "avl.h"
 
 
 /*	ATENCAO : NOTAS IMPORTANTES -> Alterar !!!!
@@ -25,13 +26,6 @@ typedef struct hashtable{
 	Revisions revisions;
 	struct hashtable * next;	
 }*hashTArt[SIZE], *artNodo;
-
-typedef struct avlart{
-	artNodo artigo;
-	int height;
-	struct avlart *left;
-	struct avlart *right;
-} *avlArt;
 
 /* Funções referentes a hashTArt */
 
@@ -54,3 +48,5 @@ long* avlArt_Top10(avlArt avl);
 long* avlArt_TopNW(avlArt avl);
 void avlArt_Print(avlArt avl);
 void avlArt_Clean(avlArt avl);
+
+#endif

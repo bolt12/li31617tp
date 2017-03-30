@@ -1,5 +1,6 @@
 #include <string.h>
 #include "hashTArt.h"
+#include "avl.h"
 
 /* Funções referentes à hashTArt */
 
@@ -116,108 +117,18 @@ void hashTArt_Print (hashTArt h){
 
 /* Funções referentes à avlArt */
 
-avlArt new_avlArt(artNodo n)
-{
-	avlArt new = malloc(sizeof(struct avlart));
-
-	new-> artigo  = n;
-	new->height = 1;
-	new->left   = NULL;
-	new->right  = NULL;
-
-	return new;
-}
-
-int max(int a, int b)
-{
-	return a > b ? a : b;
-}
-
-int height(avlArt p)
-{
-	return p ? p->height : 0;
-}
-
-void recalc(avlArt p)
-{
-	p->height = 1 + max(height(p->left), height(p->right));
-}
-
-avlArt rotate_right(avlArt p)
-{
-	avlArt q = p->left;
-
-	p->left = q->right;
-	q->right = p;
-
-	recalc(p);
-	recalc(q);
-
-	return q;
-}
-
-avlArt rotate_left(avlArt p)
-{
-	avlArt q = p->right;
-	p->right = q->left;
-	q->left = p;
-
-	recalc(p);
-	recalc(q);
-
-	return q;
-}
-
-avlArt balance(avlArt p)
-{
-	recalc(p);
-
-	if ( height(p->left) - height(p->right) == 2 )
-	{
-		if ( height(p->left->right) > height(p->left->left) )
-			p->left = rotate_left(p->left);
-		return rotate_right(p);
-	}
-	else if ( height(p->right) - height(p->left) == 2 )
-	{
-		if ( height(p->right->left) > height(p->right->right) )
-			p->right = rotate_right(p->right);
-		return rotate_left(p);
-	}
-
-	return p;
-}
-
 avlArt avlArt_Insert(avlArt p, artNodo n)
 {
 	if ( !p )
-		return new_avlArt(n);
+		return new_AVL(n);
 
-
-	if ( n -> n_bytes < p-> artigo-> n_bytes)
+	if ( n -> n_bytes < ((artNodo) p->artigo)-> n_bytes)
 		p->left = avlArt_Insert(p->left, n);
-	else if ( n->n_bytes > p->artigo->n_bytes )
+	else if ( n->n_bytes > ((artNodo) p->artigo)->n_bytes )
 		p->right = avlArt_Insert(p->right, n);
-	else if (p->artigo->title_ID == n->title_ID)
+	else if (((artNodo) p->artigo)->title_ID == n->title_ID)
 		p->artigo = n;
 
-	return balance(p);
-}
-
-avlArt find_min(avlArt p)
-{
-	if ( p->left != NULL )
-		return find_min(p->left);
-	else
-		return p;
-}
-
-avlArt remove_min(avlArt p)
-{
-	if ( p->left == NULL )
-		return p->right;
-
-	p->left = remove_min(p->left);
 	return balance(p);
 }
 
@@ -226,11 +137,11 @@ avlArt avlArt_Remove(avlArt p, artNodo n)
 	if ( !p )
 		return NULL;
 
-	if ( n->n_bytes < p->artigo->n_bytes)
+	if ( n->n_bytes < ((artNodo) p->artigo)->n_bytes)
 		p->left = avlArt_Remove(p->left, n);
-	else if ( n->n_bytes > p->artigo->n_bytes )
+	else if ( n->n_bytes > ((artNodo) p->artigo)->n_bytes )
 		p->right = avlArt_Remove(p->right, n);
-	else if (p->artigo->title_ID == n->title_ID)
+	else if (((artNodo) p->artigo)->title_ID == n->title_ID)
 	{
 		avlArt l = p->left;
 		avlArt r = p->right;
@@ -252,18 +163,8 @@ avlArt avlArt_Remove(avlArt p, artNodo n)
 void avlArt_Print(avlArt p){
 	if(p){
 	avlArt_Print(p->left);
-	printf("Title: %s; n_bytes: %d\n", p->artigo->title, p->artigo->n_bytes);
+	printf("Title: %s; n_bytes: %d\n", ((artNodo) p->artigo)->title, ((artNodo) p->artigo)->n_bytes);
 	avlArt_Print(p->right);
 	}
 	return;
-}
-
-void avlArt_Clean(avlArt p)
-{
-	if ( !p )
-		return;
-
-	avlArt_Clean(p->left);
-	avlArt_Clean(p->right);
-	free(p);
 }

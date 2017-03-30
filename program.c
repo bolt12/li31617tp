@@ -43,7 +43,7 @@ void testes_hastTableArtigos()
 	}
 	*/
 
-	printf("\nROOT DA AVL: %s; %d\n", avl->artigo->title, avl->artigo->n_bytes);
+	printf("\nROOT DA AVL: %s; %d\n",((artNodo) avl->artigo)->title, ((artNodo) avl->artigo)->n_bytes);
 
 	avlArt_Print(avl);
 
@@ -55,7 +55,7 @@ void testes_hastTableArtigos()
 	
 
 	hashTArt_Clean(h);
-	avlArt_Clean(avl);
+	avl_Clean(avl);
 	printf("Done!\n");
 }
 
