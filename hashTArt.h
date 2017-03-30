@@ -48,7 +48,6 @@ void hashTArt_Print(hashTArt h);
 
 /* Funções referentes a avlArt */
 
-avlArt avlArt_Init(avlArt avl);
 avlArt avlArt_Insert(avlArt avl, artNodo n);
 avlArt avlArt_Remove(avlArt avl, artNodo n);
 long* avlArt_Top10(avlArt avl);

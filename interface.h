@@ -6,6 +6,12 @@
 #include "hashTArt.h"
 #include "hashTContrib.h"
 
+struct TCD_istruct{
+	long all_articles, unique_articles, all_revisions;
+	hashTArt ht_art;
+	avlArt avlA;
+};
+
 typedef struct TCD_istruct * TAD_istruct;
 
 TAD_istruct init();

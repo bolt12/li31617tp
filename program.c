@@ -169,10 +169,11 @@ int main(int argc, char const* argv[])
 	load (qs,argc-1, datasets);
 
 	x = all_articles (qs);
-	printf("%ld\n",x );
+	printf("All_articles -> %ld\n",x );
 	x = unique_articles (qs);
-	printf("%ld\n",x );
+	printf("unique_articles -> %ld\n",x );
 	x = all_revisions (qs);
-	printf("%ld\n",x );
+	printf("all_revisions -> %ld\n",x );
+	//hashTArt_Print(qs->ht_art);
 
 }
