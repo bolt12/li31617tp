@@ -41,13 +41,12 @@ int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_wor
 		}
 		else{
 		       	ant->next = new;
-			*avl = avlArt_Insert(*avl,new);
+				*avl = avlArt_Insert(*avl,new);
 		}
 		aux = new;
 	}
 	else{
 		*avl=avlArt_Remove(*avl,aux);
-		res += insertRevision(&aux->revisions, revision_id, timestamp);
 		free(aux->title);
 		aux-> title = malloc (strlen(title)+1);
 		strcpy (aux-> title, title);
@@ -56,6 +55,8 @@ int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_wor
 
 		*avl=avlArt_Insert(*avl, aux);
 	}
+
+	res += insertRevision(&aux->revisions, revision_id, timestamp);
 
 	return res;
 }
@@ -104,20 +105,16 @@ void hashTArt_Print (hashTArt h){
 	int i;
 	artNodo aux;
 	for(i = 0; i < SIZE; i++){
-		printf("%p \t%d->",h[i], i );
+		
 		for(aux = h[i]; aux; aux = aux-> next){
-			printf("Title: %s\t",aux->title);
+			printf("%p \t%d->",h[i], i);
+			printf("Title: %ld\t",aux->revisions->revision_id);
 		}
 		printf("\n");
 	}
 }
 
 /* Funções referentes à avlArt */
-
-avlArt avlArt_Init(avlArt avl){
-	avl = malloc(sizeof(struct avlart));
-	return avl;
-}
 
 avlArt new_avlArt(artNodo n)
 {
@@ -196,7 +193,8 @@ avlArt avlArt_Insert(avlArt p, artNodo n)
 	if ( !p )
 		return new_avlArt(n);
 
-	if ( n->n_bytes < p->artigo->n_bytes )
+
+	if ( n -> n_bytes < p-> artigo-> n_bytes)
 		p->left = avlArt_Insert(p->left, n);
 	else if ( n->n_bytes > p->artigo->n_bytes )
 		p->right = avlArt_Insert(p->right, n);
