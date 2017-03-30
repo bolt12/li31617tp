@@ -109,10 +109,14 @@ void parseContributors(xmlNodePtr cur, xmlChar** cont_name, xmlChar** cont_id){
 	cur = cur->xmlChildrenNode;
 
 	while(cur){
-		if((!xmlStrcmp(cur->name, BAD_CAST "username")))
-			*cont_name = xmlNodeGetContent(cur);
-		if((!xmlStrcmp(cur->name, BAD_CAST "id")))
-			*cont_id = xmlNodeGetContent(cur);
+		if((!xmlStrcmp(cur->name, BAD_CAST "ip")))
+			cur=cur->next;
+		else{
+			if((!xmlStrcmp(cur->name, BAD_CAST "username")))
+				*cont_name = xmlNodeGetContent(cur);
+			if((!xmlStrcmp(cur->name, BAD_CAST "id")))
+				*cont_id = xmlNodeGetContent(cur);
+		}
 		cur = cur->next;
 	}
 }
@@ -156,12 +160,15 @@ void parsePage(TAD_istruct qs, xmlNodePtr cur){
 	if (add_code) qs-> all_revisions++;
 	if (add_code == 2) qs-> unique_articles++;
 
-
 	xmlFree(title);
 	xmlFree(title_id);
 	xmlFree(revision_id);
 	xmlFree(timestamp);
-	xmlFree(contributor_name);
+	if((!xmlStrcmp(contributor_name, BAD_CAST "NULL"))){ // Condição temporária para nao fazer free de strings nao alocadas
 	xmlFree(contributor_id);
+	xmlFree(contributor_name);
+	}
+	/*
+	*/
 
 }
