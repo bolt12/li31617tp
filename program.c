@@ -3,7 +3,6 @@
 void testes_hastTableArtigos()
 {
 
-	int i;
 	hashTArt h;
 	avlArt avl = NULL;
 	//hashTArt_Print(h);
