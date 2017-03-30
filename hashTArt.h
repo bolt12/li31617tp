@@ -44,9 +44,8 @@ void hashTArt_Print(hashTArt h);
 
 avlArt avlArt_Insert(avlArt avl, artNodo n);
 avlArt avlArt_Remove(avlArt avl, artNodo n);
-long* avlArt_Top10(avlArt avl);
-long* avlArt_TopNW(avlArt avl);
+long* avlArt_Top20(avlArt avl);
+long* avlArt_TopNW(int n, avlArt avl);
 void avlArt_Print(avlArt avl);
-void avlArt_Clean(avlArt avl);
 
 #endif

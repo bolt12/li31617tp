@@ -124,3 +124,13 @@ avlContrib avlContrib_Remove(avlContrib p, Contrib n)
 
 	return balance(p);
 }
+
+long* avlContrib_Top10(avlContrib avl){
+	long* top = malloc(sizeof(long)*10);
+	int i=9;
+	while(avl && i>=0){
+		top[i--] =  ((Contrib) avl->artigo)->contributor_id;
+		avl=avl->right;
+	}
+	return top;
+}

@@ -132,6 +132,16 @@ avlArt avlArt_Insert(avlArt p, artNodo n)
 	return balance(p);
 }
 
+long* avlArt_Top20(avlArt avl){
+	long* top = malloc(sizeof(long)*20);
+	int i=19;
+	while(avl && i>=0){
+		top[i--] = ((artNodo) avl->artigo)->title_ID;
+		avl=avl->right;
+	}
+	return top;
+}
+
 avlArt avlArt_Remove(avlArt p, artNodo n)
 {
 	if ( !p )

@@ -27,8 +27,6 @@ void hashTContribClean(hashTContrib ht);
 avlContrib avlContrib_Insert(avlContrib avl, Contrib n);
 avlContrib avlContrib_Remove(avlContrib avl, Contrib n);
 long* avlContrib_Top10(avlContrib avl);
-long* avlContrib_TopNW(avlContrib avl);
 void avlContrib_Print(avlContrib avl);
-void avlContrib_Clean(avlContrib avl);
 
 #endif
