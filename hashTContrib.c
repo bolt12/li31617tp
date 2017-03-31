@@ -1,3 +1,4 @@
+#include "string.h"
 #include "hashTContrib.h"
 #include "avl.h"
 
@@ -20,28 +21,30 @@ void hashTContribInit(hashTContrib ht){
 	}
 }
 
-int hashTContribAdd(hashTContrib ht, char* contributor_name, long contributor_id){
-	if(contributor_name || contributor_id){
-		int position = hashTContribHash(contributor_id);
-		//Vou usar um apontador de apontador para poupar uma variável.
-		Contrib *head = &ht[position];
-		while(*head){
-			if((*head)->contributor_id == contributor_id){ // se o contribuidor já estiver guardado
-				((*head)->contributions_number)++;
-				return 0;
-			}
-			head = &((*head)->next);
-		}
-		if(!(*head)){
-			Contrib new = malloc(sizeof(struct hashtablecontrib));
-			new->contributor_id = contributor_id;
-			new->contributor_name = contributor_name;
-			new->contributions_number = 1;
-			*head = new;
-		}
-		return 1;
+int hashTContribAdd(hashTContrib ht, char* contributor_name, long contributor_id, avlContrib *avl){
+	int position = hashTContribHash(contributor_id);
+	//Vou usar um apontador de apontador para poupar uma variável.
+	Contrib head,ant ;
+	for(head=ht[position]; head && head->contributor_id != contributor_id; ant=head, head = head->next);
+	if(!head){
+		Contrib new = malloc(sizeof(struct hashtablecontrib));
+		new->contributor_id = contributor_id;
+		new->contributor_name = malloc(strlen(contributor_name)+1);
+		strcpy(new->contributor_name, contributor_name);
+		new->contributions_number = 1;
+		if(!ht[position])
+			head = new;
+		else
+			ant->next = new;
+		*avl = avlContrib_Insert(*avl, new);
 	}
-	return 0;
+	else{ // se o contribuidor já estiver guardado
+		(head->contributions_number)++;
+		*avl = avlContrib_Remove(*avl,head);
+		*avl = avlContrib_Insert(*avl,head);
+		return 0;
+	}
+	return 1;
 }
 
 char* hashTContribRetrieveName(hashTContrib ht, long contributor_id){

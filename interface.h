@@ -4,6 +4,7 @@
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h>
 #include "hashTArt.h"
+#include "hashTContrib.h"
 #include "avl.h"
 
 typedef struct TCD_istruct * TAD_istruct;

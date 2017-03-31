@@ -37,12 +37,12 @@ int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_wor
 		new-> revisions = NULL;
 		new-> next = NULL;
 		if(!h[pos]){
-		       	h[pos] = new;
+			h[pos] = new;
 			*avl = avlArt_Insert(*avl,new);
 		}
 		else{
-		       	ant->next = new;
-				*avl = avlArt_Insert(*avl,new);
+			ant->next = new;
+			*avl = avlArt_Insert(*avl,new);
 		}
 		aux = new;
 	}
@@ -106,7 +106,7 @@ void hashTArt_Print (hashTArt h){
 	int i;
 	artNodo aux;
 	for(i = 0; i < SIZE; i++){
-		
+
 		for(aux = h[i]; aux; aux = aux-> next){
 			printf("%p \t%d->",h[i], i);
 			printf("Title: %ld\t",aux->revisions->revision_id);
@@ -172,9 +172,9 @@ avlArt avlArt_Remove(avlArt p, artNodo n)
 
 void avlArt_Print(avlArt p){
 	if(p){
-	avlArt_Print(p->left);
-	printf("Title: %s; n_bytes: %d\n", ((artNodo) p->artigo)->title, ((artNodo) p->artigo)->n_bytes);
-	avlArt_Print(p->right);
+		avlArt_Print(p->left);
+		printf("Title: %s; n_bytes: %d\n", ((artNodo) p->artigo)->title, ((artNodo) p->artigo)->n_bytes);
+		avlArt_Print(p->right);
 	}
 	return;
 }
