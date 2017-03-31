@@ -67,7 +67,11 @@ long all_revisions(TAD_istruct qs){
 	return qs->all_revisions;
 }
 
-long* top_10_contributors(TAD_istruct qs);
+long* top_10_contributors(TAD_istruct qs){
+	long* top = calloc(sizeof(long),10);
+	avlContrib_TopN(qs->avlC, top, (qs->avlC->height)-3);
+	return top;
+}       
 
 char* contributor_name(long contributor_id, TAD_istruct qs);
 
@@ -102,7 +106,7 @@ void parseText(xmlNodePtr cur, int* nbytes, int* nwords){
 	char* text = (char*) xmlNodeGetContent(cur);
 	int i, words= 0;
 	for(i=0; text[i]!='\0';i++)
-		if(text[i]==' ' || text[i]=='\n') words++;
+		if(text[i]==' ' || text[i]=='\n' || text[i]=='\t') words++;
 	*nbytes = i-1;
 	*nwords = words;
 	free(text);
@@ -111,19 +115,23 @@ void parseText(xmlNodePtr cur, int* nbytes, int* nwords){
 int parseContributors(xmlNodePtr cur, xmlChar** cont_name, xmlChar** cont_id){
 
 	cur = cur->xmlChildrenNode;
+	int i;
 
 	while(cur){
-		if((!xmlStrcmp(cur->name, BAD_CAST "ip")))
-			return 0;
+		if((!xmlStrcmp(cur->name, BAD_CAST "ip"))){
+			i=0;
+			cur=cur->next;
+		}
 		else{
 			if((!xmlStrcmp(cur->name, BAD_CAST "username")))
 				*cont_name = xmlNodeGetContent(cur);
 			if((!xmlStrcmp(cur->name, BAD_CAST "id")))
 				*cont_id = xmlNodeGetContent(cur);
+			i=1;
 		}
 		cur = cur->next;
 	}
-	return 1;
+	return i;
 }
 
 int parseRevision(xmlNodePtr cur, xmlChar** rv_id, xmlChar** tstamp, xmlChar** cont_name, xmlChar** cont_id, int* nbytes, int* nwords){
@@ -171,10 +179,9 @@ void parsePage(TAD_istruct qs, xmlNodePtr cur){
 	xmlFree(title_id);
 	xmlFree(revision_id);
 	xmlFree(timestamp);
-	if(contrib){ // Condição temporária para nao fazer free de strings nao alocadas
+	if(contrib){ 
 		hashTContribAdd(qs->ht_contrib,(char*) contributor_name, (long) atoi( (char*) contributor_id), &(qs->avlC));
 		xmlFree(contributor_id);
 		xmlFree(contributor_name);
 	}
-
 }

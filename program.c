@@ -96,7 +96,6 @@ int main(int argc, char const* argv[])
 	/*
 	printf("Hello world! \n");
 	printf("\n----------Iniciar testes-------------\n");
-	testes_hastTableContribuidores();
 	printf("\n-Testes hashtable contribuidores done-\n");
 	printf("\n-------------------------------------\n");
 	testes_lista_revisoes();
@@ -106,10 +105,11 @@ int main(int argc, char const* argv[])
 	printf("\n----Testes hashtable artigos & avl artigos done----\n");
 	printf("\n----------Testes finalizados---------\n");
 	return 0;
-	*/
 	
+	*/
 	char ** datasets = (char**) argv+1;
-	long x;
+	long x, *top10;
+	int i;
 	TAD_istruct qs;
 	qs = init();
 
@@ -123,6 +123,12 @@ int main(int argc, char const* argv[])
 	printf("unique_articles -> %ld\n",x );
 	x = all_revisions (qs);
 	printf("all_revisions -> %ld\n",x );
-	//hashTArt_Print(qs->ht_art);
+
+	top10 = top_10_contributors(qs);
+
+	for(i=0; i<10; i++)
+		printf("%ld\n", top10[i]);
+
+	return 0;
 
 }

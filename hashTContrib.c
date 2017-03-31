@@ -2,16 +2,8 @@
 #include "hashTContrib.h"
 #include "avl.h"
 
-/*
-   1-Criar e implemetar hashtable de contribuidores
-   2-Criar e implemetar maxheap de contribuidores
-   3-juntar ambas as estruturas
-   4-criar testes
-   5-implementar queries relacionadas com contribuidores
-   */
-
 int hashTContribHash(long contributor_id){
-	return contributor_id % SIZE;
+	return (contributor_id % SIZE);
 }
 
 void hashTContribInit(hashTContrib ht){
@@ -21,30 +13,37 @@ void hashTContribInit(hashTContrib ht){
 	}
 }
 
-int hashTContribAdd(hashTContrib ht, char* contributor_name, long contributor_id, avlContrib *avl){
-	int position = hashTContribHash(contributor_id);
-	//Vou usar um apontador de apontador para poupar uma variável.
-	Contrib head,ant ;
-	for(head=ht[position]; head && head->contributor_id != contributor_id; ant=head, head = head->next);
-	if(!head){
-		Contrib new = malloc(sizeof(struct hashtablecontrib));
-		new->contributor_id = contributor_id;
-		new->contributor_name = malloc(strlen(contributor_name)+1);
-		strcpy(new->contributor_name, contributor_name);
-		new->contributions_number = 1;
-		if(!ht[position])
-			head = new;
-		else
+int hashTContribAdd(hashTContrib h, char* contributor_name, long contributor_id, avlContrib *avl){
+	int pos = hashTContribHash(contributor_id);
+
+	Contrib ant, aux, new = NULL;
+
+	for(aux = ant = h[pos]; aux && aux -> contributor_id != contributor_id; ant = aux, aux = aux-> next);
+	if(!aux){
+		new = malloc (sizeof (struct hashtablecontrib));
+		new->contributor_name = malloc (strlen(contributor_name)+1);
+		strcpy (new-> contributor_name, contributor_name);
+		new-> contributor_id = contributor_id;
+		new->contributions_number=1;
+		new-> next = NULL;
+		if(!h[pos]){
+			h[pos] = new;
+			*avl = avlContrib_Insert(*avl,new);
+		}
+		else{
 			ant->next = new;
-		*avl = avlContrib_Insert(*avl, new);
+			*avl = avlContrib_Insert(*avl,new);
+		}
+		aux = new;
+		return 1;
 	}
-	else{ // se o contribuidor já estiver guardado
-		(head->contributions_number)++;
-		*avl = avlContrib_Remove(*avl,head);
-		*avl = avlContrib_Insert(*avl,head);
-		return 0;
+	else{
+		*avl=avlContrib_Remove(*avl,aux);
+		(aux->contributions_number)+=1;
+		*avl=avlContrib_Insert(*avl, aux);
+		return 1;
 	}
-	return 1;
+	return 0;
 }
 
 char* hashTContribRetrieveName(hashTContrib ht, long contributor_id){
@@ -73,7 +72,6 @@ void hashTContribClean(hashTContrib ht){
 	Contrib ant, prox;
 	for(indice = 0; indice < SIZE; indice++){
 		prox = ht[indice];
-		//printf("%d\n", indice);
 		while(prox){
 			ant = prox;
 			prox = prox->next;
@@ -90,12 +88,14 @@ avlContrib avlContrib_Insert(avlContrib p, Contrib n)
 	if ( !p )
 		return new_AVL(n);
 
-	if ( n ->contributions_number < ((Contrib) p->artigo)->contributions_number)
-		p->left = avlContrib_Insert(p->left, n);
-	else if ( n->contributions_number > ((Contrib) p->artigo)->contributions_number )
-		p->right = avlContrib_Insert(p->right, n);
-	else if (((Contrib) p->artigo)->contributor_id == n->contributor_id)
+	if (((Contrib) p->artigo)->contributor_id == n->contributor_id)
 		p->artigo = n;
+	else{
+	       	if ( n->contributions_number > ((Contrib) p->artigo)->contributions_number)
+			p->right = avlContrib_Insert(p->right, n);
+		else 
+			p->left = avlContrib_Insert(p->left, n);
+	}
 
 	return balance(p);
 }
@@ -128,12 +128,11 @@ avlContrib avlContrib_Remove(avlContrib p, Contrib n)
 	return balance(p);
 }
 
-long* avlContrib_Top10(avlContrib avl){
-	long* top = malloc(sizeof(long)*10);
-	int i=9;
-	while(avl && i>=0){
-		top[i--] =  ((Contrib) avl->artigo)->contributor_id;
-		avl=avl->right;
+void avlContrib_TopN(avlContrib avl, long* top, int n){
+	if(!avl) return;
+	printf("%s, %d, %d\n", ((Contrib)avl->artigo)->contributor_name, ((Contrib)avl->artigo)->contributions_number, n);
+	avlContrib_TopN(avl->right, top, --n);
+	if(n<10){
+		top[n] =((Contrib) avl->artigo)->contributor_id;
 	}
-	return top;
 }
