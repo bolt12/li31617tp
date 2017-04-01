@@ -108,7 +108,7 @@ int main(int argc, char const* argv[])
 	
 	*/
 	char ** datasets = (char**) argv+1;
-	long x;			//*top10;
+	long x, *top10;
 	int i;
 	TAD_istruct qs;
 	qs = init();
@@ -117,7 +117,6 @@ int main(int argc, char const* argv[])
 
 	load (qs,argc-1, datasets);
 
-	
 	printf("\n%s\n","-----Query 1-----" );
 		x = all_articles (qs);
 		printf("All_articles -> %ld\n",x );
@@ -131,6 +130,11 @@ int main(int argc, char const* argv[])
 		printf("All_revisions -> %ld\n",x );
 
 	printf("\n%s\n","-----Query 4-----" );
+		top10 = top_10_contributors(qs);
+
+		for(i=0; i<10; i++)
+			printf("%ld\n", top10[i]);
+
 	printf("\n%s\n","-----Query 5-----");
 	printf("\n%s\n","-----Query 6-----" );
 	printf("\n%s\n","-----Query 7-----" );

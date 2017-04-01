@@ -128,19 +128,12 @@ avlContrib avlContrib_Remove(avlContrib p, Contrib n)
 	return balance(p);
 }
 
-void avlContrib_TopN(avlContrib avl, long* top, int n){
-	if(!avl) return;
-	avlContrib_TopN(avl->left, top,0);
-	if(avl->height-1<10){
-		top[avl->height-1]=((Contrib)avl->artigo)->contributor_id;
-	printf("%s, %d, %d\n", ((Contrib)avl->artigo)->contributor_name, ((Contrib)avl->artigo)->contributions_number, avl->height-1);
+int avlContrib_TopN(avlContrib avl, long* top, int i, int n){
+	if(!avl) return i;
+	if(i<n){
+		i=avlContrib_TopN(avl->right, top, i, n);
+		top[i++]=((Contrib)avl->artigo)->contributor_id;
+		i=avlContrib_TopN(avl->left, top, i, n);
 	}
-	avlContrib_TopN(avl->right, top,1);
-}
-
-void printAVL(avlContrib avl){
-	if(!avl) return;
-	printAVL(avl->left);
-	printf("%s, %ld, Contribuições: %d, height %d\n", ((Contrib) avl->artigo)->contributor_name,((Contrib) avl->artigo)->contributor_id,((Contrib) avl->artigo)->contributions_number, avl->height);
-	printAVL(avl->right);
+	return i;
 }

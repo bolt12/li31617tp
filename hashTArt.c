@@ -20,8 +20,7 @@ void hashTArt_Init (hashTArt h){
    Se res == 1->Foi adicionada apenas uma revisão
    Se res == 2->Foi adicionada um novo artigo (consequentemente uma nova revisão)
    */
-int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_words, long revision_id, char* timestamp,
-		char * contributor_name, long contributor_id, avlArt *avl){
+int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_words, long revision_id, char* timestamp, avlArt *avl){
 	int pos = hashCode (title_ID);
 	artNodo ant, aux, new = NULL;
 	int res = 0;
@@ -71,8 +70,6 @@ char *hashTArt_GetTitle (hashTArt h, long title_ID){
 
 	return NULL;
 }
-
-
 
 char** hashTArt_Prefix (hashTArt h, char* prefix){
 	int size = 20;

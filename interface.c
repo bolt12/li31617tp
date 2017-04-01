@@ -69,7 +69,7 @@ long all_revisions(TAD_istruct qs){
 
 long* top_10_contributors(TAD_istruct qs){
 	long* top = calloc(sizeof(long),10);
-	avlContrib_TopN(qs->avlC, top, (qs->avlC->height)-3);
+	avlContrib_TopN(qs->avlC, top, 0, 10);
 	return top;
 }       
 
@@ -182,7 +182,7 @@ void parsePage(TAD_istruct qs, xmlNodePtr cur){
 
 		cur = cur->next;
 	}
-	add_code = hashTArt_Add (qs->ht_art, (char*)title, (long) atoi( (char*) title_id), n_bytes, n_words, (long) atoi( (char*) revision_id), (char*) timestamp, (char*) contributor_name, (long) atoi( (char*) contributor_id), &(qs->avlA));
+	add_code = hashTArt_Add (qs->ht_art, (char*)title, (long) atoi( (char*) title_id), n_bytes, n_words, (long) atoi( (char*) revision_id), (char*) timestamp, &(qs->avlA));
 	qs->all_articles++;
 	if (add_code) qs-> all_revisions++;
 	if (add_code == 2) qs-> unique_articles++;
@@ -197,8 +197,4 @@ void parsePage(TAD_istruct qs, xmlNodePtr cur){
 		xmlFree(contributor_id);
 		xmlFree(contributor_name);
 	}
-}
-
-void printContrib(TAD_istruct qs){
-	printAVL(qs->avlC);
 }
