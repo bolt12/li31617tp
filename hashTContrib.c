@@ -130,10 +130,11 @@ avlContrib avlContrib_Remove(avlContrib p, Contrib n)
 
 int avlContrib_TopN(avlContrib avl, long* top, int i, int n){
 	if(!avl) return i;
-	if(i<n){
+	if(i<10)
 		i=avlContrib_TopN(avl->right, top, i, n);
+	if(i<10)
 		top[i++]=((Contrib)avl->artigo)->contributor_id;
+	if(i<10)
 		i=avlContrib_TopN(avl->left, top, i, n);
-	}
 	return i;
 }

@@ -158,6 +158,7 @@ int main(int argc, char const* argv[])
 		if (timestamp != NULL) printf("-%s-\n",timestamp );
 		else printf("%s\n","NULL");
 	
+	qs = clean(qs);	
 	
 	return 0;
 }
