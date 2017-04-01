@@ -151,14 +151,15 @@ avlArt avlArt_Insert(avlArt p, artNodo n)
 	return balance(p);
 }
 
-long* avlArt_Top20(avlArt avl){
-	long* top = malloc(sizeof(long)*20);
-	int i=19;
-	while(avl && i>=0){
-		top[i--] = ((artNodo) avl->artigo)->title_ID;
-		avl=avl->right;
-	}
-	return top;
+int avlArt_TopN(avlArt avl, long* top, int i, int n){
+	if(!avl) return i;
+	if(i<10)
+		i=avlArt_TopN(avl->right, top, i, n);
+	if(i<10)
+		top[i++]=((artNodo)avl->artigo)->title_ID;
+	if(i<10)
+		i=avlArt_TopN(avl->left, top, i, n);
+	return i;
 }
 
 avlArt avlArt_Remove(avlArt p, artNodo n)

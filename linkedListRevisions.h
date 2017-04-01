@@ -1,7 +1,9 @@
 #ifndef __LINKEDLIST__H__
+#define __LINKEDLIST__H__
+
 #include <stdlib.h>
 #include <stdio.h>
-#endif
+#include <string.h>
 
 typedef struct revisionsList{
 	long revision_id;
@@ -12,3 +14,5 @@ typedef struct revisionsList{
 int insertRevision(Revisions*, long, char*);
 void cleanList(Revisions*);
 char* retrieveTimestamp(Revisions, long);
+
+#endif

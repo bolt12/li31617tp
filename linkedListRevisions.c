@@ -5,7 +5,8 @@ int insertRevision(Revisions* list, long revision_id, char* revision_timestamp){
 
 	new = malloc(sizeof(struct revisionsList));
 	new->revision_id = revision_id;
-	new->revision_timestamp = revision_timestamp;
+	new->revision_timestamp = malloc(strlen(revision_timestamp)+1);
+	strcpy(new->revision_timestamp,revision_timestamp);
 	new->next = NULL;
 
 	if(!(*list)){

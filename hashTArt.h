@@ -43,7 +43,7 @@ void hashTArt_Print(hashTArt h);
 
 avlArt avlArt_Insert(avlArt avl, artNodo n);
 avlArt avlArt_Remove(avlArt avl, artNodo n);
-long* avlArt_Top20(avlArt avl);
+int avlArt_TopN(avlArt avl, long* top, int i, int n);
 long* avlArt_TopNW(int n, avlArt avl);
 void avlArt_Print(avlArt avl);
 
