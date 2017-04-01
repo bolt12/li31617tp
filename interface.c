@@ -69,7 +69,7 @@ long all_revisions(TAD_istruct qs){
 
 long* top_10_contributors(TAD_istruct qs){
 	long* top = calloc(10,sizeof(long));
-	avlContrib_TopN(qs->avlC, top, 0, 20);
+	avlContrib_TopN(qs->avlC, top, 0, 10);
 	return top;
 }       
 
@@ -78,8 +78,8 @@ char* contributor_name(long contributor_id, TAD_istruct qs){
 }
 
 long* top_20_largest_articles(TAD_istruct qs){
-	long* topLargA = calloc(10,sizeof(long));
-	avlArt_TopN(qs->avlA, topLargA, 0, 10);
+	long* topLargA = calloc(20,sizeof(long));
+	avlArt_TopN(qs->avlA, topLargA, 0, 20);
 	return topLargA;
 }
 

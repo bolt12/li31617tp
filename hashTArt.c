@@ -156,11 +156,11 @@ avlArt avlArt_Insert(avlArt p, artNodo n)
 
 int avlArt_TopN(avlArt avl, long* top, int i, int n){
 	if(!avl) return i;
-	if(i<10)
+	if(i<n)
 		i=avlArt_TopN(avl->right, top, i, n);
-	if(i<10)
+	if(i<n)
 		top[i++]=((artNodo)avl->artigo)->title_ID;
-	if(i<10)
+	if(i<n)
 		i=avlArt_TopN(avl->left, top, i, n);
 	return i;
 }
