@@ -71,8 +71,30 @@ char *hashTArt_GetTitle (hashTArt h, long title_ID){
 
 	return NULL;
 }
-char** hashTArt_Prefix (hashTArt h, char* prexix){
-	return NULL;
+
+
+
+char** hashTArt_Prefix (hashTArt h, char* prefix){
+	int size = 20;
+	char **result = calloc (size, sizeof(char*) );
+	int j,i, k = 0;
+
+	artNodo aux;
+	for (i = 0; i < SIZE; i++)
+		for (aux = h[i]; aux; aux = aux->next)
+			if (! strncmp (prefix, aux-> title, strlen (prefix) )){
+				if (k > size * 0.7){
+					size = size * 2;
+					result = realloc (result, size * sizeof(char *));
+					for (j=k+1; j < size; j++) *(result+j) = NULL;
+				}
+
+				*(result+k) = malloc ((strlen (aux->title)) +1);
+				strcpy ( *(result+k) , aux->title);
+				k++;
+			}
+		
+	return result;
 }
 
 char* hashTArt_Timestamp (hashTArt h, long title_ID, long revision_id){

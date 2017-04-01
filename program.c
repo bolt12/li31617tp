@@ -108,7 +108,7 @@ int main(int argc, char const* argv[])
 	
 	*/
 	char ** datasets = (char**) argv+1;
-	long x, *top10;
+	long x;			//*top10;
 	int i;
 	TAD_istruct qs;
 	qs = init();
@@ -117,19 +117,43 @@ int main(int argc, char const* argv[])
 
 	load (qs,argc-1, datasets);
 
-	x = all_articles (qs);
-	printf("All_articles -> %ld\n",x );
-	x = unique_articles (qs);
-	printf("unique_articles -> %ld\n",x );
-	x = all_revisions (qs);
-	printf("all_revisions -> %ld\n",x );
+	
+	printf("\n%s\n","-----Query 1-----" );
+		x = all_articles (qs);
+		printf("All_articles -> %ld\n",x );
 
-	printContrib(qs);
-	top10 = top_10_contributors(qs);
+	printf("\n%s\n","-----Query 2-----");
+		x = unique_articles (qs);
+		printf("Unique_articles -> %ld\n",x );
 
-	for(i=0; i<10; i++)
-		printf("%ld\n", top10[i]);
+	printf("\n%s\n","-----Query 3-----" );
+		x = all_revisions (qs);
+		printf("All_revisions -> %ld\n",x );
 
+	printf("\n%s\n","-----Query 4-----" );
+	printf("\n%s\n","-----Query 5-----");
+	printf("\n%s\n","-----Query 6-----" );
+	printf("\n%s\n","-----Query 7-----" );
+		char * title = NULL;
+		title = article_title(12, qs);
+		printf("%s\n",title );
+		free (title);
+	printf("\n%s\n","-----Query 8-----" );
+	printf("\n%s\n","-----Query 9-----" );
+		char** prefix_list;
+		prefix_list = titles_with_prefix("Af", qs);
+		printf("\n\n........Prefixos........\n\n");
+		for (i = 0; prefix_list[i] != NULL; i++) printf("%s\n",prefix_list[i]);
+		printf("\n\n........End Prefixos........\n\n");
+		/*!!!!!!!!!!!!!!!!!!!!! CLEAN DE PREFIX !!!!!!!!!!!!!!!!!!!!!!!*/
+
+	printf("%s\n","-----Query 10-----" );
+
+		char * timestamp = NULL;
+		timestamp = article_timestamp (12, 751573634, qs);
+		if (timestamp != NULL) printf("-%s-\n",timestamp );
+		else printf("%s\n","NULL");
+	
+	
 	return 0;
-
 }

@@ -73,17 +73,29 @@ long* top_10_contributors(TAD_istruct qs){
 	return top;
 }       
 
-char* contributor_name(long contributor_id, TAD_istruct qs);
+char* contributor_name(long contributor_id, TAD_istruct qs){
+	return NULL;
+}
 
-long* top_20_largest_articles(TAD_istruct qs);
+long* top_20_largest_articles(TAD_istruct qs){
+	return NULL;
+}
 
-char* article_title(long article_id, TAD_istruct qs);
+char* article_title(long article_id, TAD_istruct qs){
+	return hashTArt_GetTitle (qs->ht_art, article_id);
+}
 
-long* top_N_articles_with_more_words(int n, TAD_istruct qs);
+long* top_N_articles_with_more_words(int n, TAD_istruct qs){
+	return NULL;
+}
 
-char** titles_with_prefix(char* prefix, TAD_istruct qs);
+char** titles_with_prefix(char* prefix, TAD_istruct qs){
+	return hashTArt_Prefix(qs->ht_art, prefix);
+}
 
-char* article_timestamp(long article_id, long revision_id, TAD_istruct qs);
+char* article_timestamp(long article_id, long revision_id, TAD_istruct qs){
+	return hashTArt_Timestamp (qs->ht_art, article_id, revision_id);
+}
 
 TAD_istruct clean (TAD_istruct qs){
 	hashTArt_Clean(qs->ht_art);
