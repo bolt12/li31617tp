@@ -180,8 +180,13 @@ void parsePage(TAD_istruct qs, xmlNodePtr cur){
 	xmlFree(revision_id);
 	xmlFree(timestamp);
 	if(contrib){ 
-		hashTContribAdd(qs->ht_contrib,(char*) contributor_name, (long) atoi( (char*) contributor_id), &(qs->avlC));
+		if(add_code) 
+			hashTContribAdd(qs->ht_contrib,(char*) contributor_name, (long) atoi( (char*) contributor_id), &(qs->avlC));
 		xmlFree(contributor_id);
 		xmlFree(contributor_name);
 	}
+}
+
+void printContrib(TAD_istruct qs){
+	printAVL(qs->avlC);
 }

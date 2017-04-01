@@ -37,7 +37,7 @@ int hashTContribAdd(hashTContrib h, char* contributor_name, long contributor_id,
 		aux = new;
 		return 1;
 	}
-	else{
+	if(aux -> contributor_id == contributor_id){
 		*avl=avlContrib_Remove(*avl,aux);
 		(aux->contributions_number)+=1;
 		*avl=avlContrib_Insert(*avl, aux);
@@ -130,9 +130,17 @@ avlContrib avlContrib_Remove(avlContrib p, Contrib n)
 
 void avlContrib_TopN(avlContrib avl, long* top, int n){
 	if(!avl) return;
-	printf("%s, %d, %d\n", ((Contrib)avl->artigo)->contributor_name, ((Contrib)avl->artigo)->contributions_number, n);
-	avlContrib_TopN(avl->right, top, --n);
-	if(n<10){
-		top[n] =((Contrib) avl->artigo)->contributor_id;
+	avlContrib_TopN(avl->left, top,0);
+	if(avl->height-1<10){
+		top[avl->height-1]=((Contrib)avl->artigo)->contributor_id;
+	printf("%s, %d, %d\n", ((Contrib)avl->artigo)->contributor_name, ((Contrib)avl->artigo)->contributions_number, avl->height-1);
 	}
+	avlContrib_TopN(avl->right, top,1);
+}
+
+void printAVL(avlContrib avl){
+	if(!avl) return;
+	printAVL(avl->left);
+	printf("%s, %ld, Contribuições: %d, height %d\n", ((Contrib) avl->artigo)->contributor_name,((Contrib) avl->artigo)->contributor_id,((Contrib) avl->artigo)->contributions_number, avl->height);
+	printAVL(avl->right);
 }

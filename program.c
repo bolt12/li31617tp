@@ -1,5 +1,6 @@
 #include "interface.h"
 
+/*
 void testes_hastTableArtigos()
 {
 
@@ -34,14 +35,12 @@ void testes_hastTableArtigos()
 
 	printf("\n----------- avlArt ------------\n");
 
-	/*
 	for(i=0; i<SIZE; i++){
 		if(h[i]){
 			avl = avlArt_Insert(avl,h[i]);
 			printf("Adicionado artigo %s à AVL\n", h[i]->title);
 		}
 	}
-	*/
 
 	printf("\nROOT DA AVL: %s; %d\n",((artNodo) avl->artigo)->title, ((artNodo) avl->artigo)->n_bytes);
 
@@ -90,6 +89,7 @@ void testes_lista_revisoes(){
 		printf("Passou teste de limpeza de lista.\n");
 
 }
+*/
 
 int main(int argc, char const* argv[])
 {
@@ -124,6 +124,7 @@ int main(int argc, char const* argv[])
 	x = all_revisions (qs);
 	printf("all_revisions -> %ld\n",x );
 
+	printContrib(qs);
 	top10 = top_10_contributors(qs);
 
 	for(i=0; i<10; i++)
