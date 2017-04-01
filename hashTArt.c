@@ -80,15 +80,18 @@ char** hashTArt_Prefix (hashTArt h, char* prefix){
 	for (i = 0; i < SIZE; i++)
 		for (aux = h[i]; aux; aux = aux->next)
 			if (! strncmp (prefix, aux-> title, strlen (prefix) )){
-				if (k > size * 0.7){
-					size = size * 2;
-					result = realloc (result, size * sizeof(char *));
-					for (j=k+1; j < size; j++) *(result+j) = NULL;
-				}
+				for (j = 0; result[j] != NULL && strcmp (aux->title, result[j]); j++);
+				if (result[j] == NULL){
+					if (k > size * 0.7){
+						size = size * 2;
+						result = realloc (result, size * sizeof(char *));
+						for (j=k+1; j < size; j++) *(result+j) = NULL;
+					}
 
-				*(result+k) = malloc ((strlen (aux->title)) +1);
-				strcpy ( *(result+k) , aux->title);
-				k++;
+					*(result+k) = malloc ((strlen (aux->title)) +1);
+					strcpy ( *(result+k) , aux->title);
+					k++;
+				}
 			}
 		
 	return result;
