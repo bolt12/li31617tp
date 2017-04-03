@@ -140,6 +140,10 @@ int main(int argc, char const* argv[])
 			printf("%ld\n", top10[i]);
 
 	printf("\n%s\n","-----Query 5-----");
+	char* name = NULL;
+	name = contributor_name(9092818,qs);
+	printf("%s\n", name);
+	free(name);
 
 	printf("\n%s\n","-----Query 6-----" );
 		long *top20;

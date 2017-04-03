@@ -22,10 +22,11 @@ int hashTContribAdd(hashTContrib h, char* contributor_name, long contributor_id,
 	if(!aux){
 		new = malloc (sizeof (struct hashtablecontrib));
 		new->contributor_name = malloc (strlen(contributor_name)+1);
-		strcpy (new-> contributor_name, contributor_name);
-		new-> contributor_id = contributor_id;
+		strcpy(new->contributor_name, contributor_name);
+		new->contributor_id = contributor_id;
+		printf("%li\n", new->contributor_id);
 		new->contributions_number=1;
-		new-> next = NULL;
+		new->next = NULL;
 		if(!h[pos]){
 			h[pos] = new;
 			*avl = avlContrib_Insert(*avl,new);
@@ -34,10 +35,9 @@ int hashTContribAdd(hashTContrib h, char* contributor_name, long contributor_id,
 			ant->next = new;
 			*avl = avlContrib_Insert(*avl,new);
 		}
-		aux = new;
 		return 1;
 	}
-	if(aux -> contributor_id == contributor_id){
+	else{
 		*avl=avlContrib_Remove(*avl,aux);
 		(aux->contributions_number)+=1;
 		*avl=avlContrib_Insert(*avl, aux);
