@@ -24,7 +24,6 @@ int hashTContribAdd(hashTContrib h, char* contributor_name, long contributor_id,
 		new->contributor_name = malloc (strlen(contributor_name)+1);
 		strcpy(new->contributor_name, contributor_name);
 		new->contributor_id = contributor_id;
-		printf("%li\n", new->contributor_id);
 		new->contributions_number=1;
 		new->next = NULL;
 		if(!h[pos]){
