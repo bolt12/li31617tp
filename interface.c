@@ -74,7 +74,7 @@ long* top_10_contributors(TAD_istruct qs){
 }       
 
 char* contributor_name(long contributor_id, TAD_istruct qs){
-	return NULL;
+	return hashTContribRetrieveName(qs->ht_contrib, contributor_id);
 }
 
 long* top_20_largest_articles(TAD_istruct qs){
