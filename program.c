@@ -1,5 +1,5 @@
 #include "interface.h"
-
+#include <time.h>
 /*
 void testes_hastTableArtigos()
 {
@@ -115,69 +115,139 @@ int main(int argc, char const* argv[])
 
 	printf("%s\n","init feito" );
 
+	clock_t begin = clock();
+	printf("%s\n","LOAD" );
 	load (qs,argc-1, datasets);
 
+	clock_t end = clock();
+	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+	printf("%s %f\n","Time ->",time_spent );
+	
+
 	printf("\n%s\n","-----Query 1-----" );
+		begin = clock();
 		x = all_articles (qs);
 		printf("All_articles -> %ld\n",x );
+		end = clock();
+		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+		printf("%s %f\n","Time ->",time_spent );
+	
 
 
 	printf("\n%s\n","-----Query 2-----");
+		begin = clock();
 		x = unique_articles (qs);
 		printf("Unique_articles -> %ld\n",x );
+		end = clock();
+		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+		printf("%s %f\n","Time ->",time_spent );
 
 
 	printf("\n%s\n","-----Query 3-----" );
+		begin = clock();
 		x = all_revisions (qs);
 		printf("All_revisions -> %ld\n",x );
+	
+		 end = clock();
+		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+		printf("%s %f\n","Time ->",time_spent );
 
 
 	printf("\n%s\n","-----Query 4-----" );
 		long *top10;
+		begin = clock();
 		top10 = top_10_contributors(qs);
 		printf("%s\n","Top 10 maiores contribuidores: " );
 		for(i=0; i<10; i++)
-			printf("%ld\n", top10[i]);
+			printf("%ld, ", top10[i]);
+		
+		 end = clock();
+		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+		printf("%s %f\n","Time ->",time_spent );
 
 	printf("\n%s\n","-----Query 5-----");
-	char* name = NULL;
-	name = contributor_name(9092818,qs);
-	printf("%s\n", name);
-	free(name);
+		char* name = NULL;
+		begin = clock();
+		name = contributor_name(28903366,qs);
+		printf("contributor_name A %s\n", name);
+		name = contributor_name(194203,qs);
+		printf("contributor_name B %s\n", name);
+		name = contributor_name(1000,qs);
+		printf("contributor_name C %s\n", name);
+
+		free(name);
+
+		 end = clock();
+		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+		printf("%s %f\n","Time ->",time_spent );
 
 	printf("\n%s\n","-----Query 6-----" );
 		long *top20;
+		begin = clock();
 		top20 = top_20_largest_articles(qs);
 		printf("%s\n","Top 20 maiores artigos: " );
 		for(i=0; i<20; i++)
-			printf("%ld\n", top20[i]);
+			printf("%ld, ", top20[i]);
+
+		end = clock();
+		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+		printf("%s %f\n","Time ->",time_spent );
 
 
 
 	printf("\n%s\n","-----Query 7-----" );
 		char * title = NULL;
-		title = article_title(12, qs);
-		printf("%s\n","Title" );
+		begin = clock();
+		title = article_title(15910, qs);
+		printf("%s->","Title" );
 		printf("%s\n",title );
-		free (title);
-	printf("\n%s\n","-----Query 8-----" );
-	printf("\n%s\n","-----Query 9-----" );
+		title = article_title(25507, qs);
+		printf("%s->","Title" );
+		printf("%s\n",title );
+		title = article_title(1111, qs);
+		printf("%s->","Title" );
+		printf("%s\n",title );
+		free (title); end = clock();
+
+		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+		printf("%s %f\n","Time ->",time_spent );
+
+	printf("\n%s\n","-----Query 8-----" ); 
+		/*begin = clock();
+		long * larg;
+		larg = top_N_articles_with_more_words(30, qs);
+		end = clock();
+		for (i = 0; i < 20; i++) printf("%ld, ",larg[i] );
+		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+		printf("%s %f\n","Time ->",time_spent );
+*/
+		printf("\n%s\n","-----Query 9-----" );
+
 		char** prefix_list;
-		prefix_list = titles_with_prefix("Inf", qs);
+		begin = clock();
+		prefix_list = titles_with_prefix("Anax", qs);
 		printf("\n\n........Prefixos........\n\n");
 		for (i = 0; prefix_list[i] != NULL; i++) printf("%s\n",prefix_list[i]);
 		printf("\n\n........End Prefixos........\n\n");
 		/*!!!!!!!!!!!!!!!!!!!!! CLEAN DE PREFIX !!!!!!!!!!!!!!!!!!!!!!!*/
+	 	end = clock();
+		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+		printf("%s %f\n","Time ->",time_spent );
 
-	printf("%s\n","-----Query 10-----" );
+	printf("%s\n\n","-----Query 10-----" );
 
 		char * timestamp = NULL;
-		timestamp = article_timestamp (12, 751573634, qs);
-		printf("\n\n........Timestamp........\n\n");
-		if (timestamp != NULL) printf("-%s-\n",timestamp );
-		else printf("%s\n","NULL");
-		printf("\n\n........End Timestamp........\n\n");
-	
+		begin = clock();
+		timestamp = article_timestamp (12, 763082287, qs);
+		printf("%s\n",timestamp );
+		timestamp = article_timestamp (12, 755779730, qs);
+		printf("%s\n",timestamp );
+		timestamp = article_timestamp (12, 4479730, qs);
+		printf("%s\n",timestamp );
+		end = clock();
+		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+		printf("%s %f\n","Time ->",time_spent );
+
 	qs = clean(qs);	
 	
 	return 0;
