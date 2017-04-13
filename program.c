@@ -173,6 +173,8 @@ int main(int argc, char const* argv[])
 		name = contributor_name(194203,qs);
 		printf("contributor_name B %s\n", name);
 		name = contributor_name(1000,qs);
+		if(name == NULL)
+			printf("Name é null\n");
 		printf("contributor_name C %s\n", name);
 
 		free(name);
@@ -239,11 +241,11 @@ int main(int argc, char const* argv[])
 		char * timestamp = NULL;
 		begin = clock();
 		timestamp = article_timestamp (12, 763082287, qs);
-		printf("%s\n",timestamp );
+		printf("Timestamp:%s\n",timestamp );
 		timestamp = article_timestamp (12, 755779730, qs);
-		printf("%s\n",timestamp );
+		printf("Timestamp:%s\n",timestamp );
 		timestamp = article_timestamp (12, 4479730, qs);
-		printf("%s\n",timestamp );
+		printf("Timestamp:%s\n", timestamp );
 		end = clock();
 		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 		printf("%s %f\n","Time ->",time_spent );

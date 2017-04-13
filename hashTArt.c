@@ -101,8 +101,9 @@ char* hashTArt_Timestamp (hashTArt h, long title_ID, long revision_id){
 	int pos = hashCode (title_ID);
 	artNodo aux;
 	for(aux = h[pos]; aux && aux->title_ID != title_ID; aux = aux-> next);
-	if(aux)
+	if(aux){
 		return (retrieveTimestamp(aux->revisions, revision_id));
+	}
 
 	return NULL;
 }
@@ -144,17 +145,27 @@ avlArt avlArt_Insert(avlArt p, artNodo n)
 	if ( !p )
 		return new_AVL(n);
 
-	if ( n -> n_bytes < ((artNodo) p->artigo)-> n_bytes)
-		p->left = avlArt_Insert(p->left, n);
-	else if ( n->n_bytes > ((artNodo) p->artigo)->n_bytes )
-		p->right = avlArt_Insert(p->right, n);
-	else if (((artNodo) p->artigo)->title_ID == n->title_ID)
+	if (((artNodo) p->artigo)->title_ID == n->title_ID)
 		p->artigo = n;
-
+	else{ 
+		if(n->n_bytes == ((artNodo) p->artigo)->n_bytes){
+		    if(n->title_ID < ((artNodo) p->artigo)->title_ID){
+		    	artNodo aux = p->artigo;
+		    	p->artigo = n;
+		    	n = aux;
+		    }
+	    	p->left = avlArt_Insert(p->left, n);
+	    }
+		else if( n->n_bytes > ((artNodo) p->artigo)->n_bytes )
+			p->right = avlArt_Insert(p->right, n);
+		else
+			p->left = avlArt_Insert(p->left, n);
+	}
 	return balance(p);
 }
 
 int avlArt_TopN(avlArt avl, long* top, int i, int n){
+
 	if(!avl) return i;
 	if(i<n)
 		i=avlArt_TopN(avl->right, top, i, n);

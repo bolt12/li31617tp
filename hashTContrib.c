@@ -82,15 +82,23 @@ void hashTContribClean(hashTContrib ht){
 
 /* Funções referentes à avlContrib */
 
-avlContrib avlContrib_Insert(avlContrib p, Contrib n)
-{
+avlContrib avlContrib_Insert(avlContrib p, Contrib n){
+
 	if ( !p )
 		return new_AVL(n);
 
 	if (((Contrib) p->artigo)->contributor_id == n->contributor_id)
 		p->artigo = n;
 	else{
-	       	if ( n->contributions_number > ((Contrib) p->artigo)->contributions_number)
+	    if(n->contributions_number == ((Contrib) p->artigo)->contributions_number){
+		    if(n->contributor_id < ((Contrib) p->artigo)->contributor_id){
+		    	Contrib aux = p->artigo;
+		    	p->artigo = n;
+		    	n = aux;
+		    }
+	    	p->left = avlContrib_Insert(p->left, n);
+	    }
+	    else if ( n->contributions_number > ((Contrib) p->artigo)->contributions_number)
 			p->right = avlContrib_Insert(p->right, n);
 		else 
 			p->left = avlContrib_Insert(p->left, n);
@@ -131,8 +139,9 @@ int avlContrib_TopN(avlContrib avl, long* top, int i, int n){
 	if(!avl) return i;
 	if(i<10)
 		i=avlContrib_TopN(avl->right, top, i, n);
-	if(i<10)
+	if(i<10){
 		top[i++]=((Contrib)avl->artigo)->contributor_id;
+	}
 	if(i<10)
 		i=avlContrib_TopN(avl->left, top, i, n);
 	return i;
