@@ -13,7 +13,7 @@ void hashTContribInit(hashTContrib ht){
 	}
 }
 
-int hashTContribAdd(hashTContrib h, char* contributor_name, long contributor_id, avlContrib *avl){
+int hashTContribAdd(hashTContrib h, char* contributor_name, long contributor_id){
 	int pos = hashTContribHash(contributor_id);
 
 	Contrib ant, aux, new = NULL;
@@ -28,18 +28,14 @@ int hashTContribAdd(hashTContrib h, char* contributor_name, long contributor_id,
 		new->next = NULL;
 		if(!h[pos]){
 			h[pos] = new;
-			*avl = avlContrib_Insert(*avl,new);
 		}
 		else{
 			ant->next = new;
-			*avl = avlContrib_Insert(*avl,new);
 		}
 		return 1;
 	}
 	else{
-		*avl=avlContrib_Remove(*avl,aux);
 		(aux->contributions_number)+=1;
-		*avl=avlContrib_Insert(*avl, aux);
 		return 1;
 	}
 	return 0;
@@ -105,6 +101,15 @@ avlContrib avlContrib_Insert(avlContrib p, Contrib n){
 	}
 
 	return balance(p);
+}
+
+avlContrib avlContrib_AddAll(avlContrib avl, hashTContrib ht){
+	int i;
+	Contrib aux;
+	for(i=0; i<SIZE; i++)
+		for(aux=ht[i]; aux; aux = aux->next)
+			avl=avlContrib_Insert(avl,aux);
+	return avl;
 }
 
 avlContrib avlContrib_Remove(avlContrib p, Contrib n)

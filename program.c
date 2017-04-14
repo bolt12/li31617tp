@@ -173,8 +173,6 @@ int main(int argc, char const* argv[])
 		name = contributor_name(194203,qs);
 		printf("contributor_name B %s\n", name);
 		name = contributor_name(1000,qs);
-		if(name == NULL)
-			printf("Name é null\n");
 		printf("contributor_name C %s\n", name);
 
 		free(name);
