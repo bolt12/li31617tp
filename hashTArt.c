@@ -46,14 +46,15 @@ int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_wor
 		aux = new;
 	}
 	else{
-		*avl=avlArt_Remove(*avl,aux);
+		*avl = avlArt_Remove(*avl,aux);
 		free(aux->title);
 		aux-> title = malloc (strlen(title)+1);
 		strcpy (aux-> title, title);
-		aux->n_bytes=n_bytes;
-		aux->n_words=n_words;
 
-		*avl=avlArt_Insert(*avl, aux);
+		if (aux->n_bytes < n_bytes) aux->n_bytes = n_bytes;
+		if (aux->n_words < n_words) aux->n_words = n_words;
+
+		*avl = avlArt_Insert(*avl, aux);
 	}
 
 	res += insertRevision(&aux->revisions, revision_id, timestamp);
