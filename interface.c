@@ -4,7 +4,8 @@ struct TCD_istruct{
 	long all_articles, unique_articles, all_revisions;
 	hashTArt ht_art;
 	hashTContrib ht_contrib;
-	avlArt avlA;
+	avlArtBytes avlAB;
+	avlArtWords avlAW;
 	avlContrib avlC;
 };
 
@@ -79,7 +80,7 @@ char* contributor_name(long contributor_id, TAD_istruct qs){
 
 long* top_20_largest_articles(TAD_istruct qs){
 	long* topLargA = calloc(20,sizeof(long));
-	avlArt_TopN(qs->avlA, topLargA, 0, 20);
+	avlArtBytes_TopN(qs->avlAB, topLargA, 0, 20);
 	return topLargA;
 }
 
@@ -88,7 +89,9 @@ char* article_title(long article_id, TAD_istruct qs){
 }
 
 long* top_N_articles_with_more_words(int n, TAD_istruct qs){
-	return NULL;
+	long* topMoreW = calloc(n,sizeof(long));
+	avlArtWords_TopN(qs->avlAW, topMoreW, 0, n);
+	return topMoreW;
 }
 
 char** titles_with_prefix(char* prefix, TAD_istruct qs){
@@ -102,7 +105,8 @@ char* article_timestamp(long article_id, long revision_id, TAD_istruct qs){
 TAD_istruct clean (TAD_istruct qs){
 	hashTArt_Clean(qs->ht_art);
 	hashTContribClean(qs->ht_contrib);
-	avl_Clean(qs->avlA);
+	avl_Clean(qs->avlAB);
+	avl_Clean(qs->avlAW);
 	avl_Clean(qs->avlC);
 	return qs;
 }
@@ -118,12 +122,33 @@ TAD_istruct clean (TAD_istruct qs){
 
 void parseText(xmlNodePtr cur, int* nbytes, int* nwords){
 	char* text = (char*) xmlNodeGetContent(cur);
-	int i, words= 0;
-	for(i=0; text[i]!='\0';i++)
-		if(text[i]==' ' || text[i]=='\n' || text[i]=='\t') words++;
+	int i, words= 0, inword = 0;
+	for(i=0; text[i]!='\0';i++){
+		if(isspace(text[i])){
+			if(inword) //se encontrar um white-space e se tiver saido de uma palavra
+				inword = 0;
+		} else {
+			if(!inword){ // se encontrar uma palavra e tiver saido de um whitespace
+				inword = 1;
+				words++;
+			}
+		}
+	}
 	*nbytes = i-1;
 	*nwords = words;
 	free(text);
+}
+
+void getText(xmlNodePtr cur){
+	char* text = (char*) xmlNodeGetContent(cur);
+	FILE *f = fopen("761848306.txt","w+");
+	int i = 0;
+	while(text[i] != '\0'){
+		fputc(text[i], f);
+		i++;
+	}
+	fputc('\0',f);
+	fclose(f);
 }
 
 int parseContributors(xmlNodePtr cur, xmlChar** cont_name, xmlChar** cont_id){
@@ -160,8 +185,11 @@ int parseRevision(xmlNodePtr cur, xmlChar** rv_id, xmlChar** tstamp, xmlChar** c
 			*tstamp = xmlNodeGetContent(cur);
 		if((!xmlStrcmp(cur->name, BAD_CAST "contributor")))
 			i=parseContributors(cur, cont_name, cont_id);
-		if((!xmlStrcmp(cur->name, BAD_CAST "text") && cur->type == 1))
+		if((!xmlStrcmp(cur->name, BAD_CAST "text") && cur->type == 1)){
+			//if(atoi((char*) *rv_id) == 761848306)
+				//getText(cur);
 			parseText(cur, nbytes, nwords);
+		}
 		cur = cur->next;
 	}
 	return i;
@@ -184,7 +212,8 @@ void parsePage(TAD_istruct qs, xmlNodePtr cur){
 
 		cur = cur->next;
 	}
-	add_code = hashTArt_Add (qs->ht_art, (char*)title, (long) atoi( (char*) title_id), n_bytes, n_words, (long) atoi( (char*) revision_id), (char*) timestamp, &(qs->avlA));
+	add_code = hashTArt_Add (qs->ht_art, (char*)title, (long) atoi( (char*) title_id), n_bytes, n_words, 
+							(long) atoi( (char*) revision_id), (char*) timestamp, &(qs->avlAB),&(qs->avlAW));
 	qs->all_articles++;
 	if (add_code) qs-> all_revisions++;
 	if (add_code == 2) qs-> unique_articles++;

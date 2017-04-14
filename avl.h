@@ -8,7 +8,7 @@ typedef struct avl{
 	int height;
 	struct avl *left;
 	struct avl *right;
-} *AVL, *avlArt, *avlContrib;
+} *AVL, *avlArtBytes,*avlArtWords, *avlContrib;
 
 AVL new_AVL(void* nodo);
 int max(int a, int b);

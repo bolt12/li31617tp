@@ -20,7 +20,8 @@ void hashTArt_Init (hashTArt h){
    Se res == 1->Foi adicionada apenas uma revisão
    Se res == 2->Foi adicionada um novo artigo (consequentemente uma nova revisão)
    */
-int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_words, long revision_id, char* timestamp, avlArt *avl){
+int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_words, long revision_id, char* timestamp, 
+																		avlArtBytes *avlBytes, avlArtWords *avlWords){
 	int pos = hashCode (title_ID);
 	artNodo ant, aux, new = NULL;
 	int res = 0;
@@ -37,16 +38,19 @@ int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_wor
 		new-> next = NULL;
 		if(!h[pos]){
 			h[pos] = new;
-			*avl = avlArt_Insert(*avl,new);
+			*avlBytes = avlArtBytes_Insert(*avlBytes,new);
+			*avlWords = avlArtWords_Insert(*avlWords,new);
 		}
 		else{
 			ant->next = new;
-			*avl = avlArt_Insert(*avl,new);
+			*avlBytes = avlArtBytes_Insert(*avlBytes,new);
+			*avlWords = avlArtWords_Insert(*avlWords,new);
 		}
 		aux = new;
 	}
 	else{
-		*avl = avlArt_Remove(*avl,aux);
+		*avlBytes = avlArtBytes_Remove(*avlBytes,aux);
+		*avlWords = avlArtWords_Remove(*avlWords,aux);
 		free(aux->title);
 		aux-> title = malloc (strlen(title)+1);
 		strcpy (aux-> title, title);
@@ -54,7 +58,8 @@ int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_wor
 		if (aux->n_bytes < n_bytes) aux->n_bytes = n_bytes;
 		if (aux->n_words < n_words) aux->n_words = n_words;
 
-		*avl = avlArt_Insert(*avl, aux);
+		*avlBytes = avlArtBytes_Insert(*avlBytes, aux);
+		*avlWords = avlArtWords_Insert(*avlWords,aux);
 	}
 
 	res += insertRevision(&aux->revisions, revision_id, timestamp);
@@ -139,9 +144,9 @@ void hashTArt_Print (hashTArt h){
 	}
 }
 
-/* Funções referentes à avlArt */
+/* Funções referentes à avlArtBytes */
 
-avlArt avlArt_Insert(avlArt p, artNodo n)
+avlArtBytes avlArtBytes_Insert(avlArtBytes p, artNodo n)
 {
 	if ( !p )
 		return new_AVL(n);
@@ -155,47 +160,47 @@ avlArt avlArt_Insert(avlArt p, artNodo n)
 		    	p->artigo = n;
 		    	n = aux;
 		    }
-	    	p->left = avlArt_Insert(p->left, n);
+	    	p->left = avlArtBytes_Insert(p->left, n);
 	    }
 		else if( n->n_bytes > ((artNodo) p->artigo)->n_bytes )
-			p->right = avlArt_Insert(p->right, n);
+			p->right = avlArtBytes_Insert(p->right, n);
 		else
-			p->left = avlArt_Insert(p->left, n);
+			p->left = avlArtBytes_Insert(p->left, n);
 	}
 	return balance(p);
 }
 
-int avlArt_TopN(avlArt avl, long* top, int i, int n){
+int avlArtBytes_TopN(avlArtBytes avl, long* top, int i, int n){
 
 	if(!avl) return i;
 	if(i<n)
-		i=avlArt_TopN(avl->right, top, i, n);
+		i=avlArtBytes_TopN(avl->right, top, i, n);
 	if(i<n)
 		top[i++]=((artNodo)avl->artigo)->title_ID;
 	if(i<n)
-		i=avlArt_TopN(avl->left, top, i, n);
+		i=avlArtBytes_TopN(avl->left, top, i, n);
 	return i;
 }
 
-avlArt avlArt_Remove(avlArt p, artNodo n)
+avlArtBytes avlArtBytes_Remove(avlArtBytes p, artNodo n)
 {
 	if ( !p )
 		return NULL;
 
 	if ( n->n_bytes < ((artNodo) p->artigo)->n_bytes)
-		p->left = avlArt_Remove(p->left, n);
+		p->left = avlArtBytes_Remove(p->left, n);
 	else if ( n->n_bytes > ((artNodo) p->artigo)->n_bytes )
-		p->right = avlArt_Remove(p->right, n);
+		p->right = avlArtBytes_Remove(p->right, n);
 	else if (((artNodo) p->artigo)->title_ID == n->title_ID)
 	{
-		avlArt l = p->left;
-		avlArt r = p->right;
+		avlArtBytes l = p->left;
+		avlArtBytes r = p->right;
 		free(p);
 
 		if ( r == NULL )
 			return l;
 
-		avlArt m = find_min(r);
+		avlArtBytes m = find_min(r);
 		m->right = remove_min(r);
 		m->left = l;
 
@@ -205,12 +210,87 @@ avlArt avlArt_Remove(avlArt p, artNodo n)
 	return balance(p);
 }
 
-void avlArt_Print(avlArt p){
+void avlArtBytes_Print(avlArtBytes p){
 	if(p){
-		avlArt_Print(p->left);
+		avlArtBytes_Print(p->left);
 		printf("Title: %s; n_bytes: %d\n", ((artNodo) p->artigo)->title, ((artNodo) p->artigo)->n_bytes);
-		avlArt_Print(p->right);
+		avlArtBytes_Print(p->right);
 	}
 	return;
 }
 
+/* Funções referentes à avlArtWords */
+
+avlArtWords avlArtWords_Insert(avlArtWords p, artNodo n)
+{
+	if ( !p )
+		return new_AVL(n);
+
+	if (((artNodo) p->artigo)->title_ID == n->title_ID)
+		p->artigo = n;
+	else{ 
+		if(n->n_words == ((artNodo) p->artigo)->n_words){
+		    if(n->title_ID < ((artNodo) p->artigo)->title_ID){
+		    	artNodo aux = p->artigo;
+		    	p->artigo = n;
+		    	n = aux;
+		    }
+	    	p->left = avlArtWords_Insert(p->left, n);
+	    }
+		else if( n->n_words > ((artNodo) p->artigo)->n_words )
+			p->right = avlArtWords_Insert(p->right, n);
+		else
+			p->left = avlArtWords_Insert(p->left, n);
+	}
+	return balance(p);
+}
+
+int avlArtWords_TopN(avlArtWords avl, long* top, int i, int n){
+
+	if(!avl) return i;
+	if(i<n)
+		i=avlArtWords_TopN(avl->right, top, i, n);
+	if(i<n){
+		top[i++]=((artNodo)avl->artigo)->title_ID;
+	}
+	if(i<n)
+		i=avlArtWords_TopN(avl->left, top, i, n);
+	return i;
+}
+
+avlArtWords avlArtWords_Remove(avlArtWords p, artNodo n)
+{
+	if ( !p )
+		return NULL;
+
+	if ( n->n_words < ((artNodo) p->artigo)->n_words)
+		p->left = avlArtWords_Remove(p->left, n);
+	else if ( n->n_words > ((artNodo) p->artigo)->n_words )
+		p->right = avlArtWords_Remove(p->right, n);
+	else if (((artNodo) p->artigo)->title_ID == n->title_ID)
+	{
+		avlArtWords l = p->left;
+		avlArtWords r = p->right;
+		free(p);
+
+		if ( r == NULL )
+			return l;
+
+		avlArtWords m = find_min(r);
+		m->right = remove_min(r);
+		m->left = l;
+
+		return balance(m);
+	}
+
+	return balance(p);
+}
+
+void avlArtWords_Print(avlArtWords p){
+	if(p){
+		avlArtWords_Print(p->left);
+		printf("Title: %s; n_words: %d\n", ((artNodo) p->artigo)->title, ((artNodo) p->artigo)->n_words);
+		avlArtWords_Print(p->right);
+	}
+	return;
+}

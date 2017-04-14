@@ -213,22 +213,22 @@ int main(int argc, char const* argv[])
 		printf("%s %f\n","Time ->",time_spent );
 
 	printf("\n%s\n","-----Query 8-----" ); 
-		/*begin = clock();
+		begin = clock();
 		long * larg;
 		larg = top_N_articles_with_more_words(30, qs);
 		end = clock();
+		printf("%s\n","Top 30 artigos com mais palavras: " );
 		for (i = 0; i < 20; i++) printf("%ld, ",larg[i] );
 		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 		printf("%s %f\n","Time ->",time_spent );
-*/
+
 		printf("\n%s\n","-----Query 9-----" );
 
 		char** prefix_list;
 		begin = clock();
 		prefix_list = titles_with_prefix("Anax", qs);
-		printf("\n\n........Prefixos........\n\n");
+		printf("Titles with prefix: Anax\n");
 		for (i = 0; prefix_list[i] != NULL; i++) printf("%s\n",prefix_list[i]);
-		printf("\n\n........End Prefixos........\n\n");
 		/*!!!!!!!!!!!!!!!!!!!!! CLEAN DE PREFIX !!!!!!!!!!!!!!!!!!!!!!!*/
 	 	end = clock();
 		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
