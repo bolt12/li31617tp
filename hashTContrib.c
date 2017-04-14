@@ -1,3 +1,4 @@
+
 #include "string.h"
 #include "hashTContrib.h"
 #include "avl.h"
@@ -13,7 +14,7 @@ void hashTContribInit(hashTContrib ht){
 	}
 }
 
-int hashTContribAdd(hashTContrib h, char* contributor_name, long contributor_id){
+int hashTContribAdd(hashTContrib h, char* contributor_name, long contributor_id, avlContrib *avl){
 	int pos = hashTContribHash(contributor_id);
 
 	Contrib ant, aux, new = NULL;
@@ -28,14 +29,18 @@ int hashTContribAdd(hashTContrib h, char* contributor_name, long contributor_id)
 		new->next = NULL;
 		if(!h[pos]){
 			h[pos] = new;
+			*avl = avlContrib_Insert(*avl,new);
 		}
 		else{
 			ant->next = new;
+			*avl = avlContrib_Insert(*avl,new);
 		}
 		return 1;
 	}
 	else{
+		*avl=avlContrib_Remove(*avl,aux);
 		(aux->contributions_number)+=1;
+		*avl=avlContrib_Insert(*avl, aux);
 		return 1;
 	}
 	return 0;
@@ -96,20 +101,11 @@ avlContrib avlContrib_Insert(avlContrib p, Contrib n){
 	    }
 	    else if ( n->contributions_number > ((Contrib) p->artigo)->contributions_number)
 			p->right = avlContrib_Insert(p->right, n);
-		else 
+		else
 			p->left = avlContrib_Insert(p->left, n);
 	}
 
 	return balance(p);
-}
-
-avlContrib avlContrib_AddAll(avlContrib avl, hashTContrib ht){
-	int i;
-	Contrib aux;
-	for(i=0; i<SIZE; i++)
-		for(aux=ht[i]; aux; aux = aux->next)
-			avl=avlContrib_Insert(avl,aux);
-	return avl;
 }
 
 avlContrib avlContrib_Remove(avlContrib p, Contrib n)
@@ -151,3 +147,4 @@ int avlContrib_TopN(avlContrib avl, long* top, int i, int n){
 		i=avlContrib_TopN(avl->left, top, i, n);
 	return i;
 }
+

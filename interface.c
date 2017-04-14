@@ -49,8 +49,6 @@ TAD_istruct load(TAD_istruct qs, int nsnaps, char * snaps_paths[]){
 				parsePage(qs,cur);
 			cur=cur->next;
 		}
-		qs->avlA = avlArt_AddAll(qs->avlA, qs->ht_art);
-		qs->avlC = avlContrib_AddAll(qs->avlC, qs->ht_contrib);
 
 		xmlFreeDoc(doc);
 	}
@@ -186,7 +184,7 @@ void parsePage(TAD_istruct qs, xmlNodePtr cur){
 
 		cur = cur->next;
 	}
-	add_code = hashTArt_Add (qs->ht_art, (char*)title, (long) atoi( (char*) title_id), n_bytes, n_words, (long) atoi( (char*) revision_id), (char*) timestamp);
+	add_code = hashTArt_Add (qs->ht_art, (char*)title, (long) atoi( (char*) title_id), n_bytes, n_words, (long) atoi( (char*) revision_id), (char*) timestamp, &(qs->avlA));
 	qs->all_articles++;
 	if (add_code) qs-> all_revisions++;
 	if (add_code == 2) qs-> unique_articles++;
@@ -197,8 +195,9 @@ void parsePage(TAD_istruct qs, xmlNodePtr cur){
 	xmlFree(timestamp);
 	if(contrib){ 
 		if(add_code) 
-			hashTContribAdd(qs->ht_contrib,(char*) contributor_name, (long) atoi( (char*) contributor_id));
+			hashTContribAdd(qs->ht_contrib,(char*) contributor_name, (long) atoi( (char*) contributor_id), &(qs->avlC));
 		xmlFree(contributor_id);
 		xmlFree(contributor_name);
 	}
 }
+

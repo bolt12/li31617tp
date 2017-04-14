@@ -20,7 +20,7 @@ void hashTArt_Init (hashTArt h){
    Se res == 1->Foi adicionada apenas uma revisão
    Se res == 2->Foi adicionada um novo artigo (consequentemente uma nova revisão)
    */
-int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_words, long revision_id, char* timestamp){
+int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_words, long revision_id, char* timestamp, avlArt *avl){
 	int pos = hashCode (title_ID);
 	artNodo ant, aux, new = NULL;
 	int res = 0;
@@ -37,19 +37,23 @@ int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_wor
 		new-> next = NULL;
 		if(!h[pos]){
 			h[pos] = new;
+			*avl = avlArt_Insert(*avl,new);
 		}
 		else{
 			ant->next = new;
+			*avl = avlArt_Insert(*avl,new);
 		}
 		aux = new;
 	}
 	else{
+		*avl=avlArt_Remove(*avl,aux);
 		free(aux->title);
 		aux-> title = malloc (strlen(title)+1);
 		strcpy (aux-> title, title);
 		aux->n_bytes=n_bytes;
 		aux->n_words=n_words;
 
+		*avl=avlArt_Insert(*avl, aux);
 	}
 
 	res += insertRevision(&aux->revisions, revision_id, timestamp);
@@ -160,16 +164,6 @@ avlArt avlArt_Insert(avlArt p, artNodo n)
 	return balance(p);
 }
 
-avlArt avlArt_AddAll(avlArt avl, hashTArt ht){
-	int i;
-	artNodo aux;
-	for(i=0; i<SIZE; i++)
-		for(aux=ht[i]; aux; aux = aux->next)
-			avl = avlArt_Insert(avl,aux);
-	return avl;
-}
-
-
 int avlArt_TopN(avlArt avl, long* top, int i, int n){
 
 	if(!avl) return i;
@@ -218,3 +212,4 @@ void avlArt_Print(avlArt p){
 	}
 	return;
 }
+
