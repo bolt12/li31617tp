@@ -154,7 +154,7 @@ void getText(xmlNodePtr cur){
 int parseContributors(xmlNodePtr cur, xmlChar** cont_name, xmlChar** cont_id){
 
 	cur = cur->xmlChildrenNode;
-	int i;
+	int i = 0;
 
 	while(cur){
 		if((!xmlStrcmp(cur->name, BAD_CAST "ip"))){
@@ -175,7 +175,7 @@ int parseContributors(xmlNodePtr cur, xmlChar** cont_name, xmlChar** cont_id){
 
 int parseRevision(xmlNodePtr cur, xmlChar** rv_id, xmlChar** tstamp, xmlChar** cont_name, xmlChar** cont_id, int* nbytes, int* nwords){
 
-	int i;
+	int i = 0;
 	cur = cur->xmlChildrenNode;
 
 	while(cur){
@@ -199,7 +199,7 @@ void parsePage(TAD_istruct qs, xmlNodePtr cur){
 
 	xmlChar* title, *title_id, *revision_id, *timestamp, *contributor_name, *contributor_id;
 	int n_bytes, n_words;
-	int contrib,add_code = 0;
+	int contrib = 0,add_code = 0;
 
 	cur = cur->xmlChildrenNode;
 	while(cur){

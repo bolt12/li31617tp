@@ -77,30 +77,39 @@ char *hashTArt_GetTitle (hashTArt h, long title_ID){
 	return NULL;
 }
 
+
 char** hashTArt_Prefix (hashTArt h, char* prefix){
 	int size = 20;
 	char **result = calloc (size, sizeof(char*) );
-	int j,i, k = 0;
-
+	int i, ins_pos,hash_pos, used = 0;
 	artNodo aux;
-	for (i = 0; i < SIZE; i++)
-		for (aux = h[i]; aux; aux = aux->next)
+
+	for (hash_pos = 0; hash_pos < SIZE; hash_pos++)
+		for (aux = h[hash_pos]; aux; aux = aux->next)
 			if (! strncmp (prefix, aux-> title, strlen (prefix) )){
-				for (j = 0; result[j] != NULL && strcmp (aux->title, result[j]); j++);
-				if (result[j] == NULL){
-					if (k > size * 0.7){
+
+				for (ins_pos = 0; ins_pos < used && strcmp (aux->title, result[ins_pos]) > 0; ins_pos++);
+
+				if (result[ins_pos] == NULL || strcmp (result[ins_pos], aux->title) != 0){
+					if (used > size * 0.8){
 						size = size * 2;
 						result = realloc (result, size * sizeof(char *));
-						for (j=k+1; j < size; j++) *(result+j) = NULL;
 					}
 
-					*(result+k) = malloc ((strlen (aux->title)) +1);
-					strcpy ( *(result+k) , aux->title);
-					k++;
+				for (i = used; i > ins_pos; i--){
+						free (result[i]);
+						result[i] = malloc (strlen (result[i-1]) +1);
+						strcpy (result[i], result[i-1]);
+					}
+
+					*(result+ins_pos) = malloc ((strlen (aux->title)) +1);
+					strcpy ( *(result+ins_pos) , aux->title);
+					used++;
 				}
 			}
-		
+	result[used] = NULL;
 	return result;
+	
 }
 
 char* hashTArt_Timestamp (hashTArt h, long title_ID, long revision_id){
