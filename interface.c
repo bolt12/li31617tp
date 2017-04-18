@@ -197,7 +197,7 @@ int parseRevision(xmlNodePtr cur, xmlChar** rv_id, xmlChar** tstamp, xmlChar** c
 
 void parsePage(TAD_istruct qs, xmlNodePtr cur){
 
-	xmlChar* title, *title_id, *revision_id, *timestamp, *contributor_name, *contributor_id;
+	xmlChar* title=NULL, *title_id=NULL, *revision_id, *timestamp, *contributor_name, *contributor_id;
 	int n_bytes, n_words;
 	int contrib = 0,add_code = 0;
 
