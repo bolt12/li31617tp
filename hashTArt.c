@@ -90,8 +90,8 @@ char** hashTArt_Prefix (hashTArt h, char* prefix){
 
 				for (ins_pos = 0; ins_pos < used && (str=strcmp (aux->title, result[ins_pos])) > 0; ins_pos++);
 
-				if (result[ins_pos] == NULL || str){
-					if (used > size * 0.8){
+				if (str || result[ins_pos] == NULL){
+					if (used > (size * 0.8)){
 						size = size * 2;
 						result = realloc(result, size * sizeof(char *));
 					}
