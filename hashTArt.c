@@ -21,7 +21,7 @@ void hashTArt_Init (hashTArt h){
    Se res == 2->Foi adicionada um novo artigo (consequentemente uma nova revisão)
    */
 int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_words, long revision_id, char* timestamp, 
-																		avlArtBytes *avlBytes, avlArtWords *avlWords){
+		avlArtBytes *avlBytes, avlArtWords *avlWords){
 	int pos = hashCode (title_ID);
 	artNodo ant, aux, new = NULL;
 	int res = 0;
@@ -79,27 +79,27 @@ char *hashTArt_GetTitle (hashTArt h, long title_ID){
 
 
 char** hashTArt_Prefix (hashTArt h, char* prefix){
-	int size = 20;
+	int size = 30;
 	char **result = calloc (size, sizeof(char*) );
-	int i, ins_pos,hash_pos, used = 0;
+	int i, ins_pos,hash_pos, used = 0, str=0;
 	artNodo aux;
 
 	for (hash_pos = 0; hash_pos < SIZE; hash_pos++)
 		for (aux = h[hash_pos]; aux; aux = aux->next)
-			if (! strncmp (prefix, aux-> title, strlen (prefix) )){
+			if (!strncmp(prefix, aux->title, strlen(prefix))){
 
-				for (ins_pos = 0; ins_pos < used && strcmp (aux->title, result[ins_pos]) > 0; ins_pos++);
+				for (ins_pos = 0; ins_pos < used && (str=strcmp (aux->title, result[ins_pos])) > 0; ins_pos++);
 
-				if (result[ins_pos] == NULL || strcmp (result[ins_pos], aux->title) != 0){
+				if (result[ins_pos] == NULL || str){
 					if (used > size * 0.8){
 						size = size * 2;
-						result = realloc (result, size * sizeof(char *));
+						result = realloc(result, size * sizeof(char *));
 					}
 
-				for (i = used; i > ins_pos; i--){
-						free (result[i]);
-						result[i] = malloc (strlen (result[i-1]) +1);
-						strcpy (result[i], result[i-1]);
+					for (i = used; i > ins_pos; i--){
+						free(result[i]);
+						result[i] = malloc(strlen (result[i-1]) +1);
+						strcpy(result[i], result[i-1]);
 					}
 
 					*(result+ins_pos) = malloc ((strlen (aux->title)) +1);
@@ -109,7 +109,7 @@ char** hashTArt_Prefix (hashTArt h, char* prefix){
 			}
 	result[used] = NULL;
 	return result;
-	
+
 }
 
 char* hashTArt_Timestamp (hashTArt h, long title_ID, long revision_id){
@@ -164,13 +164,13 @@ avlArtBytes avlArtBytes_Insert(avlArtBytes p, artNodo n)
 		p->artigo = n;
 	else{ 
 		if(n->n_bytes == ((artNodo) p->artigo)->n_bytes){
-		    if(n->title_ID < ((artNodo) p->artigo)->title_ID){
-		    	artNodo aux = p->artigo;
-		    	p->artigo = n;
-		    	n = aux;
-		    }
-	    	p->left = avlArtBytes_Insert(p->left, n);
-	    }
+			if(n->title_ID < ((artNodo) p->artigo)->title_ID){
+				artNodo aux = p->artigo;
+				p->artigo = n;
+				n = aux;
+			}
+			p->left = avlArtBytes_Insert(p->left, n);
+		}
 		else if( n->n_bytes > ((artNodo) p->artigo)->n_bytes )
 			p->right = avlArtBytes_Insert(p->right, n);
 		else
@@ -239,13 +239,13 @@ avlArtWords avlArtWords_Insert(avlArtWords p, artNodo n)
 		p->artigo = n;
 	else{ 
 		if(n->n_words == ((artNodo) p->artigo)->n_words){
-		    if(n->title_ID < ((artNodo) p->artigo)->title_ID){
-		    	artNodo aux = p->artigo;
-		    	p->artigo = n;
-		    	n = aux;
-		    }
-	    	p->left = avlArtWords_Insert(p->left, n);
-	    }
+			if(n->title_ID < ((artNodo) p->artigo)->title_ID){
+				artNodo aux = p->artigo;
+				p->artigo = n;
+				n = aux;
+			}
+			p->left = avlArtWords_Insert(p->left, n);
+		}
 		else if( n->n_words > ((artNodo) p->artigo)->n_words )
 			p->right = avlArtWords_Insert(p->right, n);
 		else

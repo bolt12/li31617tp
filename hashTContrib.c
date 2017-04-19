@@ -74,6 +74,7 @@ void hashTContribClean(hashTContrib ht){
 		prox = ht[indice];
 		while(prox){
 			ant = prox;
+			free(ant->contributor_name);
 			prox = prox->next;
 			free(ant);
 		}
@@ -91,15 +92,15 @@ avlContrib avlContrib_Insert(avlContrib p, Contrib n){
 	if (((Contrib) p->artigo)->contributor_id == n->contributor_id)
 		p->artigo = n;
 	else{
-	    if(n->contributions_number == ((Contrib) p->artigo)->contributions_number){
-		    if(n->contributor_id < ((Contrib) p->artigo)->contributor_id){
-		    	Contrib aux = p->artigo;
-		    	p->artigo = n;
-		    	n = aux;
-		    }
-	    	p->left = avlContrib_Insert(p->left, n);
-	    }
-	    else if ( n->contributions_number > ((Contrib) p->artigo)->contributions_number)
+		if(n->contributions_number == ((Contrib) p->artigo)->contributions_number){
+			if(n->contributor_id < ((Contrib) p->artigo)->contributor_id){
+				Contrib aux = p->artigo;
+				p->artigo = n;
+				n = aux;
+			}
+			p->left = avlContrib_Insert(p->left, n);
+		}
+		else if ( n->contributions_number > ((Contrib) p->artigo)->contributions_number)
 			p->right = avlContrib_Insert(p->right, n);
 		else
 			p->left = avlContrib_Insert(p->left, n);

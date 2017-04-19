@@ -13,6 +13,7 @@ int insertRevision(Revisions* list, long revision_id, char* revision_timestamp){
 		*list = new;
 	} else{
 		if((*list)->revision_id == revision_id){
+			free(new->revision_timestamp);
 			free(new);
 			return 0;
 		}
@@ -25,12 +26,12 @@ int insertRevision(Revisions* list, long revision_id, char* revision_timestamp){
 }
 
 void cleanList(Revisions* list){
-	Revisions next;
+	Revisions aux;
 
 	while(*list){
-		next = (*list)->next;
-		free(*list);
-		*list = next;
+		aux = *list;
+		*list = (*list)->next;
+		free(aux);
 	}
 }
 
