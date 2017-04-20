@@ -123,7 +123,6 @@ char* hashTArt_Timestamp (hashTArt h, long title_ID, long revision_id){
 	return NULL;
 }
 
-
 void hashTArt_Clean (hashTArt h){
 	int i;
 	artNodo aux, ant;
@@ -259,9 +258,8 @@ int avlArtWords_TopN(avlArtWords avl, long* top, int i, int n){
 	if(!avl) return i;
 	if(i<n)
 		i=avlArtWords_TopN(avl->right, top, i, n);
-	if(i<n){
+	if(i<n)
 		top[i++]=((artNodo)avl->artigo)->title_ID;
-	}
 	if(i<n)
 		i=avlArtWords_TopN(avl->left, top, i, n);
 	return i;

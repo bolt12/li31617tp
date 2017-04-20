@@ -139,18 +139,6 @@ void parseText(xmlNodePtr cur, int* nbytes, int* nwords){
 	free(text);
 }
 
-void getText(xmlNodePtr cur){
-	char* text = (char*) xmlNodeGetContent(cur);
-	FILE *f = fopen("761848306.txt","w+");
-	int i = 0;
-	while(text[i] != '\0'){
-		fputc(text[i], f);
-		i++;
-	}
-	fputc('\0',f);
-	fclose(f);
-}
-
 int parseContributors(xmlNodePtr cur, xmlChar** cont_name, xmlChar** cont_id){
 
 	cur = cur->xmlChildrenNode;
@@ -168,6 +156,7 @@ int parseContributors(xmlNodePtr cur, xmlChar** cont_name, xmlChar** cont_id){
 				*cont_id = xmlNodeGetContent(cur);
 			i=1;
 		}
+		
 		cur = cur->next;
 	}
 	return i;
@@ -185,11 +174,9 @@ int parseRevision(xmlNodePtr cur, xmlChar** rv_id, xmlChar** tstamp, xmlChar** c
 			*tstamp = xmlNodeGetContent(cur);
 		if((!xmlStrcmp(cur->name, BAD_CAST "contributor")))
 			i=parseContributors(cur, cont_name, cont_id);
-		if((!xmlStrcmp(cur->name, BAD_CAST "text") && cur->type == 1)){
-			//if(atoi((char*) *rv_id) == 761848306)
-				//getText(cur);
+		if((!xmlStrcmp(cur->name, BAD_CAST "text") && cur->type == 1))
 			parseText(cur, nbytes, nwords);
-		}
+
 		cur = cur->next;
 	}
 	return i;

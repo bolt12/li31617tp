@@ -7,15 +7,7 @@
 #include "linkedListRevisions.h"
 #include "avl.h"
 
-
-/*	ATENCAO : NOTAS IMPORTANTES -> Alterar !!!!
-	Para testar:
-	---> maxHeap substituida por Int 
-	---> SIZE definido como 10
-
-*/
 #define SIZE 19889 // Número primo mais baixo e mais próximo de 19886, número de revisões únicas
-//#define SIZE 10 
 
 typedef struct hashtable{
 	char * title;
@@ -53,6 +45,4 @@ avlArtWords avlArtWords_Remove(avlArtWords avl, artNodo n);
 int avlArtWords_TopN(avlArtWords avl, long* top, int i, int n);
 void avlArtWords_Print(avlArtWords avl);
 
-
 #endif
-
