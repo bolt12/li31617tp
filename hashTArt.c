@@ -79,37 +79,39 @@ char *hashTArt_GetTitle (hashTArt h, long title_ID){
 
 
 char** hashTArt_Prefix (hashTArt h, char* prefix){
-	int size = 30;
-	char **result = calloc (size, sizeof(char*) );
-	int i, ins_pos,hash_pos, used = 0, str=0;
-	artNodo aux;
+	int cond, i = 0, hash_pos, size = 0;
+	artNodo auxNodo;
+	StringList l, auxList, antList;
+	l = NULL;
 
 	for (hash_pos = 0; hash_pos < SIZE; hash_pos++)
-		for (aux = h[hash_pos]; aux; aux = aux->next)
-			if (!strncmp(prefix, aux->title, strlen(prefix))){
+		for (auxNodo = h[hash_pos]; auxNodo; auxNodo = auxNodo->next)
+			if (! strncmp (prefix, auxNodo-> title, strlen (prefix) )){
 
-				for (ins_pos = 0; ins_pos < used && (str=strcmp (aux->title, result[ins_pos])) > 0; ins_pos++);
+				for (antList = auxList = l; auxList && (cond = strcmp (auxNodo->title, auxList ->string)) > 0;
+					antList = auxList, auxList = auxList->next);
 
-				if (str || result[ins_pos] == NULL){
-					if (used > (size * 0.8)){
-						size = size * 2;
-						result = realloc(result, size * sizeof(char *));
-					}
+				if ( !auxList || cond != 0){
+					
+					StringList new = malloc (sizeof (struct stringList));
+					new ->string = malloc ( strlen(auxNodo->title) +1);
+					strcpy (new->string, auxNodo->title);
+					new ->next = auxList;
+					if (antList == auxList) l = new;
+					else antList ->next = new;
 
-					for (i = used; i > ins_pos; i--){
-						free(result[i]);
-						result[i] = malloc(strlen (result[i-1]) +1);
-						strcpy(result[i], result[i-1]);
-					}
-
-					*(result+ins_pos) = malloc ((strlen (aux->title)) +1);
-					strcpy ( *(result+ins_pos) , aux->title);
-					used++;
+					size++;
 				}
 			}
-	result[used] = NULL;
-	return result;
+	char **result = malloc ( (size+1) * sizeof(char*));
 
+	for (auxList = l; auxList; auxList = auxList->next){
+		result[i] = malloc (strlen (auxList -> string)+1);
+		strcpy (result[i], auxList -> string);
+		i++;
+	} 
+	result[i] = NULL;
+	return result;
 }
 
 char* hashTArt_Timestamp (hashTArt h, long title_ID, long revision_id){
