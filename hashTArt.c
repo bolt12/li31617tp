@@ -2,6 +2,12 @@
 #include "hashTArt.h"
 #include "avl.h"
 
+typedef struct stringList{
+	char * string;
+	struct stringList * next;
+
+} *StringList;
+
 /* Funções referentes à hashTArt */
 
 int hashCode (long title_ID){
@@ -77,7 +83,6 @@ char *hashTArt_GetTitle (hashTArt h, long title_ID){
 	return NULL;
 }
 
-
 char** hashTArt_Prefix (hashTArt h, char* prefix){
 	int cond, i = 0, hash_pos, size = 0;
 	artNodo auxNodo;
@@ -112,8 +117,8 @@ char** hashTArt_Prefix (hashTArt h, char* prefix){
 	} 
 	result[i] = NULL;
 	return result;
+	
 }
-
 char* hashTArt_Timestamp (hashTArt h, long title_ID, long revision_id){
 	int pos = hashCode (title_ID);
 	artNodo aux;
