@@ -77,37 +77,35 @@ char *hashTArt_GetTitle (hashTArt h, long title_ID){
 	return NULL;
 }
 
+int stringComparator (const void * a, const void * b ) {
+    const char *pa = *(const char**)a;
+    const char *pb = *(const char**)b;
+
+    return strcmp(pa,pb);
+}
+
 
 char** hashTArt_Prefix (hashTArt h, char* prefix){
 	int size = 30;
 	char **result = calloc (size, sizeof(char*) );
-	int i, ins_pos,hash_pos, used = 0, str=0;
+	int ins_pos=0, hash_pos;
 	artNodo aux;
 
 	for (hash_pos = 0; hash_pos < SIZE; hash_pos++)
 		for (aux = h[hash_pos]; aux; aux = aux->next)
 			if (!strncmp(prefix, aux->title, strlen(prefix))){
 
-				for (ins_pos = 0; ins_pos < used && (str=strcmp (aux->title, result[ins_pos])) > 0; ins_pos++);
-
-				if (str || result[ins_pos] == NULL){
-					if (used > (size * 0.8)){
+					if (ins_pos > (size * 0.8)){
 						size = size * 2;
 						result = realloc(result, size * sizeof(char *));
 					}
 
-					for (i = used; i > ins_pos; i--){
-						free(result[i]);
-						result[i] = malloc(strlen (result[i-1]) +1);
-						strcpy(result[i], result[i-1]);
-					}
-
-					*(result+ins_pos) = malloc ((strlen (aux->title)) +1);
-					strcpy ( *(result+ins_pos) , aux->title);
-					used++;
-				}
+					result[ins_pos] = malloc ((strlen (aux->title)) +1);
+					strcpy (result[ins_pos] , aux->title);
+					ins_pos++;
 			}
-	result[used] = NULL;
+	qsort(result, ins_pos-1, sizeof(char*), stringComparator);
+	result[ins_pos] = NULL;
 	return result;
 
 }
