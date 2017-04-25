@@ -83,39 +83,35 @@ char *hashTArt_GetTitle (hashTArt h, long title_ID){
 	return NULL;
 }
 
+int stringComparator (const void * a, const void * b ) {
+    const char *pa = *(const char**)a;
+    const char *pb = *(const char**)b;
+
+    return strcmp(pa,pb);
+}
+
+
 char** hashTArt_Prefix (hashTArt h, char* prefix){
-	int cond, i = 0, hash_pos, size = 0;
-	artNodo auxNodo;
-	StringList l, auxList, antList;
-	l = NULL;
+	int size = 30;
+	char **result = calloc (size, sizeof(char*) );
+	int ins_pos=0, hash_pos;
+	artNodo aux;
 
 	for (hash_pos = 0; hash_pos < SIZE; hash_pos++)
-		for (auxNodo = h[hash_pos]; auxNodo; auxNodo = auxNodo->next)
-			if (! strncmp (prefix, auxNodo-> title, strlen (prefix) )){
+		for (aux = h[hash_pos]; aux; aux = aux->next)
+			if (!strncmp(prefix, aux->title, strlen(prefix))){
 
-				for (antList = auxList = l; auxList && (cond = strcmp (auxNodo->title, auxList ->string)) > 0;
-					antList = auxList, auxList = auxList->next);
+					if (ins_pos > (size * 0.8)){
+						size = size * 2;
+						result = realloc(result, size * sizeof(char *));
+					}
 
-				if ( !auxList || cond != 0){
-					
-					StringList new = malloc (sizeof (struct stringList));
-					new ->string = malloc ( strlen(auxNodo->title) +1);
-					strcpy (new->string, auxNodo->title);
-					new ->next = auxList;
-					if (antList == auxList) l = new;
-					else antList ->next = new;
-
-					size++;
-				}
+					result[ins_pos] = malloc ((strlen (aux->title)) +1);
+					strcpy (result[ins_pos] , aux->title);
+					ins_pos++;
 			}
-	char **result = malloc ( (size+1) * sizeof(char*));
-
-	for (auxList = l; auxList; auxList = auxList->next){
-		result[i] = malloc (strlen (auxList -> string)+1);
-		strcpy (result[i], auxList -> string);
-		i++;
-	} 
-	result[i] = NULL;
+	qsort(result, ins_pos-1, sizeof(char*), stringComparator);
+	result[ins_pos] = NULL;
 	return result;
 	
 }
