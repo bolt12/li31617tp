@@ -1,4 +1,3 @@
-#include <string.h>
 #include "hashTArt.h"
 #include "avl.h"
 
@@ -35,8 +34,7 @@ int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_wor
 	if(!aux){
 		res++;
 		new = malloc (sizeof (struct hashtable));
-		new-> title = malloc (strlen(title)+1);
-		strcpy (new-> title, title);
+		new-> title = strdup (title);
 		new-> title_ID = title_ID;
 		new-> n_bytes = n_bytes;
 		new-> n_words = n_words;
@@ -58,8 +56,7 @@ int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_wor
 		*avlBytes = avlArtBytes_Remove(*avlBytes,aux);
 		*avlWords = avlArtWords_Remove(*avlWords,aux);
 		free(aux->title);
-		aux-> title = malloc (strlen(title)+1);
-		strcpy (aux-> title, title);
+		aux-> title = strdup (title);
 
 		if (aux->n_bytes < n_bytes) aux->n_bytes = n_bytes;
 		if (aux->n_words < n_words) aux->n_words = n_words;
@@ -106,8 +103,7 @@ char** hashTArt_Prefix (hashTArt h, char* prefix){
 						result = realloc(result, size * sizeof(char *));
 					}
 
-					result[ins_pos] = malloc ((strlen (aux->title)) +1);
-					strcpy (result[ins_pos] , aux->title);
+					result[ins_pos] =strdup (aux->title);
 					ins_pos++;
 			}
 	qsort(result, ins_pos-1, sizeof(char*), stringComparator);
