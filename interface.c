@@ -28,7 +28,7 @@ TAD_istruct load(TAD_istruct qs, int nsnaps, char * snaps_paths[]){
 
 	for(i=0; i<nsnaps; i++){
 
-		doc = xmlReadFile(snaps_paths[i],NULL,0);
+		doc = xmlParseFile(snaps_paths[i]);
 
 		cur = xmlDocGetRootElement (doc);
 
@@ -69,7 +69,7 @@ long all_revisions(TAD_istruct qs){
 }
 
 long* top_10_contributors(TAD_istruct qs){
-	long* top = calloc(10,sizeof(long));
+	long* top = malloc(10*sizeof(long));
 	avlContrib_TopN(qs->avlC, top, 0, 10);
 	return top;
 }       
@@ -79,7 +79,7 @@ char* contributor_name(long contributor_id, TAD_istruct qs){
 }
 
 long* top_20_largest_articles(TAD_istruct qs){
-	long* topLargA = calloc(20,sizeof(long));
+	long* topLargA = malloc(20*sizeof(long));
 	avlArtBytes_TopN(qs->avlAB, topLargA, 0, 20);
 	return topLargA;
 }
@@ -103,11 +103,11 @@ char* article_timestamp(long article_id, long revision_id, TAD_istruct qs){
 }
 
 TAD_istruct clean (TAD_istruct qs){
-	hashTArt_Clean(qs->ht_art);
-	hashTContribClean(qs->ht_contrib);
 	avl_Clean(qs->avlAB);
 	avl_Clean(qs->avlAW);
 	avl_Clean(qs->avlC);
+	hashTArt_Clean(qs->ht_art);
+	hashTContribClean(qs->ht_contrib);
 	return qs;
 }
 

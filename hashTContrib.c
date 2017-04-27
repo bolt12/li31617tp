@@ -22,8 +22,7 @@ int hashTContribAdd(hashTContrib h, char* contributor_name, long contributor_id,
 	for(aux = ant = h[pos]; aux && aux -> contributor_id != contributor_id; ant = aux, aux = aux-> next);
 	if(!aux){
 		new = malloc (sizeof (struct hashtablecontrib));
-		new->contributor_name = malloc (strlen(contributor_name)+1);
-		strcpy(new->contributor_name, contributor_name);
+		new->contributor_name = strdup(contributor_name);
 		new->contributor_id = contributor_id;
 		new->contributions_number=1;
 		new->next = NULL;

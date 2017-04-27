@@ -1,12 +1,6 @@
 #include "hashTArt.h"
 #include "avl.h"
 
-typedef struct stringList{
-	char * string;
-	struct stringList * next;
-
-} *StringList;
-
 /* Funções referentes à hashTArt */
 
 int hashCode (long title_ID){
@@ -87,10 +81,9 @@ int stringComparator (const void * a, const void * b ) {
     return strcmp(pa,pb);
 }
 
-
 char** hashTArt_Prefix (hashTArt h, char* prefix){
 	int size = 30;
-	char **result = calloc (size, sizeof(char*) );
+	char **result = malloc (size*sizeof(char*) );
 	int ins_pos=0, hash_pos;
 	artNodo aux;
 
