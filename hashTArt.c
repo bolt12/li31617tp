@@ -69,10 +69,10 @@ char *hashTArt_GetTitle (hashTArt h, long title_ID){
 }
 
 int stringComparator (const void * a, const void * b ) {
-    const char *pa = *(const char**)a;
-    const char *pb = *(const char**)b;
+	const char *pa = *(const char**)a;
+	const char *pb = *(const char**)b;
 
-    return strcmp(pa,pb);
+	return strcmp(pa,pb);
 }
 
 
@@ -80,25 +80,29 @@ char** hashTArt_Prefix (hashTArt h, char* prefix){
 	int size = 30;
 	char **result = malloc (size*sizeof(char*) );
 	int ins_pos=0;
-	
+
 	int hash_pos;
+	#pragma omp parallel for
 	for (hash_pos = 0; hash_pos < SIZE; hash_pos++){
 		artNodo aux;
 		for (aux = h[hash_pos]; aux; aux = aux->next)
 			if (!strncmp(prefix, aux->title, strlen(prefix))){
-					if (ins_pos > (size * 0.8)){
+				if (ins_pos > (size * 0.8)){
+					#pragma omp critical
+					{
 						size = size * 2;
 						result = realloc(result, size * sizeof(char *));
 					}
+				}
 
-					result[ins_pos] =strdup (aux->title);
-					ins_pos++;
+				#pragma omp critical
+				result[ins_pos++] =strdup (aux->title);
 			}
 	}
 	qsort(result, ins_pos-1, sizeof(char*), stringComparator);
 	result[ins_pos] = NULL;
 	return result;
-	
+
 }
 
 char* hashTArt_Timestamp (hashTArt h, long title_ID, long revision_id){
@@ -247,7 +251,7 @@ void insertOrderedA(LinkedList* list, artNodo a){
 		(*list)->next = NULL;
 	}
 	else
-	*list = newNodeA(*list, a);
+		*list = newNodeA(*list, a);
 }
 
 void getTop20NodesA(hashTArt ht, LinkedList* list){

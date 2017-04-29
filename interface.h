@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <omp.h>
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h>
 #include "hashTArt.h"

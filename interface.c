@@ -1,5 +1,4 @@
 #include "interface.h"
-#include <omp.h>
 
 struct TCD_istruct{
 	long all_articles, unique_articles, all_revisions;
@@ -28,10 +27,8 @@ TAD_istruct load(TAD_istruct qs, int nsnaps, char * snaps_paths[]){
 	xmlDocPtr doc;
 	xmlNodePtr cur;
 	int i;
-#pragma omp parallel for ordered private(doc, cur)
+	#pragma omp parallel for ordered private(doc, cur)
 	for(i=0; i<nsnaps; i++){
-
-		printf("Thread num: %d parsing file %s\n", omp_get_thread_num(), snaps_paths[i]);
 
 		doc = xmlParseFile(snaps_paths[i]);
 
@@ -40,46 +37,37 @@ TAD_istruct load(TAD_istruct qs, int nsnaps, char * snaps_paths[]){
 		if (cur == NULL) {
 			fprintf(stderr,"empty document\n");
 			xmlFreeDoc(doc);
-			//return 0;
+			exit(-1);
 		}
 
 		if (xmlStrcmp(cur->name, (const xmlChar *) "mediawiki")) {
 			fprintf(stderr,"document of the wrong type, root node != mediawiki");
 			xmlFreeDoc(doc);
-			//return 0;
+			exit(-1);
 		}
 
 		cur = cur->xmlChildrenNode;
-			printf("Thread num: %d loading into structs\n", omp_get_thread_num());
-#pragma omp ordered
-			{
-		while(cur){
-			if((!xmlStrcmp(cur->name, BAD_CAST "page"))){
-				parsePage(qs,cur);
+	#pragma omp ordered
+		{
+			while(cur){
+				if((!xmlStrcmp(cur->name, BAD_CAST "page"))){
+					parsePage(qs,cur);
+				}
+				cur=cur->next;
 			}
-			cur=cur->next;
+			xmlFreeDoc(doc);
 		}
-		xmlFreeDoc(doc);
-}
-}
-#pragma omp parallel sections
-{
-#pragma omp section
+	}
+	#pragma omp parallel sections
 	{
-			printf("Thread num: %d loading into structs\n", omp_get_thread_num());
-	getTop10NodesC(qs->ht_contrib, &(qs->top10Contribs));
+	#pragma omp section
+			getTop10NodesC(qs->ht_contrib, &(qs->top10Contribs));
+	#pragma omp section
+			getTop20NodesA(qs->ht_art, &(qs->top20LongestArticles));
+	#pragma omp section
+			qs->avlAW = avlArtWords_InsertALL(qs->ht_art, qs->avlAW);
 	}
-#pragma omp section
-	{
-			printf("Thread num: %d loading into structs\n", omp_get_thread_num());
-	getTop20NodesA(qs->ht_art, &(qs->top20LongestArticles));
-	}
-#pragma omp section
-	{
-			printf("Thread num: %d loading into structs\n", omp_get_thread_num());
-	qs->avlAW = avlArtWords_InsertALL(qs->ht_art, qs->avlAW);
-	}
-	}
+
 	return qs;
 }
 
@@ -126,11 +114,20 @@ char* article_timestamp(long article_id, long revision_id, TAD_istruct qs){
 }
 
 TAD_istruct clean (TAD_istruct qs){
+#pragma omp parallel sections
+	{
+#pragma omp section
+		{
 	cleanList(qs->top10Contribs);
 	cleanList(qs->top20LongestArticles);
+		}
+#pragma omp section
 	avl_Clean(qs->avlAW);
+#pragma omp section
 	hashTArt_Clean(qs->ht_art);
+#pragma omp section
 	hashTContribClean(qs->ht_contrib);
+	}
 	return qs;
 }
 
@@ -179,7 +176,7 @@ int parseContributors(xmlNodePtr cur, xmlChar** cont_name, xmlChar** cont_id){
 				*cont_id = xmlNodeGetContent(cur);
 			i=1;
 		}
-		
+
 		cur = cur->next;
 	}
 	return i;
@@ -223,7 +220,7 @@ void parsePage(TAD_istruct qs, xmlNodePtr cur){
 		cur = cur->next;
 	}
 	add_code = hashTArt_Add (qs->ht_art, (char*)title, (long) atoll( (char*) title_id), n_bytes, n_words, 
-							(long) atoll( (char*) revision_id), (char*) timestamp, &(qs->avlAW));
+			(long) atoll( (char*) revision_id), (char*) timestamp, &(qs->avlAW));
 	qs->all_articles++;
 	if (add_code) qs-> all_revisions++;
 	if (add_code == 2) qs-> unique_articles++;
