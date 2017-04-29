@@ -4,8 +4,8 @@ struct TCD_istruct{
 	long all_articles, unique_articles, all_revisions;
 	hashTArt ht_art;
 	hashTContrib ht_contrib;
-	LLig top10Contribs;
-	LLig top20LongestArticles;
+	LinkedList top10Contribs;
+	LinkedList top20LongestArticles;
 	avlArtWords avlAW;
 };
 
@@ -105,8 +105,8 @@ char* article_timestamp(long article_id, long revision_id, TAD_istruct qs){
 }
 
 TAD_istruct clean (TAD_istruct qs){
-	cleanL(qs->top10Contribs);
-	cleanL(qs->top20LongestArticles);
+	cleanList(qs->top10Contribs);
+	cleanList(qs->top20LongestArticles);
 	avl_Clean(qs->avlAW);
 	hashTArt_Clean(qs->ht_art);
 	hashTContribClean(qs->ht_contrib);

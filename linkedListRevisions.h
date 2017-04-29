@@ -5,21 +5,20 @@
 #include <stdio.h>
 #include <string.h>
 
+typedef struct revision{
+	long revision_id;
+	char* revision_timestamp;
+} *Revision;
+
 typedef struct llig{
 	void *node;
 	struct llig *next;
-} *LLig;
+} *LinkedList;
 
-void cleanL(LLig);
-
-typedef struct revisionsList{
-	long revision_id;
-	char* revision_timestamp;
-	struct revisionsList *next;
-} *Revisions;
-
-int insertRevision(Revisions*, long, char*);
-void cleanList(Revisions);
-char* retrieveTimestamp(Revisions, long);
+int insertRevision(LinkedList*, long, char*);
+char* retrieveTimestamp(LinkedList, long);
+long getRevisionId(Revision);
+void cleanList(LinkedList);
+void cleanRevisionList(LinkedList);
 
 #endif

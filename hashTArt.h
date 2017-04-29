@@ -15,7 +15,7 @@ typedef struct hashtable{
 	int n_bytes;
 	int n_words;
 	int heapInd;
-	Revisions revisions;
+	LinkedList revisions;
 	struct hashtable * next;	
 }*hashTArt[SIZE], *artNodo;
 
@@ -39,7 +39,7 @@ avlArtWords avlArtWords_Remove(avlArtWords avl, artNodo n);
 int avlArtWords_TopN(avlArtWords avl, long* top, int i, int n);
 void avlArtWords_Print(avlArtWords avl);
 
-void getTop10NodesA(hashTArt, LLig*);
-long* getTop10A(LLig);
+void getTop10NodesA(hashTArt, LinkedList*);
+long* getTop10A(LinkedList);
 
 #endif

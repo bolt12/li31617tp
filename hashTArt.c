@@ -119,7 +119,7 @@ void hashTArt_Clean (hashTArt h){
 		aux = h[i];
 		while (aux){
 			free (aux-> title);
-			cleanList(aux->revisions);
+			cleanRevisionList(aux->revisions);
 			ant = aux;
 			aux = aux->next;
 			free(ant);
@@ -135,7 +135,7 @@ void hashTArt_Print (hashTArt h){
 
 		for(aux = h[i]; aux; aux = aux-> next){
 			printf("%p \t%d->",h[i], i);
-			printf("Title: %ld\t",aux->revisions->revision_id);
+			printf("Title: %ld\t",getRevisionId((Revision)(aux->revisions->node)));
 		}
 		printf("\n");
 	}
@@ -226,8 +226,8 @@ void avlArtWords_Print(avlArtWords p){
 	return;
 }
 
-LLig newNodeA (LLig l, artNodo a){
-	LLig new = malloc(sizeof(struct llig));
+LinkedList newNodeA (LinkedList l, artNodo a){
+	LinkedList new = malloc(sizeof(struct llig));
 
 	if(new){
 		new->node = a;
@@ -236,13 +236,13 @@ LLig newNodeA (LLig l, artNodo a){
 	return new;
 }
 
-void insertOrderedA(LLig* list, artNodo a){
+void insertOrderedA(LinkedList* list, artNodo a){
 	while((*list!=NULL) && ((artNodo)(*list)->node)->n_bytes > a->n_bytes)
 		list = &((*list)->next);
 	*list = newNodeA(*list, a);
 }
 
-void getTop10NodesA(hashTArt ht, LLig* list){
+void getTop10NodesA(hashTArt ht, LinkedList* list){
 	artNodo aux;
 	for(int i=0; i<SIZE; i++){
 		for(aux = ht[i]; aux; aux=aux->next){
@@ -251,9 +251,9 @@ void getTop10NodesA(hashTArt ht, LLig* list){
 	}
 }
 
-long* getTop10A(LLig list){
+long* getTop10A(LinkedList list){
 	long* top20 = malloc(sizeof(long)*20);
-	LLig aux;
+	LinkedList aux;
 	int i;
 	for(aux=list, i=0; aux && i<20; aux=aux->next, i++){
 		top20[i] = ((artNodo)aux->node)->title_ID;

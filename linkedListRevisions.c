@@ -1,59 +1,78 @@
 #include "linkedListRevisions.h"
 
-
-int insertRevision(Revisions* list, long revision_id, char* revision_timestamp){
-	Revisions new;
-
-	new = malloc(sizeof(struct revisionsList));
+Revision createRevision (long revision_id, char* timestamp){
+	Revision new = malloc(sizeof(struct revision));
 	new->revision_id = revision_id;
-	new->revision_timestamp = strdup(revision_timestamp);
-	new->next = NULL;
+	new->revision_timestamp = strdup(timestamp);
+	return new;
+
+}
+
+void freeRevision(Revision revision){
+	 free(revision->revision_timestamp);
+	 free(revision);
+}
+
+int insertRevision(LinkedList* list, long revision_id, char* timestamp){
+	Revision newRevision = createRevision(revision_id,timestamp);
+	Revision listHead;
+	LinkedList newList = malloc(sizeof(struct llig));
+	newList->node = newRevision;
+	newList->next = NULL;
 
 	if(!(*list)){
-		*list = new;
+		*list = newList;
 	} else{
-		if((*list)->revision_id == revision_id){
-			free(new->revision_timestamp);
-			free(new);
+		listHead = ((Revision)(*list)->node);
+		if(listHead->revision_id == revision_id){
+
+			freeRevision(newRevision);
+			free(newList);
 			return 0;
 		}
 		else{
-			new->next = (*list);
-			*list = new;
+			newList->next = (*list);
+			*list = newList;
 		}
 	}
 	return 1;
 }
-
-void cleanList(Revisions list){
-	Revisions aux;
+void cleanRevisionList(LinkedList list){
+	LinkedList aux;
 
 	while(list){
 		aux = list;
+		freeRevision((Revision)(list->node));
 		list = list->next;
 		free(aux);
 	}
 }
-
-void cleanL(LLig list){
-	LLig aux;
-
-	while(list){
-		aux = list;
-		list = list->next;
-		free(aux);
-	}
-}
-
-char* retrieveTimestamp(Revisions list, long revision_id){
-	Revisions head = list;
+char* retrieveTimestamp(LinkedList list, long revision_id){
+	LinkedList head = list;
+	Revision revisionNode;
 
 	while(head){
-		if(head->revision_id == revision_id)
-			return head->revision_timestamp;
+		revisionNode = (Revision) list->node;
+		if(revisionNode->revision_id == revision_id)
+			return revisionNode->revision_timestamp;
 		else
 			head = head->next;
 	}
 
 	return NULL;
 }
+long getRevisionId(Revision revision){
+	return revision->revision_id;
+}
+
+void cleanList(LinkedList list){
+	LinkedList aux;
+
+	while(list){
+		aux = list;
+		list = list->next;
+		free(aux);
+	}
+}
+
+

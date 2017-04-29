@@ -77,8 +77,8 @@ void hashTContribClean(hashTContrib ht){
 	}
 }
 
-LLig newNodeC (LLig l, Contrib c){
-	LLig new = malloc(sizeof(struct llig));
+LinkedList newNodeC (LinkedList l, Contrib c){
+	LinkedList new = malloc(sizeof(struct llig));
 
 	if(new){
 		new->node = c;
@@ -87,13 +87,13 @@ LLig newNodeC (LLig l, Contrib c){
 	return new;
 }
 
-void insertOrderedC(LLig* list, Contrib c){
+void insertOrderedC(LinkedList* list, Contrib c){
 	while((*list!=NULL) && ((Contrib)(*list)->node)->contributions_number > c->contributions_number)
 		list = &((*list)->next);
 	*list = newNodeC(*list, c);
 }
 
-void getTop10NodesC(hashTContrib ht, LLig* list){
+void getTop10NodesC(hashTContrib ht, LinkedList* list){
 	int i;
 	for(i=0; i<SIZE; i++){
 		Contrib aux;
@@ -103,9 +103,9 @@ void getTop10NodesC(hashTContrib ht, LLig* list){
 	}
 }
 
-long* getTop10C(LLig list){
+long* getTop10C(LinkedList list){
 	long* top10 = calloc(sizeof(long),10);
-	LLig aux;
+	LinkedList aux;
 	int i;
 	for(aux=list, i=0; aux && i<10; aux=aux->next, i++){
 		top10[i] = ((Contrib)aux->node)->contributor_id;

@@ -21,7 +21,7 @@ char* hashTContribRetrieveName(hashTContrib ht, long contributor_id);
 int hashTContribRetrieveContributions(hashTContrib ht, long contributor_id);
 void hashTContribClean(hashTContrib ht);
 
-void getTop10NodesC(hashTContrib, LLig*);
-long* getTop10C(LLig list);
+void getTop10NodesC(hashTContrib, LinkedList*);
+long* getTop10C(LinkedList list);
 #endif
 
