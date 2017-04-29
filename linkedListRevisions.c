@@ -52,15 +52,15 @@ char* retrieveTimestamp(LinkedList list, long revision_id){
 	Revision revisionNode;
 
 	while(head){
-		revisionNode = (Revision) list->node;
+		revisionNode = (Revision) (head->node);
 		if(revisionNode->revision_id == revision_id)
 			return revisionNode->revision_timestamp;
 		else
 			head = head->next;
 	}
-
 	return NULL;
 }
+
 long getRevisionId(Revision revision){
 	return revision->revision_id;
 }

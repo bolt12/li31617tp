@@ -30,7 +30,7 @@ int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_wor
 		new-> title_ID = title_ID;
 		new-> n_bytes = n_bytes;
 		new-> n_words = n_words;
-		new-> revisions = NULL;
+		new->revisions = NULL;
 		new-> next = NULL;
 		if(!h[pos]){
 			h[pos] = new;
@@ -53,7 +53,7 @@ int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_wor
 		*avlWords = avlArtWords_Insert(*avlWords,aux);
 	}
 
-	res += insertRevision(&aux->revisions, revision_id, timestamp);
+	res += insertRevision(&(aux->revisions), revision_id, timestamp);
 
 	return res;
 }
