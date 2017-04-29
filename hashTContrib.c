@@ -1,5 +1,5 @@
-
 #include "string.h"
+#include "linkedListRevisions.h"
 #include "hashTContrib.h"
 #include "avl.h"
 
@@ -14,7 +14,7 @@ void hashTContribInit(hashTContrib ht){
 	}
 }
 
-int hashTContribAdd(hashTContrib h, char* contributor_name, long contributor_id, avlContrib *avl){
+int hashTContribAdd(hashTContrib h, char* contributor_name, long contributor_id){
 	int pos = hashTContribHash(contributor_id);
 
 	Contrib ant, aux, new = NULL;
@@ -28,18 +28,14 @@ int hashTContribAdd(hashTContrib h, char* contributor_name, long contributor_id,
 		new->next = NULL;
 		if(!h[pos]){
 			h[pos] = new;
-			*avl = avlContrib_Insert(*avl,new);
 		}
 		else{
 			ant->next = new;
-			*avl = avlContrib_Insert(*avl,new);
 		}
 		return 1;
 	}
 	else{
-		*avl=avlContrib_Remove(*avl,aux);
 		(aux->contributions_number)+=1;
-		*avl=avlContrib_Insert(*avl, aux);
 		return 1;
 	}
 	return 0;
@@ -81,70 +77,38 @@ void hashTContribClean(hashTContrib ht){
 	}
 }
 
-/* Funções referentes à avlContrib */
+LLig newNodeC (LLig l, Contrib c){
+	LLig new = malloc(sizeof(struct llig));
 
-avlContrib avlContrib_Insert(avlContrib p, Contrib n){
+	if(new){
+		new->node = c;
+		new->next = l;
+	}
+	return new;
+}
 
-	if ( !p )
-		return new_AVL(n);
+void insertOrderedC(LLig* list, Contrib c){
+	while((*list!=NULL) && ((Contrib)(*list)->node)->contributions_number > c->contributions_number)
+		list = &((*list)->next);
+	*list = newNodeC(*list, c);
+}
 
-	if (((Contrib) p->artigo)->contributor_id == n->contributor_id)
-		p->artigo = n;
-	else{
-		if(n->contributions_number == ((Contrib) p->artigo)->contributions_number){
-			if(n->contributor_id < ((Contrib) p->artigo)->contributor_id){
-				Contrib aux = p->artigo;
-				p->artigo = n;
-				n = aux;
-			}
-			p->left = avlContrib_Insert(p->left, n);
+void getTop10NodesC(hashTContrib ht, LLig* list){
+	int i;
+	for(i=0; i<SIZE; i++){
+		Contrib aux;
+		for(aux = ht[i]; aux; aux=aux->next){
+			insertOrderedC(list, aux);
 		}
-		else if ( n->contributions_number > ((Contrib) p->artigo)->contributions_number)
-			p->right = avlContrib_Insert(p->right, n);
-		else
-			p->left = avlContrib_Insert(p->left, n);
 	}
-
-	return balance(p);
 }
 
-avlContrib avlContrib_Remove(avlContrib p, Contrib n)
-{
-	if ( !p )
-		return NULL;
-
-	if ( n->contributions_number < ((Contrib) p->artigo)->contributions_number)
-		p->left = avlContrib_Remove(p->left, n);
-	else if ( n->contributions_number > ((Contrib) p->artigo)->contributions_number )
-		p->right = avlContrib_Remove(p->right, n);
-	else if (((Contrib) p->artigo)->contributor_id == n->contributor_id)
-	{
-		avlContrib l = p->left;
-		avlContrib r = p->right;
-		free(p);
-
-		if ( r == NULL )
-			return l;
-
-		avlContrib m = find_min(r);
-		m->right = remove_min(r);
-		m->left = l;
-
-		return balance(m);
+long* getTop10C(LLig list){
+	long* top10 = calloc(sizeof(long),10);
+	LLig aux;
+	int i;
+	for(aux=list, i=0; aux && i<10; aux=aux->next, i++){
+		top10[i] = ((Contrib)aux->node)->contributor_id;
 	}
-
-	return balance(p);
+	return top10;
 }
-
-int avlContrib_TopN(avlContrib avl, long* top, int i, int n){
-	if(!avl) return i;
-	if(i<10)
-		i=avlContrib_TopN(avl->right, top, i, n);
-	if(i<10){
-		top[i++]=((Contrib)avl->artigo)->contributor_id;
-	}
-	if(i<10)
-		i=avlContrib_TopN(avl->left, top, i, n);
-	return i;
-}
-

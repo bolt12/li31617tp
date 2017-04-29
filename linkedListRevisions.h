@@ -5,6 +5,13 @@
 #include <stdio.h>
 #include <string.h>
 
+typedef struct llig{
+	void *node;
+	struct llig *next;
+} *LLig;
+
+void cleanL(LLig);
+
 typedef struct revisionsList{
 	long revision_id;
 	char* revision_timestamp;
@@ -12,7 +19,7 @@ typedef struct revisionsList{
 } *Revisions;
 
 int insertRevision(Revisions*, long, char*);
-void cleanList(Revisions*);
+void cleanList(Revisions);
 char* retrieveTimestamp(Revisions, long);
 
 #endif

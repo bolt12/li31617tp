@@ -4,9 +4,9 @@ struct TCD_istruct{
 	long all_articles, unique_articles, all_revisions;
 	hashTArt ht_art;
 	hashTContrib ht_contrib;
-	avlArtBytes avlAB;
+	LLig top10Contribs;
+	LLig top20LongestArticles;
 	avlArtWords avlAW;
-	avlContrib avlC;
 };
 
 TAD_istruct init(){
@@ -14,6 +14,8 @@ TAD_istruct init(){
 	qs->all_articles = qs->all_revisions = qs->unique_articles = 0;
 	hashTArt_Init(qs->ht_art);
 	hashTContribInit(qs->ht_contrib);
+	qs->top10Contribs = NULL;
+	qs->top20LongestArticles = NULL;
 
 	return qs;
 };
@@ -50,9 +52,11 @@ TAD_istruct load(TAD_istruct qs, int nsnaps, char * snaps_paths[]){
 				parsePage(qs,cur);
 			cur=cur->next;
 		}
-
 		xmlFreeDoc(doc);
 	}
+
+	getTop10NodesC(qs->ht_contrib, &(qs->top10Contribs));
+	getTop10NodesA(qs->ht_art, &(qs->top20LongestArticles));
 	return qs;
 }
 
@@ -69,9 +73,7 @@ long all_revisions(TAD_istruct qs){
 }
 
 long* top_10_contributors(TAD_istruct qs){
-	long* top = malloc(10*sizeof(long));
-	avlContrib_TopN(qs->avlC, top, 0, 10);
-	return top;
+	return getTop10C(qs->top10Contribs);
 }       
 
 char* contributor_name(long contributor_id, TAD_istruct qs){
@@ -79,9 +81,7 @@ char* contributor_name(long contributor_id, TAD_istruct qs){
 }
 
 long* top_20_largest_articles(TAD_istruct qs){
-	long* topLargA = malloc(20*sizeof(long));
-	avlArtBytes_TopN(qs->avlAB, topLargA, 0, 20);
-	return topLargA;
+	return getTop10A(qs->top20LongestArticles);
 }
 
 char* article_title(long article_id, TAD_istruct qs){
@@ -103,9 +103,9 @@ char* article_timestamp(long article_id, long revision_id, TAD_istruct qs){
 }
 
 TAD_istruct clean (TAD_istruct qs){
-	avl_Clean(qs->avlAB);
+	cleanL(qs->top10Contribs);
+	cleanL(qs->top20LongestArticles);
 	avl_Clean(qs->avlAW);
-	avl_Clean(qs->avlC);
 	hashTArt_Clean(qs->ht_art);
 	hashTContribClean(qs->ht_contrib);
 	return qs;
@@ -199,8 +199,8 @@ void parsePage(TAD_istruct qs, xmlNodePtr cur){
 
 		cur = cur->next;
 	}
-	add_code = hashTArt_Add (qs->ht_art, (char*)title, (long) atoi( (char*) title_id), n_bytes, n_words, 
-							(long) atoi( (char*) revision_id), (char*) timestamp, &(qs->avlAB),&(qs->avlAW));
+	add_code = hashTArt_Add (qs->ht_art, (char*)title, (long) atoll( (char*) title_id), n_bytes, n_words, 
+							(long) atoll( (char*) revision_id), (char*) timestamp, &(qs->avlAW));
 	qs->all_articles++;
 	if (add_code) qs-> all_revisions++;
 	if (add_code == 2) qs-> unique_articles++;
@@ -211,7 +211,7 @@ void parsePage(TAD_istruct qs, xmlNodePtr cur){
 	xmlFree(timestamp);
 	if(contrib){ 
 		if(add_code) 
-			hashTContribAdd(qs->ht_contrib,(char*) contributor_name, (long) atoi( (char*) contributor_id), &(qs->avlC));
+			hashTContribAdd(qs->ht_contrib,(char*) contributor_name, (long) atoi( (char*) contributor_id));
 		xmlFree(contributor_id);
 		xmlFree(contributor_name);
 	}

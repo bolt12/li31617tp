@@ -15,18 +15,13 @@ typedef struct hashtablecontrib{
 typedef struct avl *avlContrib;
 
 void hashTContribInit(hashTContrib ht);
-int hashTContribAdd(hashTContrib ht, char* contributor_name, long contributor_id, avlContrib *avl);
+int hashTContribAdd(hashTContrib ht, char* contributor_name, long contributor_id);
 int hashTContribHash(long contributor_id);
 char* hashTContribRetrieveName(hashTContrib ht, long contributor_id);
 int hashTContribRetrieveContributions(hashTContrib ht, long contributor_id);
 void hashTContribClean(hashTContrib ht);
 
-/* Funções referentes à avlcontrib */
-
-avlContrib avlContrib_Insert(avlContrib avl, Contrib n);
-avlContrib avlContrib_Remove(avlContrib avl, Contrib n);
-int avlContrib_TopN(avlContrib avl, long* top, int i, int n);
-void avlContrib_Print(avlContrib avl);
-
+void getTop10NodesC(hashTContrib, LLig*);
+long* getTop10C(LLig list);
 #endif
 

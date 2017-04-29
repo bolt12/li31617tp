@@ -1,5 +1,6 @@
 #include "linkedListRevisions.h"
 
+
 int insertRevision(Revisions* list, long revision_id, char* revision_timestamp){
 	Revisions new;
 
@@ -24,12 +25,22 @@ int insertRevision(Revisions* list, long revision_id, char* revision_timestamp){
 	return 1;
 }
 
-void cleanList(Revisions* list){
+void cleanList(Revisions list){
 	Revisions aux;
 
-	while(*list){
-		aux = *list;
-		*list = (*list)->next;
+	while(list){
+		aux = list;
+		list = list->next;
+		free(aux);
+	}
+}
+
+void cleanL(LLig list){
+	LLig aux;
+
+	while(list){
+		aux = list;
+		list = list->next;
 		free(aux);
 	}
 }

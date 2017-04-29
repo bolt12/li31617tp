@@ -19,8 +19,7 @@ void hashTArt_Init (hashTArt h){
    Se res == 1->Foi adicionada apenas uma revisão
    Se res == 2->Foi adicionada um novo artigo (consequentemente uma nova revisão)
    */
-int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_words, long revision_id, char* timestamp, 
-		avlArtBytes *avlBytes, avlArtWords *avlWords){
+int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_words, long revision_id, char* timestamp, avlArtWords *avlWords){
 	int pos = hashCode (title_ID);
 	artNodo ant, aux, new = NULL;
 	int res = 0;
@@ -36,18 +35,15 @@ int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_wor
 		new-> next = NULL;
 		if(!h[pos]){
 			h[pos] = new;
-			*avlBytes = avlArtBytes_Insert(*avlBytes,new);
 			*avlWords = avlArtWords_Insert(*avlWords,new);
 		}
 		else{
 			ant->next = new;
-			*avlBytes = avlArtBytes_Insert(*avlBytes,new);
 			*avlWords = avlArtWords_Insert(*avlWords,new);
 		}
 		aux = new;
 	}
 	else{
-		*avlBytes = avlArtBytes_Remove(*avlBytes,aux);
 		*avlWords = avlArtWords_Remove(*avlWords,aux);
 		free(aux->title);
 		aux-> title = strdup (title);
@@ -55,7 +51,6 @@ int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_wor
 		if (aux->n_bytes < n_bytes) aux->n_bytes = n_bytes;
 		if (aux->n_words < n_words) aux->n_words = n_words;
 
-		*avlBytes = avlArtBytes_Insert(*avlBytes, aux);
 		*avlWords = avlArtWords_Insert(*avlWords,aux);
 	}
 
@@ -122,7 +117,7 @@ void hashTArt_Clean (hashTArt h){
 		aux = h[i];
 		while (aux){
 			free (aux-> title);
-			cleanList(&aux->revisions);
+			cleanList(aux->revisions);
 			ant = aux;
 			aux = aux->next;
 			free(ant);
@@ -142,81 +137,6 @@ void hashTArt_Print (hashTArt h){
 		}
 		printf("\n");
 	}
-}
-
-/* Funções referentes à avlArtBytes */
-
-avlArtBytes avlArtBytes_Insert(avlArtBytes p, artNodo n)
-{
-	if ( !p )
-		return new_AVL(n);
-
-	if (((artNodo) p->artigo)->title_ID == n->title_ID)
-		p->artigo = n;
-	else{ 
-		if(n->n_bytes == ((artNodo) p->artigo)->n_bytes){
-			if(n->title_ID < ((artNodo) p->artigo)->title_ID){
-				artNodo aux = p->artigo;
-				p->artigo = n;
-				n = aux;
-			}
-			p->left = avlArtBytes_Insert(p->left, n);
-		}
-		else if( n->n_bytes > ((artNodo) p->artigo)->n_bytes )
-			p->right = avlArtBytes_Insert(p->right, n);
-		else
-			p->left = avlArtBytes_Insert(p->left, n);
-	}
-	return balance(p);
-}
-
-int avlArtBytes_TopN(avlArtBytes avl, long* top, int i, int n){
-
-	if(!avl) return i;
-	if(i<n)
-		i=avlArtBytes_TopN(avl->right, top, i, n);
-	if(i<n)
-		top[i++]=((artNodo)avl->artigo)->title_ID;
-	if(i<n)
-		i=avlArtBytes_TopN(avl->left, top, i, n);
-	return i;
-}
-
-avlArtBytes avlArtBytes_Remove(avlArtBytes p, artNodo n)
-{
-	if ( !p )
-		return NULL;
-
-	if ( n->n_bytes < ((artNodo) p->artigo)->n_bytes)
-		p->left = avlArtBytes_Remove(p->left, n);
-	else if ( n->n_bytes > ((artNodo) p->artigo)->n_bytes )
-		p->right = avlArtBytes_Remove(p->right, n);
-	else if (((artNodo) p->artigo)->title_ID == n->title_ID)
-	{
-		avlArtBytes l = p->left;
-		avlArtBytes r = p->right;
-		free(p);
-
-		if ( r == NULL )
-			return l;
-
-		avlArtBytes m = find_min(r);
-		m->right = remove_min(r);
-		m->left = l;
-
-		return balance(m);
-	}
-
-	return balance(p);
-}
-
-void avlArtBytes_Print(avlArtBytes p){
-	if(p){
-		avlArtBytes_Print(p->left);
-		printf("Title: %s; n_bytes: %d\n", ((artNodo) p->artigo)->title, ((artNodo) p->artigo)->n_bytes);
-		avlArtBytes_Print(p->right);
-	}
-	return;
 }
 
 /* Funções referentes à avlArtWords */
@@ -292,4 +212,40 @@ void avlArtWords_Print(avlArtWords p){
 		avlArtWords_Print(p->right);
 	}
 	return;
+}
+
+LLig newNodeA (LLig l, artNodo a){
+	LLig new = malloc(sizeof(struct llig));
+
+	if(new){
+		new->node = a;
+		new->next = l;
+	}
+	return new;
+}
+
+void insertOrderedA(LLig* list, artNodo a){
+	while((*list!=NULL) && ((artNodo)(*list)->node)->n_bytes > a->n_bytes)
+		list = &((*list)->next);
+	*list = newNodeA(*list, a);
+}
+
+void getTop10NodesA(hashTArt ht, LLig* list){
+	int i;
+	for(i=0; i<SIZE; i++){
+		artNodo aux;
+		for(aux = ht[i]; aux; aux=aux->next){
+			insertOrderedA(list, aux);
+		}
+	}
+}
+
+long* getTop10A(LLig list){
+	long* top20 = calloc(sizeof(long),20);
+	LLig aux;
+	int i;
+	for(aux=list, i=0; aux && i<20; aux=aux->next, i++){
+		top20[i] = ((artNodo)aux->node)->title_ID;
+	}
+	return top20;
 }
