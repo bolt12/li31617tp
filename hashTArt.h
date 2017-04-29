@@ -39,7 +39,7 @@ avlArtWords avlArtWords_Remove(avlArtWords avl, artNodo n);
 int avlArtWords_TopN(avlArtWords avl, long* top, int i, int n);
 void avlArtWords_Print(avlArtWords avl);
 
-void getTop10NodesA(hashTArt, LinkedList*);
-long* getTop10A(LinkedList);
+void getTop20NodesA(hashTArt, LinkedList*);
+long* getTop20A(LinkedList);
 
 #endif

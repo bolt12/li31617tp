@@ -237,12 +237,20 @@ LinkedList newNodeA (LinkedList l, artNodo a){
 }
 
 void insertOrderedA(LinkedList* list, artNodo a){
-	while((*list!=NULL) && ((artNodo)(*list)->node)->n_bytes > a->n_bytes)
+	int i=0;
+	while((*list) && i<20 &&((artNodo)(*list)->node)->n_bytes > a->n_bytes){
 		list = &((*list)->next);
+		i++;
+	}
+	if(i==20 && ((artNodo)(*list)->node)->n_bytes < a->n_bytes){
+		*list = newNodeA(*list, a);
+		(*list)->next = NULL;
+	}
+	else
 	*list = newNodeA(*list, a);
 }
 
-void getTop10NodesA(hashTArt ht, LinkedList* list){
+void getTop20NodesA(hashTArt ht, LinkedList* list){
 	artNodo aux;
 	for(int i=0; i<SIZE; i++){
 		for(aux = ht[i]; aux; aux=aux->next){
@@ -251,7 +259,7 @@ void getTop10NodesA(hashTArt ht, LinkedList* list){
 	}
 }
 
-long* getTop10A(LinkedList list){
+long* getTop20A(LinkedList list){
 	long* top20 = malloc(sizeof(long)*20);
 	LinkedList aux;
 	int i;

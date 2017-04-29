@@ -88,8 +88,15 @@ LinkedList newNodeC (LinkedList l, Contrib c){
 }
 
 void insertOrderedC(LinkedList* list, Contrib c){
-	while((*list!=NULL) && ((Contrib)(*list)->node)->contributions_number > c->contributions_number)
+	int i = 0;
+	while((*list!=NULL) && i<10 && ((Contrib)(*list)->node)->contributions_number > c->contributions_number){
 		list = &((*list)->next);
+		i++;
+	}
+	if(i==10 && ((Contrib)(*list)->node)->contributions_number > c->contributions_number){
+		*list = newNodeC(*list, c);
+		(*list)->next = NULL;
+	}
 	*list = newNodeC(*list, c);
 }
 

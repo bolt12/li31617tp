@@ -1,4 +1,5 @@
 #include "interface.h"
+#include <omp.h>
 
 struct TCD_istruct{
 	long all_articles, unique_articles, all_revisions;
@@ -27,8 +28,10 @@ TAD_istruct load(TAD_istruct qs, int nsnaps, char * snaps_paths[]){
 	xmlDocPtr doc;
 	xmlNodePtr cur;
 	int i;
-
+#pragma omp parallel for ordered private(doc, cur)
 	for(i=0; i<nsnaps; i++){
+
+		printf("Thread num: %d parsing file %s\n", omp_get_thread_num(), snaps_paths[i]);
 
 		doc = xmlParseFile(snaps_paths[i]);
 
@@ -37,28 +40,46 @@ TAD_istruct load(TAD_istruct qs, int nsnaps, char * snaps_paths[]){
 		if (cur == NULL) {
 			fprintf(stderr,"empty document\n");
 			xmlFreeDoc(doc);
-			return 0;
+			//return 0;
 		}
 
 		if (xmlStrcmp(cur->name, (const xmlChar *) "mediawiki")) {
 			fprintf(stderr,"document of the wrong type, root node != mediawiki");
 			xmlFreeDoc(doc);
-			return 0;
+			//return 0;
 		}
 
 		cur = cur->xmlChildrenNode;
+			printf("Thread num: %d loading into structs\n", omp_get_thread_num());
+#pragma omp ordered
+			{
 		while(cur){
-			if((!xmlStrcmp(cur->name, BAD_CAST "page")))
+			if((!xmlStrcmp(cur->name, BAD_CAST "page"))){
 				parsePage(qs,cur);
+			}
 			cur=cur->next;
 		}
 		xmlFreeDoc(doc);
-	}
-
+}
+}
+#pragma omp parallel sections
+{
+#pragma omp section
+	{
+			printf("Thread num: %d loading into structs\n", omp_get_thread_num());
 	getTop10NodesC(qs->ht_contrib, &(qs->top10Contribs));
-	getTop10NodesA(qs->ht_art, &(qs->top20LongestArticles));
+	}
+#pragma omp section
+	{
+			printf("Thread num: %d loading into structs\n", omp_get_thread_num());
+	getTop20NodesA(qs->ht_art, &(qs->top20LongestArticles));
+	}
+#pragma omp section
+	{
+			printf("Thread num: %d loading into structs\n", omp_get_thread_num());
 	qs->avlAW = avlArtWords_InsertALL(qs->ht_art, qs->avlAW);
-
+	}
+	}
 	return qs;
 }
 
@@ -83,7 +104,7 @@ char* contributor_name(long contributor_id, TAD_istruct qs){
 }
 
 long* top_20_largest_articles(TAD_istruct qs){
-	return getTop10A(qs->top20LongestArticles);
+	return getTop20A(qs->top20LongestArticles);
 }
 
 char* article_title(long article_id, TAD_istruct qs){
