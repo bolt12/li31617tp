@@ -57,6 +57,8 @@ TAD_istruct load(TAD_istruct qs, int nsnaps, char * snaps_paths[]){
 
 	getTop10NodesC(qs->ht_contrib, &(qs->top10Contribs));
 	getTop10NodesA(qs->ht_art, &(qs->top20LongestArticles));
+	qs->avlAW = avlArtWords_InsertALL(qs->ht_art, qs->avlAW);
+
 	return qs;
 }
 

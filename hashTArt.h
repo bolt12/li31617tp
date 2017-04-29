@@ -34,6 +34,7 @@ void hashTArt_Print(hashTArt h);
 /* Funções referentes a avlArtWords */
 
 avlArtWords avlArtWords_Insert(avlArtWords avl, artNodo n);
+avlArtWords avlArtWords_InsertALL(hashTArt ht, avlArtWords p);
 avlArtWords avlArtWords_Remove(avlArtWords avl, artNodo n);
 int avlArtWords_TopN(avlArtWords avl, long* top, int i, int n);
 void avlArtWords_Print(avlArtWords avl);
