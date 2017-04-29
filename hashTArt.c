@@ -1,5 +1,6 @@
 #include "hashTArt.h"
 #include "avl.h"
+#include <omp.h>
 
 /* Funções referentes à hashTArt */
 
@@ -8,8 +9,8 @@ int hashCode (long title_ID){
 } 
 
 void hashTArt_Init (hashTArt h){
-	int i;
-	for(i = 0; i < SIZE; i++){
+	#pragma omp parallel for
+	for(int i = 0; i < SIZE; i++){
 		h[i] = NULL;
 	}
 }
@@ -76,16 +77,22 @@ int stringComparator (const void * a, const void * b ) {
     return strcmp(pa,pb);
 }
 
+
 char** hashTArt_Prefix (hashTArt h, char* prefix){
 	int size = 30;
 	char **result = malloc (size*sizeof(char*) );
-	int ins_pos=0, hash_pos;
+	int ins_pos=0;
+	
+	#pragma omp parallel
+	{
+	int hash_pos;
 	artNodo aux;
-
+	#pragma omp for
 	for (hash_pos = 0; hash_pos < SIZE; hash_pos++)
 		for (aux = h[hash_pos]; aux; aux = aux->next)
 			if (!strncmp(prefix, aux->title, strlen(prefix))){
-
+					#pragma omp critical
+					{
 					if (ins_pos > (size * 0.8)){
 						size = size * 2;
 						result = realloc(result, size * sizeof(char *));
@@ -93,12 +100,15 @@ char** hashTArt_Prefix (hashTArt h, char* prefix){
 
 					result[ins_pos] =strdup (aux->title);
 					ins_pos++;
+					}
 			}
+	}
 	qsort(result, ins_pos-1, sizeof(char*), stringComparator);
 	result[ins_pos] = NULL;
 	return result;
 	
 }
+
 char* hashTArt_Timestamp (hashTArt h, long title_ID, long revision_id){
 	int pos = hashCode (title_ID);
 	artNodo aux;
@@ -231,8 +241,8 @@ void insertOrderedA(LLig* list, artNodo a){
 }
 
 void getTop10NodesA(hashTArt ht, LLig* list){
-	int i;
-	for(i=0; i<SIZE; i++){
+	#pragma omp parallel for 
+	for(int i=0; i<SIZE; i++){
 		artNodo aux;
 		for(aux = ht[i]; aux; aux=aux->next){
 			insertOrderedA(list, aux);
