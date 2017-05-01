@@ -5,15 +5,9 @@
 #include <stdio.h>
 #include <string.h>
 
-typedef struct revision{
-	long revision_id;
-	char* revision_timestamp;
-} *Revision;
+typedef struct revision *Revision;
 
-typedef struct llig{
-	void *node;
-	struct llig *next;
-} *LinkedList;
+typedef struct llig *LinkedList;
 
 int insertRevision(LinkedList*, long, char*);
 char* retrieveTimestamp(LinkedList, long);

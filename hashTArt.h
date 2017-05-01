@@ -14,7 +14,6 @@ typedef struct hashtable{
 	long title_ID;
 	int n_bytes;
 	int n_words;
-	int heapInd;
 	LinkedList revisions;
 	struct hashtable * next;	
 }*hashTArt[SIZE], *artNodo;
