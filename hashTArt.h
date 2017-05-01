@@ -86,8 +86,17 @@ avlArtWords avlArtWords_Insert(avlArtWords avl, artNodo n);
 avlArtWords avlArtWords_InsertALL(hashTArt ht, avlArtWords p);
 avlArtWords avlArtWords_Remove(avlArtWords avl, artNodo n);
 int avlArtWords_TopN(avlArtWords avl, long* top, int i, int n);
-
-void getTop20NodesA(hashTArt, LinkedList*);
-long* getTop20A(LinkedList);
+/**
+*@brief Percorre a tabela de Hash e preenche a lista com os 20 artigos com maior número bytes.
+*@param h Tabela de Hash
+*@param list Lista ligada
+*/
+void getTop20NodesA(hashTArt h, LinkedList* list);
+/**
+*@brief Transforma uma lista ligada, com os 20 artigos com maior números de bytes, num array de longs.
+*@param list Lista ligada
+*@return Array de longs com os 20 artigos com maior números de bytes.
+*/
+long* getTop20A(LinkedList list);
 
 #endif
