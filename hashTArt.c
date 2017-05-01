@@ -29,23 +29,18 @@ int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_wor
 		new-> next = NULL;
 		if(!h[pos]){
 			h[pos] = new;
-			*avlWords = avlArtWords_Insert(*avlWords,new);
 		}
 		else{
 			ant->next = new;
-			*avlWords = avlArtWords_Insert(*avlWords,new);
 		}
 		aux = new;
 	}
 	else{
-		*avlWords = avlArtWords_Remove(*avlWords,aux);
 		free(aux->title);
 		aux-> title = strdup (title);
 
 		if (aux->n_bytes < n_bytes) aux->n_bytes = n_bytes;
 		if (aux->n_words < n_words) aux->n_words = n_words;
-
-		*avlWords = avlArtWords_Insert(*avlWords,aux);
 	}
 
 	res += insertRevision(&(aux->revisions), revision_id, timestamp);
@@ -173,34 +168,6 @@ int avlArtWords_TopN(avlArtWords avl, long* top, int i, int n){
 	if(i<n)
 		i=avlArtWords_TopN(avl->left, top, i, n);
 	return i;
-}
-
-avlArtWords avlArtWords_Remove(avlArtWords p, artNodo n)
-{
-	if ( !p )
-		return NULL;
-
-	if ( n->n_words < ((artNodo) p->artigo)->n_words)
-		p->left = avlArtWords_Remove(p->left, n);
-	else if ( n->n_words > ((artNodo) p->artigo)->n_words )
-		p->right = avlArtWords_Remove(p->right, n);
-	else if (((artNodo) p->artigo)->title_ID == n->title_ID)
-	{
-		avlArtWords l = p->left;
-		avlArtWords r = p->right;
-		free(p);
-
-		if ( r == NULL )
-			return l;
-
-		avlArtWords m = find_min(r);
-		m->right = remove_min(r);
-		m->left = l;
-
-		return balance(m);
-	}
-
-	return balance(p);
 }
 
 LinkedList newNodeA (LinkedList l, artNodo a){
