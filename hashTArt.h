@@ -113,7 +113,8 @@ int avlArtWords_TopN(avlArtWords avl, long* top, int i, int n);
 /**
  *\brief Percorre uma tabela de Hash de artigos
  *	 e devolve por referencia uma lista ligada
- *	 com o top N de artigos com maior número de palavras
+ *	 com o top 20 de artigos com maior número de palavras
+ *
  *@param ht Tabela de Hash de procura
  *@param list Lista Ligada de artigos que conterá o top N
  *

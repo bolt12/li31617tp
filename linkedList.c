@@ -1,4 +1,14 @@
-#include "linkedListRevisions.h"
+#include "linkedList.h"
+
+struct revision{
+	long revision_id;
+	char* revision_timestamp;
+};
+
+struct llig{
+	void *node;
+	struct llig *next;
+};
 
 Revision createRevision (long revision_id, char* timestamp){
 	Revision new = malloc(sizeof(struct revision));
@@ -37,16 +47,6 @@ int insertRevision(LinkedList* list, long revision_id, char* timestamp){
 	}
 	return 1;
 }
-void cleanRevisionList(LinkedList list){
-	LinkedList aux;
-
-	while(list){
-		aux = list;
-		freeRevision((Revision)(list->node));
-		list = list->next;
-		free(aux);
-	}
-}
 char* retrieveTimestamp(LinkedList list, long revision_id){
 	LinkedList head = list;
 	Revision revisionNode;
@@ -60,16 +60,21 @@ char* retrieveTimestamp(LinkedList list, long revision_id){
 	}
 	return NULL;
 }
-
-long getRevisionId(Revision revision){
-	return revision->revision_id;
-}
-
 void cleanList(LinkedList list){
 	LinkedList aux;
 
 	while(list){
 		aux = list;
+		list = list->next;
+		free(aux);
+	}
+}
+void cleanRevisionList(LinkedList list){
+	LinkedList aux;
+
+	while(list){
+		aux = list;
+		freeRevision((Revision)(list->node));
 		list = list->next;
 		free(aux);
 	}
