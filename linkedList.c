@@ -1,5 +1,15 @@
 #include "linkedListRevisions.h"
 
+struct revision{
+	long revision_id;
+	char* revision_timestamp;
+};
+
+struct llig{
+	void *node;
+	struct llig *next;
+};
+
 Revision createRevision (long revision_id, char* timestamp){
 	Revision new = malloc(sizeof(struct revision));
 	new->revision_id = revision_id;
