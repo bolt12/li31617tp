@@ -13,11 +13,6 @@ void hashTArt_Init (hashTArt h){
 	}
 }
 
-/*
-   Se res == 0->Não foi adicionado nenhum artigo nem nenhuma revisão
-   Se res == 1->Foi adicionada apenas uma revisão
-   Se res == 2->Foi adicionada um novo artigo (consequentemente uma nova revisão)
-   */
 int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_words, long revision_id, char* timestamp, avlArtWords *avlWords){
 	int pos = hashCode (title_ID);
 	artNodo ant, aux, new = NULL;
@@ -132,19 +127,6 @@ void hashTArt_Clean (hashTArt h){
 	}
 }
 
-void hashTArt_Print (hashTArt h){
-	int i;
-	artNodo aux;
-	for(i = 0; i < SIZE; i++){
-
-		for(aux = h[i]; aux; aux = aux-> next){
-			printf("%p \t%d->",h[i], i);
-			printf("Title: %ld\t",getRevisionId((Revision)(aux->revisions->node)));
-		}
-		printf("\n");
-	}
-}
-
 /* Funções referentes à avlArtWords */
 
 avlArtWords avlArtWords_Insert(avlArtWords p, artNodo n)
@@ -219,15 +201,6 @@ avlArtWords avlArtWords_Remove(avlArtWords p, artNodo n)
 	}
 
 	return balance(p);
-}
-
-void avlArtWords_Print(avlArtWords p){
-	if(p){
-		avlArtWords_Print(p->left);
-		printf("Title: %s; n_words: %d\n", ((artNodo) p->artigo)->title, ((artNodo) p->artigo)->n_words);
-		avlArtWords_Print(p->right);
-	}
-	return;
 }
 
 LinkedList newNodeA (LinkedList l, artNodo a){
