@@ -1,7 +1,5 @@
-#include "string.h"
 #include "linkedList.h"
 #include "hashTContrib.h"
-#include "avl.h"
 
 int hashTContribHash(long contributor_id){
 	return (contributor_id % SIZE);
@@ -26,16 +24,15 @@ int hashTContribAdd(hashTContrib h, char* contributor_name, long contributor_id)
 		new->contributor_id = contributor_id;
 		new->contributions_number=1;
 		new->next = NULL;
-		if(!h[pos]){
+		if(!h[pos])
 			h[pos] = new;
-		}
-		else{
+		else
 			ant->next = new;
-		}
+
 		return 1;
 	}
 	else{
-		(aux->contributions_number)+=1;
+		aux->contributions_number++;
 		return 1;
 	}
 	return 0;
@@ -97,13 +94,13 @@ void insertOrderedC(LinkedList* list, Contrib c){
 		*list = newNodeC(*list, c);
 		(*list)->next = NULL;
 	}
-	*list = newNodeC(*list, c);
+	else
+		*list = newNodeC(*list, c);
 }
 
 void getTop10NodesC(hashTContrib ht, LinkedList* list){
-	int i;
-	for(i=0; i<SIZE; i++){
-		Contrib aux;
+	Contrib aux;
+	for(int i=0; i<SIZE; i++){
 		for(aux = ht[i]; aux; aux=aux->next){
 			insertOrderedC(list, aux);
 		}
@@ -111,7 +108,7 @@ void getTop10NodesC(hashTContrib ht, LinkedList* list){
 }
 
 long* getTop10C(LinkedList list){
-	long* top10 = calloc(sizeof(long),10);
+	long* top10 = malloc(sizeof(long)*10);
 	LinkedList aux;
 	int i;
 	for(aux=list, i=0; aux && i<10; aux=aux->next, i++){

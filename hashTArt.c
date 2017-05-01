@@ -27,15 +27,14 @@ int hashTArt_Add (hashTArt h, char* title, long title_ID, int n_bytes, int n_wor
 		new-> n_words = n_words;
 		new->revisions = NULL;
 		new-> next = NULL;
-		if(!h[pos]){
+		if(!h[pos])
 			h[pos] = new;
-		}
-		else{
+		else
 			ant->next = new;
-		}
+
 		aux = new;
 	}
-	else{
+	else {
 		free(aux->title);
 		aux-> title = strdup (title);
 
@@ -53,7 +52,7 @@ char *hashTArt_GetTitle (hashTArt h, long title_ID){
 	artNodo aux;
 	for(aux = h[pos]; aux && aux->title_ID != title_ID; aux = aux-> next);
 	if(aux)
-		return (aux-> title);
+		return (aux->title);
 
 	return NULL;
 }
@@ -72,6 +71,7 @@ char** hashTArt_Prefix (hashTArt h, char* prefix){
 	int ins_pos=0;
 
 	int hash_pos;
+
 	#pragma omp parallel for
 	for (hash_pos = 0; hash_pos < SIZE; hash_pos++){
 		artNodo aux;
@@ -153,9 +153,9 @@ avlArtWords avlArtWords_InsertALL(hashTArt ht, avlArtWords p){
 	for(i=0; i<SIZE; i++){
 		artNodo aux;
 		for(aux = ht[i]; aux; aux = aux->next)
-			p = balance(avlArtWords_Insert(p, aux));
+			p = avlArtWords_Insert(p, aux);
 	}
-	return p;
+	return balance(p);
 }
 
 int avlArtWords_TopN(avlArtWords avl, long* top, int i, int n){

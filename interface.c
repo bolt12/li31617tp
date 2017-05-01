@@ -18,7 +18,7 @@ TAD_istruct init(){
 	qs->top20LongestArticles = NULL;
 
 	return qs;
-};
+}
 
 void parsePage(TAD_istruct qs, xmlNodePtr cur);
 
@@ -47,7 +47,7 @@ TAD_istruct load(TAD_istruct qs, int nsnaps, char * snaps_paths[]){
 		}
 
 		cur = cur->xmlChildrenNode;
-	#pragma omp ordered
+		#pragma omp ordered
 		{
 			while(cur){
 				if((!xmlStrcmp(cur->name, BAD_CAST "page"))){
@@ -60,12 +60,12 @@ TAD_istruct load(TAD_istruct qs, int nsnaps, char * snaps_paths[]){
 	}
 	#pragma omp parallel sections
 	{
-	#pragma omp section
-			getTop10NodesC(qs->ht_contrib, &(qs->top10Contribs));
-	#pragma omp section
-			getTop20NodesA(qs->ht_art, &(qs->top20LongestArticles));
-	#pragma omp section
-			qs->avlAW = avlArtWords_InsertALL(qs->ht_art, qs->avlAW);
+		#pragma omp section
+		getTop10NodesC(qs->ht_contrib, &(qs->top10Contribs));
+		#pragma omp section
+		getTop20NodesA(qs->ht_art, &(qs->top20LongestArticles));
+		#pragma omp section
+		qs->avlAW = avlArtWords_InsertALL(qs->ht_art, qs->avlAW);
 	}
 
 	return qs;
@@ -100,7 +100,7 @@ char* article_title(long article_id, TAD_istruct qs){
 }
 
 long* top_N_articles_with_more_words(int n, TAD_istruct qs){
-	long* topMoreW = calloc(n,sizeof(long));
+	long* topMoreW = malloc(n*sizeof(long));
 	avlArtWords_TopN(qs->avlAW, topMoreW, 0, n);
 	return topMoreW;
 }
@@ -114,19 +114,19 @@ char* article_timestamp(long article_id, long revision_id, TAD_istruct qs){
 }
 
 TAD_istruct clean (TAD_istruct qs){
-#pragma omp parallel sections
+	#pragma omp parallel sections
 	{
-#pragma omp section
+		#pragma omp section
 		{
-	cleanList(qs->top10Contribs);
-	cleanList(qs->top20LongestArticles);
+		cleanList(qs->top10Contribs);
+		cleanList(qs->top20LongestArticles);
 		}
-#pragma omp section
-	avl_Clean(qs->avlAW);
-#pragma omp section
-	hashTArt_Clean(qs->ht_art);
-#pragma omp section
-	hashTContribClean(qs->ht_contrib);
+		#pragma omp section
+		hashTArt_Clean(qs->ht_art);
+		#pragma omp section
+		hashTContribClean(qs->ht_contrib);
+		#pragma omp section
+		avl_Clean(qs->avlAW);
 	}
 	return qs;
 }
@@ -219,8 +219,10 @@ void parsePage(TAD_istruct qs, xmlNodePtr cur){
 
 		cur = cur->next;
 	}
+
 	add_code = hashTArt_Add (qs->ht_art, (char*)title, (long) atoll( (char*) title_id), n_bytes, n_words, 
 			(long) atoll( (char*) revision_id), (char*) timestamp, &(qs->avlAW));
+
 	qs->all_articles++;
 	if (add_code) qs-> all_revisions++;
 	if (add_code == 2) qs-> unique_articles++;
@@ -236,4 +238,3 @@ void parsePage(TAD_istruct qs, xmlNodePtr cur){
 		xmlFree(contributor_name);
 	}
 }
-

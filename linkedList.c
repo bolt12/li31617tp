@@ -2,15 +2,17 @@
 
 Revision createRevision (long revision_id, char* timestamp){
 	Revision new = malloc(sizeof(struct revision));
-	new->revision_id = revision_id;
-	new->revision_timestamp = strdup(timestamp);
+	if(new){
+		new->revision_id = revision_id;
+		new->revision_timestamp = strdup(timestamp);
+	}
 	return new;
 
 }
 
 void freeRevision(Revision revision){
-	 free(revision->revision_timestamp);
-	 free(revision);
+	free(revision->revision_timestamp);
+	free(revision);
 }
 
 int insertRevision(LinkedList* list, long revision_id, char* timestamp){
@@ -20,12 +22,11 @@ int insertRevision(LinkedList* list, long revision_id, char* timestamp){
 	newList->node = newRevision;
 	newList->next = NULL;
 
-	if(!(*list)){
+	if(!(*list))
 		*list = newList;
-	} else{
+	else {
 		listHead = ((Revision)(*list)->node);
 		if(listHead->revision_id == revision_id){
-
 			freeRevision(newRevision);
 			free(newList);
 			return 0;
@@ -37,6 +38,7 @@ int insertRevision(LinkedList* list, long revision_id, char* timestamp){
 	}
 	return 1;
 }
+
 char* retrieveTimestamp(LinkedList list, long revision_id){
 	LinkedList head = list;
 	Revision revisionNode;
@@ -45,8 +47,7 @@ char* retrieveTimestamp(LinkedList list, long revision_id){
 		revisionNode = (Revision) (head->node);
 		if(revisionNode->revision_id == revision_id)
 			return revisionNode->revision_timestamp;
-		else
-			head = head->next;
+		head = head->next;
 	}
 	return NULL;
 }
@@ -69,5 +70,3 @@ void cleanRevisionList(LinkedList list){
 		free(aux);
 	}
 }
-
-
