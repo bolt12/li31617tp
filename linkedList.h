@@ -5,9 +5,15 @@
 #include <stdio.h>
 #include <string.h>
 
-typedef struct revision *Revision;
+typedef struct revision{
+	long revision_id;
+	char* revision_timestamp;
+} *Revision;
 
-typedef struct llig *LinkedList;
+typedef struct llig{
+	void *node;
+	struct llig *next;
+} *LinkedList;
 
 /**
 *\brief Insere uma revisão na lista ligada.

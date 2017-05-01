@@ -2,7 +2,7 @@ CC = gcc
 CC = gcc
 CFLAGS = -O2 -Wall -fopenmp -D_GNU_SOURCE -std=c11 -g `pkg-config --cflags libxml-2.0` `pkg-config --cflags glib-2.0`
 LIBS = `pkg-config --libs libxml-2.0` `pkg-config --libs glib-2.0`
-STRUCTS = interface.o linkedListRevisions.o avl.o hashTArt.o hashTContrib.o
+STRUCTS = interface.o linkedList.o avl.o hashTArt.o hashTContrib.o
 
 program: $(STRUCTS)
 	$(CC) $(CFLAGS) $(STRUCTS) program.c -o program $(LIBS)
@@ -24,7 +24,7 @@ hashTArt:
 	$(CC) -c -O2 hashTArt.c
 
 llist:
-	$(CC) -c -O2 linkedListRevisions.c
+	$(CC) -c -O2 linkedList.c
 
 clean:
 	rm -f program test_hash *.o

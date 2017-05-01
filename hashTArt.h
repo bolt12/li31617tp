@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include "linkedListRevisions.h"
+#include "linkedList.h"
 #include "avl.h"
 
 #define SIZE 19889 // Número primo mais baixo e mais próximo de 19886, número de revisões únicas
