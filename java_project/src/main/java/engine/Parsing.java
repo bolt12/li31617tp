@@ -33,7 +33,7 @@ public class Parsing {
 	            wordCount++;
 	        }
 	    }
-	    artigo.setN_bytes(s.length()*2);
+	    artigo.setN_bytes((s.length()*2));
 	    artigo.setN_words(wordCount);
 	}
 	
@@ -84,7 +84,7 @@ public class Parsing {
 			 stream.next();
 		 }
 		 
-		 artigo.insertRevisao(revisao.clone());
+		 artigo.insertRevisao(revisao);
 		
 	}
 	
@@ -127,9 +127,14 @@ public class Parsing {
 						 //System.out.println(artigo.toString());
 						 //System.out.println(contribuidor.toString());
 						 database.addInfo(artigo, contribuidor);
-						 
+
 				}
 			}
+			/*
+			database.addToTopContribs();
+			database.addToTopArtBytes();
+			database.addToTopArtWords();
+			*/
 	
 		} catch (FileNotFoundException | XMLStreamException e) {
 	            e.printStackTrace();

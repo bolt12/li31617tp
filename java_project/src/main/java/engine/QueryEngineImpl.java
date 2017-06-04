@@ -3,7 +3,6 @@ package engine;
 import li3.Interface;
 
 import java.util.ArrayList;
-import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class QueryEngineImpl implements Interface {
@@ -19,6 +18,9 @@ public class QueryEngineImpl implements Interface {
     	for(int i = 0; i < nsnaps; i++){
     		parser.openXML(snaps_paths.get(i), dataBase);
     	}
+        dataBase.addToTopContribs();
+        dataBase.addToTopArtBytes();
+        dataBase.addToTopArtWords();
     }
 
     public long all_articles() {
@@ -38,12 +40,11 @@ public class QueryEngineImpl implements Interface {
 
     public ArrayList<Long> top_10_contributors() {
 
-        TreeMap<Contribuidor, Long> c = new TreeMap<>();
-        for (Contribuidor c1 :
-                this.dataBase.getMapContribuidores().values()) {
-            c.put(c1, c1.getContributor_id());
-        }
-        ArrayList<Long> r = c.values().stream().limit(10).collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<Long> r = this.dataBase.getTopContribuidores()
+                                         .parallelStream()
+                                         .map(Contribuidor::getContributor_id)
+                                         .limit(10)
+                                         .collect(Collectors.toCollection(ArrayList::new));
         return r;
     }
 
@@ -54,6 +55,11 @@ public class QueryEngineImpl implements Interface {
 
     public ArrayList<Long> top_20_largest_articles() {
 
+        ArrayList<Long> r = this.dataBase.getTopArtBytes()
+                .stream()
+                .map(Artigo::getTitle_ID)
+                .limit(20)
+                .collect(Collectors.toCollection(ArrayList::new));
 
         return new ArrayList<Long>();
     }
@@ -64,6 +70,12 @@ public class QueryEngineImpl implements Interface {
     }
 
     public ArrayList<Long> top_N_articles_with_more_words(int n) {
+
+        ArrayList<Long> r = this.dataBase.getTopArtWords()
+                .stream()
+                .map(Artigo::getTitle_ID)
+                .limit(n)
+                .collect(Collectors.toCollection(ArrayList::new));
 
         return new ArrayList<Long>();
     }

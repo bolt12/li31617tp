@@ -1,6 +1,7 @@
 package engine;
 
 import java.util.HashMap;
+import java.util.TreeSet;
 
 public class Estruturas {
 
@@ -10,6 +11,9 @@ public class Estruturas {
 
 	private HashMap<Long, Artigo> mapArtigos;
 	private HashMap<Long, Contribuidor> mapContribuidores;
+	private TreeSet<Contribuidor> topContribuidores;
+	private TreeSet<Artigo> topArtBytes;
+	private TreeSet<Artigo> topArtWords;
 
 	public Estruturas(){
 		unique_articles = 0;
@@ -17,6 +21,9 @@ public class Estruturas {
 		all_revisions = 0;
 		mapArtigos = new HashMap<Long, Artigo>();
 		mapContribuidores = new HashMap<Long,Contribuidor>();
+		topContribuidores = new TreeSet<>();
+		topArtBytes = new TreeSet<>();
+		topArtWords = new TreeSet<>(new ComparatorArtigoWords());
 	}
 
 	public int getUnique_articles() {
@@ -44,6 +51,45 @@ public class Estruturas {
 		return mapContribuidores;
 	}
 
+	public TreeSet<Contribuidor> getTopContribuidores() {
+		return topContribuidores;
+	}
+
+	public Estruturas setTopContribuidores(TreeSet<Contribuidor> topContribuidores) {
+		this.topContribuidores = topContribuidores;
+		return this;
+	}
+
+	public TreeSet<Artigo> getTopArtBytes() {
+		return topArtBytes;
+	}
+
+	public Estruturas setTopArtBytes(TreeSet<Artigo> topArtBytes) {
+		this.topArtBytes = topArtBytes;
+		return this;
+	}
+
+	public TreeSet<Artigo> getTopArtWords() {
+		return topArtWords;
+	}
+
+	public Estruturas setTopArtWords(TreeSet<Artigo> topArtWords) {
+		this.topArtWords = topArtWords;
+		return this;
+	}
+
+	public void addToTopContribs(){
+		this.topContribuidores.addAll(mapContribuidores.values());
+	}
+
+	public void addToTopArtBytes(){
+		this.topArtBytes.addAll(mapArtigos.values());
+	}
+
+	public void addToTopArtWords(){
+		this.topArtWords.addAll(mapArtigos.values());
+	}
+
 	public Estruturas setMapContribuidores(HashMap<Long, Contribuidor> mapContribuidores) {
 		this.mapContribuidores = mapContribuidores;
 		return this;
@@ -51,18 +97,18 @@ public class Estruturas {
 
 	public void addInfo(Artigo article, Contribuidor contributor){
 		long article_id = article.getTitle_ID();
-		Boolean sameRevision = false;
+		boolean sameRevision = false;
 
 		Artigo old_article = mapArtigos.get(article_id);
 		if(old_article == null){
-			mapArtigos.put(article_id, article.clone());
+			mapArtigos.put(article_id, article);
 			this.unique_articles++;
 			this.all_revisions++;
 		}
 		else{
 			if(! article.getNewestRevision().compare(old_article.getNewestRevision())){
 				article.insertOldRevisions(old_article.getRevisoes());
-				mapArtigos.put(article_id, article.clone());
+				mapArtigos.replace(article_id, article);
 				this.all_revisions++;
 			} else
 				sameRevision = true;
@@ -74,7 +120,7 @@ public class Estruturas {
 				long contributor_id = contributor.getContributor_id();
 				Contribuidor old_contributor = mapContribuidores.get(contributor_id);
 				if(old_contributor == null)
-					mapContribuidores.put(contributor_id, contributor.clone());
+					mapContribuidores.put(contributor_id, contributor);
 				else{
 				    old_contributor.addContributions_number();
 				}

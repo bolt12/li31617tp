@@ -3,7 +3,7 @@ package engine;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class Artigo
+public class Artigo implements Comparable<Artigo>
 {
     private String title; 	
 	private long title_ID;	
@@ -93,6 +93,18 @@ public class Artigo
 				return revision.getRevision_timestamp();
 		}
 		return " ";
+	}
+
+	public int compareTo(Artigo a2){
+		if(this.n_bytes<a2.getN_bytes())
+			return 1;
+		else if(this.n_bytes>a2.getN_bytes())
+			return -1;
+		else{
+			if(this.title_ID<a2.getTitle_ID())
+				return -1;
+		}
+		return 1;
 	}
 
 	public Artigo clone(){
