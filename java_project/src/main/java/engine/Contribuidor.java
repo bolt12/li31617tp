@@ -1,8 +1,8 @@
 package engine;
 
-public class Contribuidor
+public class Contribuidor implements Comparable<Contribuidor>
 {
-    private Boolean isIP;
+    private boolean isIP;
 	private String contributor_name;		
 	private long contributor_id;		
 	private int contributions_number;	
@@ -20,6 +20,14 @@ public class Contribuidor
 		this.contributor_id = contributor_id;
 		this.contributions_number = contributions_number;
 	}
+
+	public Contribuidor(Contribuidor c){
+		this.isIP = c.isIP();
+		this.contributor_name = c.getContributor_name();
+		this.contributor_id = c.getContributor_id();
+		this.contributions_number = c.getContributions_number();
+	}
+
     public String getContributor_name() {
 		return contributor_name;
 	}
@@ -44,19 +52,39 @@ public class Contribuidor
 		this.contributions_number = contributions_number;
 	}
 
-	public Boolean isIP() {
+	public void addContributions_number(){
+		this.contributions_number += 1;
+	}
+
+	public boolean isIP() {
 		return isIP;
 	}
 
-	public void setIsIP(Boolean isIP) {
+	public void setIsIP(boolean isIP) {
 		this.isIP = isIP;
 	}
+
+	public int compareTo(Contribuidor c2){
+		if(this.getContributions_number()<c2.getContributions_number())
+			return 1;
+		if(this.getContributions_number()>c2.getContributions_number())
+			return -1;
+		else{
+			if(this.getContributor_id()<c2.getContributor_id())
+				return -1;
+		}
+		return 1;
+	}
+
 
 	@Override
 	public String toString() {
 		return "Contribuidor [isIP=" + isIP + ", contributor_name=" + contributor_name + ", contributor_id="
 				+ contributor_id + ", contributions_number=" + contributions_number + "]";
 	}
-	
+
+	public Contribuidor clone(){
+		return new Contribuidor(this);
+	}
 
 }

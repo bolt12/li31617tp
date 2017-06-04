@@ -1,11 +1,10 @@
 package engine;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class Parsing {
 	
@@ -85,7 +84,7 @@ public class Parsing {
 			 stream.next();
 		 }
 		 
-		 artigo.insertRevisao(revisao);
+		 artigo.insertRevisao(revisao.clone());
 		
 	}
 	

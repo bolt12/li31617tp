@@ -3,10 +3,12 @@ package engine;
 import li3.Interface;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 public class QueryEngineImpl implements Interface {
 	
-	private Estruturas dataBase = null;
+	private Estruturas dataBase;
 
     public void init() {
     	dataBase = new Estruturas();
@@ -36,7 +38,13 @@ public class QueryEngineImpl implements Interface {
 
     public ArrayList<Long> top_10_contributors() {
 
-        return new ArrayList<Long>();
+        TreeMap<Contribuidor, Long> c = new TreeMap<>();
+        for (Contribuidor c1 :
+                this.dataBase.getMapContribuidores().values()) {
+            c.put(c1, c1.getContributor_id());
+        }
+        ArrayList<Long> r = c.values().stream().limit(10).collect(Collectors.toCollection(ArrayList::new));
+        return r;
     }
 
     public String contributor_name(long contributor_id) {
@@ -45,6 +53,7 @@ public class QueryEngineImpl implements Interface {
     }
 
     public ArrayList<Long> top_20_largest_articles() {
+
 
         return new ArrayList<Long>();
     }

@@ -1,6 +1,7 @@
 package engine;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Artigo
 {
@@ -27,6 +28,14 @@ public class Artigo
     	this.revisions = new ArrayList<Revisao>();
     	this.revisions.add(revision);
     }
+
+    public Artigo(Artigo a){
+    	this.title = a.getTitle();
+    	this.title_ID = a.getTitle_ID();
+    	this.n_bytes = a.getN_bytes();
+    	this.n_words = a.getN_words();
+    	this.revisions =  a.getRevisoes();
+	}
 
 	public String getTitle() {
 		return title;
@@ -62,23 +71,31 @@ public class Artigo
 		this.revisions.add(revisao);
 	}
 	public ArrayList<Revisao> getRevisoes(){
-		return this.revisions;
+	    return this.revisions.stream().map(Revisao::clone).collect(Collectors.toCollection(ArrayList::new));
 	}
+
 	@Override
 	public String toString() {
 		return "Artigo [title=" + title + ", title_ID=" + title_ID + "]";
 	}
+
 	public void insertOldRevisions(ArrayList<Revisao> revisoes) {
 		this.revisions.addAll(revisoes);
 	}
+
 	public Revisao getNewestRevision(){
 		return revisions.get(0);
 	}
+
 	public String getRevisionTimestampByID(long revision_id){
 		for(Revisao revision: revisions){
 			if (revision.getRevision_id() == revision_id)
 				return revision.getRevision_timestamp();
 		}
 		return " ";
+	}
+
+	public Artigo clone(){
+		return new Artigo(this);
 	}
 }

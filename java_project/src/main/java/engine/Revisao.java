@@ -14,6 +14,11 @@ public class Revisao {
 		this.revision_timestamp = revision_timestamp;
 	}
 
+	public Revisao(Revisao r){
+		this.revision_id = r.getRevision_id();
+		this.revision_timestamp = r.getRevision_timestamp();
+	}
+
 	public long getRevision_id() {
 		return revision_id;
 	}
@@ -29,5 +34,9 @@ public class Revisao {
 	
 	public boolean compare(Revisao revisao){
 		return revisao.revision_id == this.revision_id;
+	}
+
+	public Revisao clone(){
+		return new Revisao(this);
 	}
 }
