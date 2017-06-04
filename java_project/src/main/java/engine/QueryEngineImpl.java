@@ -61,7 +61,7 @@ public class QueryEngineImpl implements Interface {
                 .limit(20)
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        return new ArrayList<Long>();
+        return r;
     }
 
     public String article_title(long article_id) {
@@ -77,12 +77,19 @@ public class QueryEngineImpl implements Interface {
                 .limit(n)
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        return new ArrayList<Long>();
+        return r;
     }
 
     public ArrayList<String> titles_with_prefix(String prefix) {
 
-        return new ArrayList<String>();
+        ArrayList<String> prefixs = this.dataBase.getMapArtigos().values()
+                .stream()
+                .filter(a -> a.getTitle().startsWith(prefix))
+                .map(Artigo::getTitle)
+                .sorted()
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        return prefixs;
     }
 
     public String article_timestamp(long article_id, long revision_id) {
