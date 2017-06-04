@@ -2,16 +2,17 @@ package engine;
 
 public class Contribuidor
 {
-    
+    private Boolean isIP;
 	private String contributor_name;		
 	private long contributor_id;		
 	private int contributions_number;	
 	
 	public Contribuidor()
     {
-		contributor_name = null;
+		isIP = false;
+		contributor_name = " ";
 		contributor_id = 0;
-		contributions_number = 0;
+		contributions_number = 1;
     }
     
 	public Contribuidor(String contributor_name, long contributor_id, int contributions_number){
@@ -42,5 +43,20 @@ public class Contribuidor
 	public void setContributions_number(int contributions_number) {
 		this.contributions_number = contributions_number;
 	}
+
+	public Boolean isIP() {
+		return isIP;
+	}
+
+	public void setIsIP(Boolean isIP) {
+		this.isIP = isIP;
+	}
+
+	@Override
+	public String toString() {
+		return "Contribuidor [isIP=" + isIP + ", contributor_name=" + contributor_name + ", contributor_id="
+				+ contributor_id + ", contributions_number=" + contributions_number + "]";
+	}
+	
 
 }

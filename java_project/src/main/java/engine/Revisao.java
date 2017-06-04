@@ -26,4 +26,8 @@ public class Revisao {
 	public void setRevision_timestamp(String revision_timestamp) {
 		this.revision_timestamp = revision_timestamp;
 	}
+	
+	public boolean compare(Revisao revisao){
+		return revisao.revision_id == this.revision_id;
+	}
 }

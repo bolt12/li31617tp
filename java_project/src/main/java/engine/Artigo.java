@@ -12,19 +12,20 @@ public class Artigo
     
     public Artigo()
     {
-    	title_ID = 0;
-    	title = null;
+    	title = " ";
     	title_ID = 0;
     	n_bytes = 0;
     	n_words = 0;
+    	revisions = new ArrayList<Revisao>();
     }
     
-    public Artigo(String title, long title_ID, int n_bytes, int n_words, ArrayList<Revisao> revisions){
+    public Artigo(String title, long title_ID, int n_bytes, int n_words, Revisao revision){
     	this.title = title;
     	this.title_ID = title_ID;
     	this.n_bytes = n_bytes;
     	this.n_words = n_words;
-    	this.revisions = new ArrayList<Revisao>(revisions);
+    	this.revisions = new ArrayList<Revisao>();
+    	this.revisions.add(revision);
     }
 
 	public String getTitle() {
@@ -54,10 +55,30 @@ public class Artigo
 	public int getN_words() {
 		return n_words;
 	}
-
 	public void setN_words(int n_words) {
 		this.n_words = n_words;
 	}
-       
-
+	public void insertRevisao(Revisao revisao){
+		this.revisions.add(revisao);
+	}
+	public ArrayList<Revisao> getRevisoes(){
+		return this.revisions;
+	}
+	@Override
+	public String toString() {
+		return "Artigo [title=" + title + ", title_ID=" + title_ID + "]";
+	}
+	public void insertOldRevisions(ArrayList<Revisao> revisoes) {
+		this.revisions.addAll(revisoes);
+	}
+	public Revisao getNewestRevision(){
+		return revisions.get(0);
+	}
+	public String getRevisionTimestampByID(long revision_id){
+		for(Revisao revision: revisions){
+			if (revision.getRevision_id() == revision_id)
+				return revision.getRevision_timestamp();
+		}
+		return " ";
+	}
 }
