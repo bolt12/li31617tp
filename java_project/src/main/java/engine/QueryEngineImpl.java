@@ -41,7 +41,7 @@ public class QueryEngineImpl implements Interface {
     public ArrayList<Long> top_10_contributors() {
 
         ArrayList<Long> r = this.dataBase.getTopContribuidores()
-                                         .parallelStream()
+                                         .stream()
                                          .map(Contribuidor::getContributor_id)
                                          .limit(10)
                                          .collect(Collectors.toCollection(ArrayList::new));

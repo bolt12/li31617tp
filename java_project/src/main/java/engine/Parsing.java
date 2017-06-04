@@ -113,6 +113,7 @@ public class Parsing {
 
 	public void openXML(String fileName, Estruturas database){
 		XMLInputFactory factory = XMLInputFactory.newInstance();
+		factory.setProperty(XMLInputFactory.IS_COALESCING, true);
 		try{
 			XMLStreamReader stream = factory.createXMLStreamReader(new FileInputStream(fileName));
 			while(stream.hasNext()){
@@ -124,18 +125,11 @@ public class Parsing {
 						 
 						 parsePage(stream, artigo, contribuidor);
 						 
-						 //System.out.println(artigo.toString());
-						 //System.out.println(contribuidor.toString());
 						 database.addInfo(artigo, contribuidor);
 
 				}
 			}
-			/*
-			database.addToTopContribs();
-			database.addToTopArtBytes();
-			database.addToTopArtWords();
-			*/
-	
+
 		} catch (FileNotFoundException | XMLStreamException e) {
 	            e.printStackTrace();
 		}
