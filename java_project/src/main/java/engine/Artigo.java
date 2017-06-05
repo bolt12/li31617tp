@@ -95,6 +95,18 @@ public class Artigo implements Comparable<Artigo>
 		return " ";
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) return true;
+		if (o == null || o.getClass() != this.getClass()) return false;
+
+		Artigo a = (Artigo) o;
+		return this.title.equals(a.getTitle()) && this.title_ID == a.getTitle_ID() &&
+				this.n_bytes == a.getN_bytes() && this.n_words == a.getN_words() &&
+				this.revisions.equals(a.getRevisoes())
+				;
+	}
+
 	public int compareTo(Artigo a2){
 		if(this.n_bytes<a2.getN_bytes())
 			return 1;

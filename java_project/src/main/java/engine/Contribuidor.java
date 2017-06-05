@@ -76,6 +76,14 @@ public class Contribuidor implements Comparable<Contribuidor>
 		return 1;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) return true;
+		if (o == null || o.getClass() != this.getClass()) return false;
+		Contribuidor c = (Contribuidor) o;
+		return this.contributor_name.equals(c.contributor_name) && this.contributor_id == c.getContributor_id()
+				&& this.contributions_number == c.getContributions_number();
+	}
 
 	@Override
 	public String toString() {

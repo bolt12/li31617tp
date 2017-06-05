@@ -36,6 +36,14 @@ public class Revisao {
 		return revisao.revision_id == this.revision_id;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) return true;
+		if (o == null || o.getClass() != this.getClass()) return false;
+		Revisao r = (Revisao) o;
+		return this.revision_id == r.revision_id && this.revision_timestamp.equals(r.getRevision_timestamp());
+	}
+
 	public Revisao clone(){
 		return new Revisao(this);
 	}

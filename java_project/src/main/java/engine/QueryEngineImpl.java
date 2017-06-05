@@ -98,6 +98,13 @@ public class QueryEngineImpl implements Interface {
     }
 
     public void clean() {
+        dataBase.getMapArtigos().clear();
+        dataBase.getTopContribuidores().clear();
+        dataBase.getTopContribuidores().clear();
+        dataBase.getTopArtBytes().clear();
+        dataBase.getTopArtWords().clear();
 
+        dataBase = null;
+        System.gc();
     }
 }
