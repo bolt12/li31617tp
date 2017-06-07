@@ -9,12 +9,31 @@ import java.io.FileNotFoundException;
 public class Parsing {
 	
 	public Parsing(){
-		
 	}
 	
 	private void parseText(String s, Artigo artigo){
+
+		int wordCount = 0;
+
+		boolean word = false;
+		int endOfText = s.length() - 1;
+
+		for (int i = 0; i < s.length(); i++) {
+			// Se estivermos numa letra, word = true.
+			if (!Character.isWhitespace(s.charAt(i)) && i != endOfText) {
+				word = true;
+				// Se não estivermos numa letra mas viermos de uma letra,
+				// acrescentamos ao contador.
+			} else if (Character.isWhitespace(s.charAt(i)) && word) {
+				wordCount++;
+				word = false;
+				// Se o ultimo caracter for uma letra
+			} else if (!Character.isWhitespace(s.charAt(i)) && i == endOfText) {
+				wordCount++;
+			}
+		}
 		artigo.setN_bytes((s.getBytes().length));
-	    artigo.setN_words(s.split("\\s+").length);
+	    artigo.setN_words(wordCount);
 
 	}
 	
