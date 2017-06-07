@@ -12,32 +12,13 @@ public class Parsing {
 		
 	}
 	
-	public void parseText(String s, Artigo artigo){
+	private void parseText(String s, Artigo artigo){
+		artigo.setN_bytes((s.getBytes().length));
+	    artigo.setN_words(s.split("\\s+").length);
 
-	    int wordCount = 0;
-
-	    boolean word = false;
-	    int endOfText = s.length() - 1;
-
-	    for (int i = 0; i < s.length(); i++) {
-	        // Se estivermos numa letra, word = true.
-	        if (Character.isLetter(s.charAt(i)) && i != endOfText) {
-	            word = true;
-	            // Se não estivermos numa letra mas viermos de uma letra,
-	            // acrescentamos ao contador.
-	        } else if (!Character.isLetter(s.charAt(i)) && word) {
-	            wordCount++;
-	            word = false;
-	            // Se o ultimo caracter for uma letra
-	        } else if (Character.isLetter(s.charAt(i)) && i == endOfText) {
-	            wordCount++;
-	        }
-	    }
-	    artigo.setN_bytes((s.length()*2));
-	    artigo.setN_words(wordCount);
 	}
 	
-	public void parseContribuidor(XMLStreamReader stream, Contribuidor contribuidor) throws XMLStreamException{
+	private void parseContribuidor(XMLStreamReader stream, Contribuidor contribuidor) throws XMLStreamException{
 		
 		stream.next();
 		 while(!(stream.isEndElement() && stream.getName().getLocalPart().equals("contributor"))){
@@ -52,12 +33,11 @@ public class Parsing {
 			 else if(stream.isStartElement() && stream.getName().getLocalPart().equals("ip")){
 				 contribuidor.setIsIP(true);
 			 }
-			 
 			 stream.next();
 		 }
 	}
 	
-	public void parseRevision(XMLStreamReader stream, Artigo artigo, Contribuidor contribuidor) throws XMLStreamException{
+	private void parseRevision(XMLStreamReader stream, Artigo artigo, Contribuidor contribuidor) throws XMLStreamException{
 		Revisao revisao = new Revisao();
 		 stream.next();
 		 
@@ -87,8 +67,8 @@ public class Parsing {
 		 artigo.insertRevisao(revisao);
 		
 	}
-	
-	public void parsePage(XMLStreamReader stream, Artigo artigo, Contribuidor contribuidor) throws XMLStreamException{
+
+	private void parsePage(XMLStreamReader stream, Artigo artigo, Contribuidor contribuidor) throws XMLStreamException{
 		
 		stream.nextTag();
 		 

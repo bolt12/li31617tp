@@ -40,12 +40,12 @@ public class QueryEngineImpl implements Interface {
 
     public ArrayList<Long> top_10_contributors() {
 
-        ArrayList<Long> r = this.dataBase.getTopContribuidores()
+        return this.dataBase.getTopContribuidores()
                                          .stream()
                                          .map(Contribuidor::getContributor_id)
                                          .limit(10)
                                          .collect(Collectors.toCollection(ArrayList::new));
-        return r;
+
     }
 
     public String contributor_name(long contributor_id) {
@@ -55,13 +55,12 @@ public class QueryEngineImpl implements Interface {
 
     public ArrayList<Long> top_20_largest_articles() {
 
-        ArrayList<Long> r = this.dataBase.getTopArtBytes()
+        return this.dataBase.getTopArtBytes()
                 .stream()
                 .map(Artigo::getTitle_ID)
                 .limit(20)
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        return r;
     }
 
     public String article_title(long article_id) {
@@ -71,25 +70,23 @@ public class QueryEngineImpl implements Interface {
 
     public ArrayList<Long> top_N_articles_with_more_words(int n) {
 
-        ArrayList<Long> r = this.dataBase.getTopArtWords()
+        return this.dataBase.getTopArtWords()
                 .stream()
                 .map(Artigo::getTitle_ID)
                 .limit(n)
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        return r;
     }
 
     public ArrayList<String> titles_with_prefix(String prefix) {
 
-        ArrayList<String> prefixs = this.dataBase.getMapArtigos().values()
+        return this.dataBase.getMapArtigos().values()
                 .stream()
                 .filter(a -> a.getTitle().startsWith(prefix))
                 .map(Artigo::getTitle)
                 .sorted()
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        return prefixs;
     }
 
     public String article_timestamp(long article_id, long revision_id) {

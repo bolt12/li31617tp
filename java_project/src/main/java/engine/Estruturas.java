@@ -20,8 +20,8 @@ public class Estruturas {
 		unique_articles = 0;
 		all_articles = 0;
 		all_revisions = 0;
-		mapArtigos = new HashMap<Long, Artigo>();
-		mapContribuidores = new HashMap<Long,Contribuidor>();
+		mapArtigos = new HashMap<>();
+		mapContribuidores = new HashMap<>();
 		topContribuidores = new TreeSet<>();
 		topArtBytes = new TreeSet<>();
 		topArtWords = new TreeSet<>(new ComparatorArtigoWords());
@@ -90,8 +90,8 @@ public class Estruturas {
 	}
 
 	public void addToTopArtWords(){
-		this.topArtWords = mapArtigos.values().parallelStream().collect(Collectors.toCollection(TreeSet::new));
-		//this.topArtWords.addAll(mapArtigos.values());
+		//this.topArtWords = mapArtigos.values().parallelStream().collect(Collectors.toCollection(TreeSet::new));
+		this.topArtWords.addAll(mapArtigos.values());
 	}
 
 	public Estruturas setMapContribuidores(HashMap<Long, Contribuidor> mapContribuidores) {
@@ -111,6 +111,12 @@ public class Estruturas {
 		}
 		else{
 			if(! article.getNewestRevision().compare(old_article.getNewestRevision())){
+				int maxLength = (article.getN_bytes() >= old_article.getN_bytes()) ?
+						article.getN_bytes() : old_article.getN_bytes();
+				int maxWords = (article.getN_words() >= old_article.getN_words()) ?
+						article.getN_words() : old_article.getN_words();
+				article.setN_bytes(maxLength);
+				article.setN_words(maxWords);
 				article.insertOldRevisions(old_article.getRevisoes());
 				mapArtigos.replace(article_id, article);
 				this.all_revisions++;

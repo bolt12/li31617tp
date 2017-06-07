@@ -2,9 +2,6 @@ package engine;
 
 import java.util.Comparator;
 
-/**
- * Created by bolt on 6/4/17.
- */
 public class ComparatorArtigoWords implements Comparator<Artigo> {
 
     public int compare(Artigo a1, Artigo a2){
