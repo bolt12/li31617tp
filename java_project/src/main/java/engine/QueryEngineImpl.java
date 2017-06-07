@@ -48,19 +48,26 @@ public class QueryEngineImpl implements Interface {
     }
 
     public String contributor_name(long contributor_id) {
-        return dataBase.getContributorNameByID(contributor_id);
+        try {
+            return dataBase.getContributorNameByID(contributor_id);
+        }
+        catch (NullPointerException e){return null;}
+
     }
 
     public ArrayList<Long> top_20_largest_articles() {
-        return this.dataBase.getTopArtBytes()
-                .stream()
-                .map(Artigo::getTitle_ID)
-                .limit(20)
-                .collect(Collectors.toCollection(ArrayList::new));
+             return this.dataBase.getTopArtBytes()
+                    .stream()
+                    .map(Artigo::getTitle_ID)
+                    .limit(20)
+                    .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public String article_title(long article_id) {
-        return dataBase.getArticleNameByID(article_id);
+        try {
+            return dataBase.getArticleNameByID(article_id);
+        }
+        catch (NullPointerException e) {return null;}
     }
 
     public ArrayList<Long> top_N_articles_with_more_words(int n) {
@@ -74,7 +81,6 @@ public class QueryEngineImpl implements Interface {
     }
 
     public ArrayList<String> titles_with_prefix(String prefix) {
-
         return this.dataBase.getMapArtigos().values()
                 .stream()
                 .filter(a -> a.getTitle().startsWith(prefix))
@@ -85,8 +91,10 @@ public class QueryEngineImpl implements Interface {
     }
 
     public String article_timestamp(long article_id, long revision_id) {
-
-        return dataBase.getRevisionByID(article_id, revision_id);
+        try {
+            return dataBase.getRevisionByID(article_id, revision_id);
+        }
+        catch (NullPointerException e) {return null;}
     }
 
     public void clean() {

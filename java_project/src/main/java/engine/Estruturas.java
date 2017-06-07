@@ -2,6 +2,7 @@ package engine;
 
 import java.util.HashMap;
 import java.util.TreeSet;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class Estruturas {
@@ -89,9 +90,10 @@ public class Estruturas {
 		//this.topArtBytes.addAll(mapArtigos.values());
 	}
 
-	public void addToTopArtWords(){
-		//this.topArtWords = mapArtigos.values().parallelStream().collect(Collectors.toCollection(TreeSet::new));
-		this.topArtWords.addAll(mapArtigos.values());
+	public void addToTopArtWords() {
+		Supplier<TreeSet<Artigo>> supplier =
+				() -> new TreeSet<>(new ComparatorArtigoWords());
+		this.topArtWords = mapArtigos.values().parallelStream().collect(Collectors.toCollection(supplier));
 	}
 
 	public Estruturas setMapContribuidores(HashMap<Long, Contribuidor> mapContribuidores) {
