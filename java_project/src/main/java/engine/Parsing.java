@@ -7,18 +7,28 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class Parsing {
-	
+		
 	public Parsing(){
 	}
 	
+	private static byte[] getBytesFast(String str) {
+        final char buffer[] = new char[str.length()];
+        final int length = str.length();
+        str.getChars(0, length, buffer, 0);
+        final byte b[] = new byte[length];
+        for (int j = 0; j < length; j++)
+            b[j] = (byte) buffer[j];
+        return b;
+    }
 	private void parseText(String s, Artigo artigo){
 
 		int wordCount = 0;
-
+		int length = s.length();
+		
 		boolean word = false;
 		int endOfText = s.length() - 1;
 
-		for (int i = 0; i < s.length(); i++) {
+		for (int i = 0; i < length; i++) {
 			// Se estivermos numa letra, word = true.
 			if (!Character.isWhitespace(s.charAt(i)) && i != endOfText) {
 				word = true;
@@ -32,11 +42,11 @@ public class Parsing {
 				wordCount++;
 			}
 		}
-		artigo.setN_bytes((s.getBytes().length));
+		artigo.setN_bytes(getBytesFast(s).length);
 	    artigo.setN_words(wordCount);
 
 	}
-	
+		
 	private void parseContribuidor(XMLStreamReader stream, Contribuidor contribuidor) throws XMLStreamException{
 		
 		stream.next();
@@ -73,9 +83,8 @@ public class Parsing {
 			 }
 			 else if (stream.isStartElement() && stream.getName().getLocalPart().equals("text")){
 				 stream.next();
-				 String s = stream.getText();
-				 artigo.setN_bytes((s.getBytes().length));
-				 artigo.setN_words(Words.numWords(s));
+				 parseText(stream.getText(), artigo);
+				 
 			 }
 			 else if (stream.isStartElement() && stream.getName().getLocalPart().equals("contributor")){
 				 // Parse do Contribuidor
@@ -127,10 +136,12 @@ public class Parsing {
 						 parsePage(stream, artigo, contribuidor);
 						 
 						 database.addInfo(artigo, contribuidor);
+						 
 
 				}
 			}
-
+			
+			
 		} catch (FileNotFoundException | XMLStreamException e) {
 	            e.printStackTrace();
 		}
