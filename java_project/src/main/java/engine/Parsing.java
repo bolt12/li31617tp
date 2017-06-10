@@ -73,7 +73,9 @@ public class Parsing {
 			 }
 			 else if (stream.isStartElement() && stream.getName().getLocalPart().equals("text")){
 				 stream.next();
-				 parseText(stream.getText(),artigo);
+				 String s = stream.getText();
+				 artigo.setN_bytes((s.getBytes().length));
+				 artigo.setN_words(Words.numWords(s));
 			 }
 			 else if (stream.isStartElement() && stream.getName().getLocalPart().equals("contributor")){
 				 // Parse do Contribuidor
