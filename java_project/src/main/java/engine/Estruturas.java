@@ -81,19 +81,24 @@ public class Estruturas {
 	}
 
 	public void addToTopContribs(){
-		this.topContribuidores = mapContribuidores.values().parallelStream().collect(Collectors.toCollection(TreeSet::new));
-		//this.topContribuidores.addAll(mapContribuidores.values());
+		this.topContribuidores = mapContribuidores.values()
+				                                  .parallelStream()
+												  .collect(Collectors.toCollection(TreeSet::new));
 	}
 
 	public void addToTopArtBytes(){
-		this.topArtBytes = mapArtigos.values().parallelStream().collect(Collectors.toCollection(TreeSet::new));
-		//this.topArtBytes.addAll(mapArtigos.values());
+		this.topArtBytes = mapArtigos.values()
+									 .parallelStream()
+									 .collect(Collectors.toCollection(TreeSet::new));
 	}
 
 	public void addToTopArtWords() {
 		Supplier<TreeSet<Artigo>> supplier =
 				() -> new TreeSet<>(new ComparatorArtigoWords());
-		this.topArtWords = mapArtigos.values().parallelStream().collect(Collectors.toCollection(supplier));
+
+		this.topArtWords = mapArtigos.values()
+									 .parallelStream()
+									 .collect(Collectors.toCollection(supplier));
 	}
 
 	public Estruturas setMapContribuidores(HashMap<Long, Contribuidor> mapContribuidores) {

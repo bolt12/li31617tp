@@ -11,15 +11,6 @@ public class Parsing {
 	public Parsing(){
 	}
 	
-	private static byte[] getBytesFast(String str) {
-        final char buffer[] = new char[str.length()];
-        final int length = str.length();
-        str.getChars(0, length, buffer, 0);
-        final byte b[] = new byte[length];
-        for (int j = 0; j < length; j++)
-            b[j] = (byte) buffer[j];
-        return b;
-    }
 	private void parseText(String s, Artigo artigo){
 
 		int wordCount = 0;
@@ -42,7 +33,7 @@ public class Parsing {
 				wordCount++;
 			}
 		}
-		artigo.setN_bytes(getBytesFast(s).length);
+		artigo.setN_bytes(s.getBytes().length);
 	    artigo.setN_words(wordCount);
 
 	}
