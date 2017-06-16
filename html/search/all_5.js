@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['hashcode',['hashCode',['../hashTArt_8c.html#a8e5d97762d0b77ee9c5560fe8cc88452',1,'hashCode(long title_ID):&#160;hashTArt.c'],['../hashTArt_8h.html#a8e5d97762d0b77ee9c5560fe8cc88452',1,'hashCode(long title_ID):&#160;hashTArt.c']]],
+  ['hashtable',['hashtable',['../structhashtable.html',1,'']]],
+  ['hashtablecontrib',['hashtablecontrib',['../structhashtablecontrib.html',1,'']]],
+  ['hashtart',['hashTArt',['../hashTArt_8h.html#a9c29e263aee730e17fcb7b85a2ab05b0',1,'hashTArt.h']]],
+  ['hashtart_2ec',['hashTArt.c',['../hashTArt_8c.html',1,'']]],
+  ['hashtart_2eh',['hashTArt.h',['../hashTArt_8h.html',1,'']]],
+  ['hashtart_5fadd',['hashTArt_Add',['../hashTArt_8c.html#aebe5e67e6d46805b8003545e1f5e7169',1,'hashTArt_Add(hashTArt h, char *title, long title_ID, int n_bytes, int n_words, long revision_id, char *timestamp, avlArtWords *avlWords):&#160;hashTArt.c'],['../hashTArt_8h.html#aebe5e67e6d46805b8003545e1f5e7169',1,'hashTArt_Add(hashTArt h, char *title, long title_ID, int n_bytes, int n_words, long revision_id, char *timestamp, avlArtWords *avlWords):&#160;hashTArt.c']]],
+  ['hashtart_5fclean',['hashTArt_Clean',['../hashTArt_8c.html#a4abf04e2efd3dcfb1487de6f8be233b6',1,'hashTArt_Clean(hashTArt h):&#160;hashTArt.c'],['../hashTArt_8h.html#a4abf04e2efd3dcfb1487de6f8be233b6',1,'hashTArt_Clean(hashTArt h):&#160;hashTArt.c']]],
+  ['hashtart_5fgettitle',['hashTArt_GetTitle',['../hashTArt_8c.html#a2d7581027be71aa76bd187e7369eedfd',1,'hashTArt_GetTitle(hashTArt h, long title_ID):&#160;hashTArt.c'],['../hashTArt_8h.html#a5657cf60fa9c2d7bdde289e9a2e8e773',1,'hashTArt_GetTitle(hashTArt h, long article_id):&#160;hashTArt.c']]],
+  ['hashtart_5finit',['hashTArt_Init',['../hashTArt_8c.html#abfb903216c61e8b6583b73616da4923f',1,'hashTArt_Init(hashTArt h):&#160;hashTArt.c'],['../hashTArt_8h.html#abfb903216c61e8b6583b73616da4923f',1,'hashTArt_Init(hashTArt h):&#160;hashTArt.c']]],
+  ['hashtart_5fprefix',['hashTArt_Prefix',['../hashTArt_8c.html#a792ef699fb3869940f0fd3e1e2434c7c',1,'hashTArt_Prefix(hashTArt h, char *prefix):&#160;hashTArt.c'],['../hashTArt_8h.html#a792ef699fb3869940f0fd3e1e2434c7c',1,'hashTArt_Prefix(hashTArt h, char *prefix):&#160;hashTArt.c']]],
+  ['hashtart_5ftimestamp',['hashTArt_Timestamp',['../hashTArt_8c.html#aa5a061067c1204c1c915ea94484dce2b',1,'hashTArt_Timestamp(hashTArt h, long title_ID, long revision_id):&#160;hashTArt.c'],['../hashTArt_8h.html#aa9afa66779037bbdcda7dcb66ebfe83c',1,'hashTArt_Timestamp(hashTArt h, long article_id, long revision_id):&#160;hashTArt.c']]],
+  ['hashtcontrib',['hashTContrib',['../hashTContrib_8h.html#a2d4cbdc8189a569f5fc4890fe1d84ef3',1,'hashTContrib.h']]],
+  ['hashtcontrib_2ec',['hashTContrib.c',['../hashTContrib_8c.html',1,'']]],
+  ['hashtcontrib_2eh',['hashTContrib.h',['../hashTContrib_8h.html',1,'']]],
+  ['hashtcontribadd',['hashTContribAdd',['../hashTContrib_8c.html#a807c78468de55fad52dcd979070ce314',1,'hashTContribAdd(hashTContrib h, char *contributor_name, long contributor_id):&#160;hashTContrib.c'],['../hashTContrib_8h.html#a268714bba84f73e0dbb266f980f23e89',1,'hashTContribAdd(hashTContrib ht, char *contributor_name, long contributor_id):&#160;hashTContrib.c']]],
+  ['hashtcontribclean',['hashTContribClean',['../hashTContrib_8c.html#a663cd2f83db8d10a488b7bd70a93fb28',1,'hashTContribClean(hashTContrib ht):&#160;hashTContrib.c'],['../hashTContrib_8h.html#a663cd2f83db8d10a488b7bd70a93fb28',1,'hashTContribClean(hashTContrib ht):&#160;hashTContrib.c']]],
+  ['hashtcontribhash',['hashTContribHash',['../hashTContrib_8c.html#a3889e0a4675c4f9c587c9f4d9c962f12',1,'hashTContribHash(long contributor_id):&#160;hashTContrib.c'],['../hashTContrib_8h.html#a3889e0a4675c4f9c587c9f4d9c962f12',1,'hashTContribHash(long contributor_id):&#160;hashTContrib.c']]],
+  ['hashtcontribinit',['hashTContribInit',['../hashTContrib_8c.html#a7be45ec6c76ba9537f7515796c277a23',1,'hashTContribInit(hashTContrib ht):&#160;hashTContrib.c'],['../hashTContrib_8h.html#a7be45ec6c76ba9537f7515796c277a23',1,'hashTContribInit(hashTContrib ht):&#160;hashTContrib.c']]],
+  ['hashtcontribretrievecontributions',['hashTContribRetrieveContributions',['../hashTContrib_8c.html#a20e0d9dc5407900823382f5380b2ed84',1,'hashTContribRetrieveContributions(hashTContrib ht, long contributor_id):&#160;hashTContrib.c'],['../hashTContrib_8h.html#a20e0d9dc5407900823382f5380b2ed84',1,'hashTContribRetrieveContributions(hashTContrib ht, long contributor_id):&#160;hashTContrib.c']]],
+  ['hashtcontribretrievename',['hashTContribRetrieveName',['../hashTContrib_8c.html#a937f1fa2d267fe416df753be57ccdffb',1,'hashTContribRetrieveName(hashTContrib ht, long contributor_id):&#160;hashTContrib.c'],['../hashTContrib_8h.html#a937f1fa2d267fe416df753be57ccdffb',1,'hashTContribRetrieveName(hashTContrib ht, long contributor_id):&#160;hashTContrib.c']]],
+  ['height',['height',['../structavl.html#aefde0aaea0ba319fb4c3a306f24aea79',1,'avl::height()'],['../avl_8c.html#a40ad2b0e6d3fce84305ef93187615a95',1,'height(AVL avl):&#160;avl.c'],['../avl_8h.html#a40ad2b0e6d3fce84305ef93187615a95',1,'height(AVL avl):&#160;avl.c']]],
+  ['ht_5fart',['ht_art',['../structTCD__istruct.html#a5ec7530b3212864efdc20753948265ca',1,'TCD_istruct']]],
+  ['ht_5fcontrib',['ht_contrib',['../structTCD__istruct.html#a8fb49b7e545d79bb8a1f0a75a8e5f466',1,'TCD_istruct']]]
+];

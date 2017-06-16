@@ -4,6 +4,7 @@ import li3.Interface;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class QueryEngineImpl implements Interface {
 	
@@ -15,12 +16,7 @@ public class QueryEngineImpl implements Interface {
 
     public void load(int nsnaps, ArrayList<String> snaps_paths) {
     	Parsing parser = new Parsing();
-        snaps_paths.parallelStream().forEach(s -> parser.openXML(s, dataBase));
-        /*
-    	for(int i = 0; i < nsnaps; i++){
-    		parser.openXML(snaps_paths.get(i), dataBase);
-    	}
-    	*/
+        snaps_paths.stream().forEach(s -> parser.openXML(s, dataBase));
         dataBase.addToTopContribs();
         dataBase.addToTopArtBytes();
         dataBase.addToTopArtWords();

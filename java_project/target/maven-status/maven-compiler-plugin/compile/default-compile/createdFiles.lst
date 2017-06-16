@@ -1,0 +1,10 @@
+engine/Estruturas.class
+engine/Artigo.class
+engine/Contribuidor.class
+common/MyLog.class
+engine/ComparatorArtigoWords.class
+engine/Parsing.class
+li3/Interface.class
+engine/QueryEngineImpl.class
+engine/Revisao.class
+li3/Main.class

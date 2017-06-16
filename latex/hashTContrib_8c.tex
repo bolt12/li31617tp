@@ -1,0 +1,186 @@
+\hypertarget{hashTContrib_8c}{}\section{hash\+T\+Contrib.\+c File Reference}
+\label{hashTContrib_8c}\index{hash\+T\+Contrib.\+c@{hash\+T\+Contrib.\+c}}
+{\ttfamily \#include \char`\"{}string.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}linked\+List.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}hash\+T\+Contrib.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}avl.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{hashTContrib_8c_a3889e0a4675c4f9c587c9f4d9c962f12}{hash\+T\+Contrib\+Hash} (long contributor\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Devolve o hash\+Code com base no ID de contribuidor. \end{DoxyCompactList}\item 
+void \hyperlink{hashTContrib_8c_a7be45ec6c76ba9537f7515796c277a23}{hash\+T\+Contrib\+Init} (\hyperlink{hashTContrib_8h_a2d4cbdc8189a569f5fc4890fe1d84ef3}{hash\+T\+Contrib} ht)
+\begin{DoxyCompactList}\small\item\em Inicializa a Tabela de Hash. \end{DoxyCompactList}\item 
+int \hyperlink{hashTContrib_8c_a807c78468de55fad52dcd979070ce314}{hash\+T\+Contrib\+Add} (\hyperlink{hashTContrib_8h_a2d4cbdc8189a569f5fc4890fe1d84ef3}{hash\+T\+Contrib} h, char $\ast$\hyperlink{interface_8h_a60e4a732b81c55c58d3317fb2bb92bea}{contributor\+\_\+name}, long contributor\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Insere informação de um contribuidor na tabela de Hash ou atualiza número das suas contribuições caso já exista. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{hashTContrib_8c_a937f1fa2d267fe416df753be57ccdffb}{hash\+T\+Contrib\+Retrieve\+Name} (\hyperlink{hashTContrib_8h_a2d4cbdc8189a569f5fc4890fe1d84ef3}{hash\+T\+Contrib} ht, long contributor\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Procura o nome de um contribuidor com base no seu ID. \end{DoxyCompactList}\item 
+int \hyperlink{hashTContrib_8c_a20e0d9dc5407900823382f5380b2ed84}{hash\+T\+Contrib\+Retrieve\+Contributions} (\hyperlink{hashTContrib_8h_a2d4cbdc8189a569f5fc4890fe1d84ef3}{hash\+T\+Contrib} ht, long contributor\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Devolve o número de contribuições de um determinado contribuidor com base no seu ID. \end{DoxyCompactList}\item 
+void \hyperlink{hashTContrib_8c_a663cd2f83db8d10a488b7bd70a93fb28}{hash\+T\+Contrib\+Clean} (\hyperlink{hashTContrib_8h_a2d4cbdc8189a569f5fc4890fe1d84ef3}{hash\+T\+Contrib} ht)
+\begin{DoxyCompactList}\small\item\em Limpa a tabela de Hash. \end{DoxyCompactList}\item 
+\hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List} \hyperlink{hashTContrib_8c_a3970becd48067ccfdd74a5f97ab53257}{new\+NodeC} (\hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List} l, \hyperlink{hashTContrib_8h_a60224f9fc51c0ecdc9cc9d99309c87b6}{Contrib} c)
+\item 
+void \hyperlink{hashTContrib_8c_a9e465d1fe8d331ae8e78facb2154a2da}{insert\+OrderedC} (\hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List} $\ast$list, \hyperlink{hashTContrib_8h_a60224f9fc51c0ecdc9cc9d99309c87b6}{Contrib} c)
+\item 
+void \hyperlink{hashTContrib_8c_af2a8c510ace5fb45df66fdcff33e5d63}{get\+Top10\+NodesC} (\hyperlink{hashTContrib_8h_a2d4cbdc8189a569f5fc4890fe1d84ef3}{hash\+T\+Contrib} ht, \hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List} $\ast$list)
+\begin{DoxyCompactList}\small\item\em Coloca numa lista ligada os nodos com os 10 contribuidores com mais contribuições. \end{DoxyCompactList}\item 
+long $\ast$ \hyperlink{hashTContrib_8c_af74274092e1e86010870d7e59e40e5e5}{get\+Top10C} (\hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List} list)
+\begin{DoxyCompactList}\small\item\em Converte a lista ligada num array com o ID dos 10 contribuidores com mais contribuições. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{hashTContrib_8c_af74274092e1e86010870d7e59e40e5e5}\label{hashTContrib_8c_af74274092e1e86010870d7e59e40e5e5}} 
+\index{hash\+T\+Contrib.\+c@{hash\+T\+Contrib.\+c}!get\+Top10C@{get\+Top10C}}
+\index{get\+Top10C@{get\+Top10C}!hash\+T\+Contrib.\+c@{hash\+T\+Contrib.\+c}}
+\subsubsection{\texorpdfstring{get\+Top10\+C()}{getTop10C()}}
+{\footnotesize\ttfamily long$\ast$ get\+Top10C (\begin{DoxyParamCaption}\item[{\hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List}}]{list }\end{DoxyParamCaption})}
+
+
+
+Converte a lista ligada num array com o ID dos 10 contribuidores com mais contribuições. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Lista ligada \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Array com ID dos top10 contribuidores 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hashTContrib_8c_af2a8c510ace5fb45df66fdcff33e5d63}\label{hashTContrib_8c_af2a8c510ace5fb45df66fdcff33e5d63}} 
+\index{hash\+T\+Contrib.\+c@{hash\+T\+Contrib.\+c}!get\+Top10\+NodesC@{get\+Top10\+NodesC}}
+\index{get\+Top10\+NodesC@{get\+Top10\+NodesC}!hash\+T\+Contrib.\+c@{hash\+T\+Contrib.\+c}}
+\subsubsection{\texorpdfstring{get\+Top10\+Nodes\+C()}{getTop10NodesC()}}
+{\footnotesize\ttfamily void get\+Top10\+NodesC (\begin{DoxyParamCaption}\item[{\hyperlink{hashTContrib_8h_a2d4cbdc8189a569f5fc4890fe1d84ef3}{hash\+T\+Contrib}}]{ht,  }\item[{\hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List} $\ast$}]{list }\end{DoxyParamCaption})}
+
+
+
+Coloca numa lista ligada os nodos com os 10 contribuidores com mais contribuições. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ht} & Tabela de Hash \\
+\hline
+\mbox{\tt out}  & {\em list} & Lista ligada \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{hashTContrib_8c_a807c78468de55fad52dcd979070ce314}\label{hashTContrib_8c_a807c78468de55fad52dcd979070ce314}} 
+\index{hash\+T\+Contrib.\+c@{hash\+T\+Contrib.\+c}!hash\+T\+Contrib\+Add@{hash\+T\+Contrib\+Add}}
+\index{hash\+T\+Contrib\+Add@{hash\+T\+Contrib\+Add}!hash\+T\+Contrib.\+c@{hash\+T\+Contrib.\+c}}
+\subsubsection{\texorpdfstring{hash\+T\+Contrib\+Add()}{hashTContribAdd()}}
+{\footnotesize\ttfamily int hash\+T\+Contrib\+Add (\begin{DoxyParamCaption}\item[{\hyperlink{hashTContrib_8h_a2d4cbdc8189a569f5fc4890fe1d84ef3}{hash\+T\+Contrib}}]{ht,  }\item[{char $\ast$}]{contributor\+\_\+name,  }\item[{long}]{contributor\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Insere informação de um contribuidor na tabela de Hash ou atualiza número das suas contribuições caso já exista. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ht} & Tabela de hash \\
+\hline
+{\em contributor\+\_\+name} & Nome do contribuidor \\
+\hline
+{\em contributor\+\_\+id} & ID do contribuidor \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{hashTContrib_8c_a663cd2f83db8d10a488b7bd70a93fb28}\label{hashTContrib_8c_a663cd2f83db8d10a488b7bd70a93fb28}} 
+\index{hash\+T\+Contrib.\+c@{hash\+T\+Contrib.\+c}!hash\+T\+Contrib\+Clean@{hash\+T\+Contrib\+Clean}}
+\index{hash\+T\+Contrib\+Clean@{hash\+T\+Contrib\+Clean}!hash\+T\+Contrib.\+c@{hash\+T\+Contrib.\+c}}
+\subsubsection{\texorpdfstring{hash\+T\+Contrib\+Clean()}{hashTContribClean()}}
+{\footnotesize\ttfamily void hash\+T\+Contrib\+Clean (\begin{DoxyParamCaption}\item[{\hyperlink{hashTContrib_8h_a2d4cbdc8189a569f5fc4890fe1d84ef3}{hash\+T\+Contrib}}]{ht }\end{DoxyParamCaption})}
+
+
+
+Limpa a tabela de Hash. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ht} & Tabela de Hash \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{hashTContrib_8c_a3889e0a4675c4f9c587c9f4d9c962f12}\label{hashTContrib_8c_a3889e0a4675c4f9c587c9f4d9c962f12}} 
+\index{hash\+T\+Contrib.\+c@{hash\+T\+Contrib.\+c}!hash\+T\+Contrib\+Hash@{hash\+T\+Contrib\+Hash}}
+\index{hash\+T\+Contrib\+Hash@{hash\+T\+Contrib\+Hash}!hash\+T\+Contrib.\+c@{hash\+T\+Contrib.\+c}}
+\subsubsection{\texorpdfstring{hash\+T\+Contrib\+Hash()}{hashTContribHash()}}
+{\footnotesize\ttfamily int hash\+T\+Contrib\+Hash (\begin{DoxyParamCaption}\item[{long}]{contributor\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Devolve o hash\+Code com base no ID de contribuidor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em contributor\+\_\+id} & ID do contribuidor \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+hash\+Code 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hashTContrib_8c_a7be45ec6c76ba9537f7515796c277a23}\label{hashTContrib_8c_a7be45ec6c76ba9537f7515796c277a23}} 
+\index{hash\+T\+Contrib.\+c@{hash\+T\+Contrib.\+c}!hash\+T\+Contrib\+Init@{hash\+T\+Contrib\+Init}}
+\index{hash\+T\+Contrib\+Init@{hash\+T\+Contrib\+Init}!hash\+T\+Contrib.\+c@{hash\+T\+Contrib.\+c}}
+\subsubsection{\texorpdfstring{hash\+T\+Contrib\+Init()}{hashTContribInit()}}
+{\footnotesize\ttfamily void hash\+T\+Contrib\+Init (\begin{DoxyParamCaption}\item[{\hyperlink{hashTContrib_8h_a2d4cbdc8189a569f5fc4890fe1d84ef3}{hash\+T\+Contrib}}]{ht }\end{DoxyParamCaption})}
+
+
+
+Inicializa a Tabela de Hash. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em h} & Tabela de hash \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{hashTContrib_8c_a20e0d9dc5407900823382f5380b2ed84}\label{hashTContrib_8c_a20e0d9dc5407900823382f5380b2ed84}} 
+\index{hash\+T\+Contrib.\+c@{hash\+T\+Contrib.\+c}!hash\+T\+Contrib\+Retrieve\+Contributions@{hash\+T\+Contrib\+Retrieve\+Contributions}}
+\index{hash\+T\+Contrib\+Retrieve\+Contributions@{hash\+T\+Contrib\+Retrieve\+Contributions}!hash\+T\+Contrib.\+c@{hash\+T\+Contrib.\+c}}
+\subsubsection{\texorpdfstring{hash\+T\+Contrib\+Retrieve\+Contributions()}{hashTContribRetrieveContributions()}}
+{\footnotesize\ttfamily int hash\+T\+Contrib\+Retrieve\+Contributions (\begin{DoxyParamCaption}\item[{\hyperlink{hashTContrib_8h_a2d4cbdc8189a569f5fc4890fe1d84ef3}{hash\+T\+Contrib}}]{ht,  }\item[{long}]{contributor\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Devolve o número de contribuições de um determinado contribuidor com base no seu ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ht} & Tabela de Hash \\
+\hline
+{\em contributor\+\_\+id} & ID do contribuidor \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Número de contribuições 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hashTContrib_8c_a937f1fa2d267fe416df753be57ccdffb}\label{hashTContrib_8c_a937f1fa2d267fe416df753be57ccdffb}} 
+\index{hash\+T\+Contrib.\+c@{hash\+T\+Contrib.\+c}!hash\+T\+Contrib\+Retrieve\+Name@{hash\+T\+Contrib\+Retrieve\+Name}}
+\index{hash\+T\+Contrib\+Retrieve\+Name@{hash\+T\+Contrib\+Retrieve\+Name}!hash\+T\+Contrib.\+c@{hash\+T\+Contrib.\+c}}
+\subsubsection{\texorpdfstring{hash\+T\+Contrib\+Retrieve\+Name()}{hashTContribRetrieveName()}}
+{\footnotesize\ttfamily char$\ast$ hash\+T\+Contrib\+Retrieve\+Name (\begin{DoxyParamCaption}\item[{\hyperlink{hashTContrib_8h_a2d4cbdc8189a569f5fc4890fe1d84ef3}{hash\+T\+Contrib}}]{ht,  }\item[{long}]{contributor\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Procura o nome de um contribuidor com base no seu ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ht} & Tabela de Hash \\
+\hline
+{\em contributor\+\_\+id} & ID do contribuidor \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String com o nome 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hashTContrib_8c_a9e465d1fe8d331ae8e78facb2154a2da}\label{hashTContrib_8c_a9e465d1fe8d331ae8e78facb2154a2da}} 
+\index{hash\+T\+Contrib.\+c@{hash\+T\+Contrib.\+c}!insert\+OrderedC@{insert\+OrderedC}}
+\index{insert\+OrderedC@{insert\+OrderedC}!hash\+T\+Contrib.\+c@{hash\+T\+Contrib.\+c}}
+\subsubsection{\texorpdfstring{insert\+Ordered\+C()}{insertOrderedC()}}
+{\footnotesize\ttfamily void insert\+OrderedC (\begin{DoxyParamCaption}\item[{\hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List} $\ast$}]{list,  }\item[{\hyperlink{hashTContrib_8h_a60224f9fc51c0ecdc9cc9d99309c87b6}{Contrib}}]{c }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{hashTContrib_8c_a3970becd48067ccfdd74a5f97ab53257}\label{hashTContrib_8c_a3970becd48067ccfdd74a5f97ab53257}} 
+\index{hash\+T\+Contrib.\+c@{hash\+T\+Contrib.\+c}!new\+NodeC@{new\+NodeC}}
+\index{new\+NodeC@{new\+NodeC}!hash\+T\+Contrib.\+c@{hash\+T\+Contrib.\+c}}
+\subsubsection{\texorpdfstring{new\+Node\+C()}{newNodeC()}}
+{\footnotesize\ttfamily \hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List} new\+NodeC (\begin{DoxyParamCaption}\item[{\hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List}}]{l,  }\item[{\hyperlink{hashTContrib_8h_a60224f9fc51c0ecdc9cc9d99309c87b6}{Contrib}}]{c }\end{DoxyParamCaption})}
+

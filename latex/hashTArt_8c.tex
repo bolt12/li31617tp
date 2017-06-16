@@ -1,0 +1,299 @@
+\hypertarget{hashTArt_8c}{}\section{hash\+T\+Art.\+c File Reference}
+\label{hashTArt_8c}\index{hash\+T\+Art.\+c@{hash\+T\+Art.\+c}}
+{\ttfamily \#include \char`\"{}hash\+T\+Art.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}avl.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{hashTArt_8c_a8e5d97762d0b77ee9c5560fe8cc88452}{hash\+Code} (long title\+\_\+\+ID)
+\begin{DoxyCompactList}\small\item\em Devolve o hash\+Code com base no ID de um artigo. \end{DoxyCompactList}\item 
+void \hyperlink{hashTArt_8c_abfb903216c61e8b6583b73616da4923f}{hash\+T\+Art\+\_\+\+Init} (\hyperlink{hashTArt_8h_a9c29e263aee730e17fcb7b85a2ab05b0}{hash\+T\+Art} h)
+\begin{DoxyCompactList}\small\item\em Inicializa a Tabela de Hash. \end{DoxyCompactList}\item 
+int \hyperlink{hashTArt_8c_aebe5e67e6d46805b8003545e1f5e7169}{hash\+T\+Art\+\_\+\+Add} (\hyperlink{hashTArt_8h_a9c29e263aee730e17fcb7b85a2ab05b0}{hash\+T\+Art} h, char $\ast$title, long title\+\_\+\+ID, int n\+\_\+bytes, int n\+\_\+words, long revision\+\_\+id, char $\ast$timestamp, \hyperlink{avl_8h_a04eef13e46b719914a0c48f282ad1306}{avl\+Art\+Words} $\ast$avl\+Words)
+\begin{DoxyCompactList}\small\item\em Insere informação de um artigo na tabela de Hash. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{hashTArt_8c_a2d7581027be71aa76bd187e7369eedfd}{hash\+T\+Art\+\_\+\+Get\+Title} (\hyperlink{hashTArt_8h_a9c29e263aee730e17fcb7b85a2ab05b0}{hash\+T\+Art} h, long title\+\_\+\+ID)
+\begin{DoxyCompactList}\small\item\em Procura o título correspondente a um determinado ID. \end{DoxyCompactList}\item 
+int \hyperlink{hashTArt_8c_a14acec22cbae3fc2f1dbbb7b0fa64651}{string\+Comparator} (const void $\ast$a, const void $\ast$b)
+\item 
+char $\ast$$\ast$ \hyperlink{hashTArt_8c_a792ef699fb3869940f0fd3e1e2434c7c}{hash\+T\+Art\+\_\+\+Prefix} (\hyperlink{hashTArt_8h_a9c29e263aee730e17fcb7b85a2ab05b0}{hash\+T\+Art} h, char $\ast$prefix)
+\begin{DoxyCompactList}\small\item\em Procura todos os títulos com um determinado prefixo. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{hashTArt_8c_aa5a061067c1204c1c915ea94484dce2b}{hash\+T\+Art\+\_\+\+Timestamp} (\hyperlink{hashTArt_8h_a9c29e263aee730e17fcb7b85a2ab05b0}{hash\+T\+Art} h, long title\+\_\+\+ID, long revision\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Procura a data correspondente a uma determinada revisão. \end{DoxyCompactList}\item 
+void \hyperlink{hashTArt_8c_a4abf04e2efd3dcfb1487de6f8be233b6}{hash\+T\+Art\+\_\+\+Clean} (\hyperlink{hashTArt_8h_a9c29e263aee730e17fcb7b85a2ab05b0}{hash\+T\+Art} h)
+\begin{DoxyCompactList}\small\item\em Limpa a tabela de Hash. \end{DoxyCompactList}\item 
+\hyperlink{avl_8h_a04eef13e46b719914a0c48f282ad1306}{avl\+Art\+Words} \hyperlink{hashTArt_8c_a89863161c1ab73fe27f368066158633d}{avl\+Art\+Words\+\_\+\+Insert} (\hyperlink{avl_8h_a04eef13e46b719914a0c48f282ad1306}{avl\+Art\+Words} p, \hyperlink{hashTArt_8h_aa0952ee7d4be2db9c3de11ade89c43e3}{art\+Nodo} n)
+\begin{DoxyCompactList}\small\item\em Insere um artigo na A\+VL segundo o número de palavras deste. \end{DoxyCompactList}\item 
+\hyperlink{avl_8h_a04eef13e46b719914a0c48f282ad1306}{avl\+Art\+Words} \hyperlink{hashTArt_8c_a10620e3d8e9a57a133d448a0846e4139}{avl\+Art\+Words\+\_\+\+Insert\+A\+LL} (\hyperlink{hashTArt_8h_a9c29e263aee730e17fcb7b85a2ab05b0}{hash\+T\+Art} ht, \hyperlink{avl_8h_a04eef13e46b719914a0c48f282ad1306}{avl\+Art\+Words} p)
+\begin{DoxyCompactList}\small\item\em Percorre uma tabela de Hash de artigos e insere-\/os todos na A\+VL. \end{DoxyCompactList}\item 
+int \hyperlink{hashTArt_8c_a785a1943e1446049be722b009b5d7905}{avl\+Art\+Words\+\_\+\+TopN} (\hyperlink{avl_8h_a04eef13e46b719914a0c48f282ad1306}{avl\+Art\+Words} \hyperlink{structavl}{avl}, long $\ast$top, int i, int n)
+\begin{DoxyCompactList}\small\item\em Devolve por referência o top N de artigos com maior número de palavras. \end{DoxyCompactList}\item 
+\hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List} \hyperlink{hashTArt_8c_a940a7cb92b1e66ad64986f646c422cd2}{new\+NodeA} (\hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List} l, \hyperlink{hashTArt_8h_aa0952ee7d4be2db9c3de11ade89c43e3}{art\+Nodo} a)
+\item 
+void \hyperlink{hashTArt_8c_a22d2f85ce5bcbc47d0a4959081f81df6}{insert\+OrderedA} (\hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List} $\ast$list, \hyperlink{hashTArt_8h_aa0952ee7d4be2db9c3de11ade89c43e3}{art\+Nodo} a)
+\item 
+void \hyperlink{hashTArt_8c_a70b211e30e1e6b9b8b1b6bc7062ee9fb}{get\+Top20\+NodesA} (\hyperlink{hashTArt_8h_a9c29e263aee730e17fcb7b85a2ab05b0}{hash\+T\+Art} ht, \hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List} $\ast$list)
+\begin{DoxyCompactList}\small\item\em Percorre uma tabela de Hash de artigos e devolve por referencia uma lista ligada com o top 20 de artigos com maior número de palavras. \end{DoxyCompactList}\item 
+long $\ast$ \hyperlink{hashTArt_8c_aca6423869346efb84c5b7b150a417b57}{get\+Top20A} (\hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List} list)
+\begin{DoxyCompactList}\small\item\em Devolve em forma de array o uma lista ligada de artigos. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{hashTArt_8c_a89863161c1ab73fe27f368066158633d}\label{hashTArt_8c_a89863161c1ab73fe27f368066158633d}} 
+\index{hash\+T\+Art.\+c@{hash\+T\+Art.\+c}!avl\+Art\+Words\+\_\+\+Insert@{avl\+Art\+Words\+\_\+\+Insert}}
+\index{avl\+Art\+Words\+\_\+\+Insert@{avl\+Art\+Words\+\_\+\+Insert}!hash\+T\+Art.\+c@{hash\+T\+Art.\+c}}
+\subsubsection{\texorpdfstring{avl\+Art\+Words\+\_\+\+Insert()}{avlArtWords\_Insert()}}
+{\footnotesize\ttfamily \hyperlink{avl_8h_a04eef13e46b719914a0c48f282ad1306}{avl\+Art\+Words} avl\+Art\+Words\+\_\+\+Insert (\begin{DoxyParamCaption}\item[{\hyperlink{avl_8h_a04eef13e46b719914a0c48f282ad1306}{avl\+Art\+Words}}]{avl,  }\item[{\hyperlink{hashTArt_8h_aa0952ee7d4be2db9c3de11ade89c43e3}{art\+Nodo}}]{n }\end{DoxyParamCaption})}
+
+
+
+Insere um artigo na A\+VL segundo o número de palavras deste. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em avl} & A\+VL onde vai ser inserido \\
+\hline
+{\em n} & Nodo correspondente ao artigo \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A\+VL resultante 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hashTArt_8c_a10620e3d8e9a57a133d448a0846e4139}\label{hashTArt_8c_a10620e3d8e9a57a133d448a0846e4139}} 
+\index{hash\+T\+Art.\+c@{hash\+T\+Art.\+c}!avl\+Art\+Words\+\_\+\+Insert\+A\+LL@{avl\+Art\+Words\+\_\+\+Insert\+A\+LL}}
+\index{avl\+Art\+Words\+\_\+\+Insert\+A\+LL@{avl\+Art\+Words\+\_\+\+Insert\+A\+LL}!hash\+T\+Art.\+c@{hash\+T\+Art.\+c}}
+\subsubsection{\texorpdfstring{avl\+Art\+Words\+\_\+\+Insert\+A\+L\+L()}{avlArtWords\_InsertALL()}}
+{\footnotesize\ttfamily \hyperlink{avl_8h_a04eef13e46b719914a0c48f282ad1306}{avl\+Art\+Words} avl\+Art\+Words\+\_\+\+Insert\+A\+LL (\begin{DoxyParamCaption}\item[{\hyperlink{hashTArt_8h_a9c29e263aee730e17fcb7b85a2ab05b0}{hash\+T\+Art}}]{ht,  }\item[{\hyperlink{avl_8h_a04eef13e46b719914a0c48f282ad1306}{avl\+Art\+Words}}]{p }\end{DoxyParamCaption})}
+
+
+
+Percorre uma tabela de Hash de artigos e insere-\/os todos na A\+VL. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ht} & Tabela de Hash de artigos a percorrer \\
+\hline
+{\em p} & A\+VL onde vão ser inseridos os artigos \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A\+VL resultante 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hashTArt_8c_a785a1943e1446049be722b009b5d7905}\label{hashTArt_8c_a785a1943e1446049be722b009b5d7905}} 
+\index{hash\+T\+Art.\+c@{hash\+T\+Art.\+c}!avl\+Art\+Words\+\_\+\+TopN@{avl\+Art\+Words\+\_\+\+TopN}}
+\index{avl\+Art\+Words\+\_\+\+TopN@{avl\+Art\+Words\+\_\+\+TopN}!hash\+T\+Art.\+c@{hash\+T\+Art.\+c}}
+\subsubsection{\texorpdfstring{avl\+Art\+Words\+\_\+\+Top\+N()}{avlArtWords\_TopN()}}
+{\footnotesize\ttfamily int avl\+Art\+Words\+\_\+\+TopN (\begin{DoxyParamCaption}\item[{\hyperlink{avl_8h_a04eef13e46b719914a0c48f282ad1306}{avl\+Art\+Words}}]{avl,  }\item[{long $\ast$}]{top,  }\item[{int}]{i,  }\item[{int}]{n }\end{DoxyParamCaption})}
+
+
+
+Devolve por referência o top N de artigos com maior número de palavras. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em avl} & A\+VL de procura \\
+\hline
+{\em top} & Array onde vai ser devolvido o top N \\
+\hline
+{\em i} & Onde começa a inserção no array \\
+\hline
+{\em n} & Número de posições do top \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A\+VL resultante 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hashTArt_8c_aca6423869346efb84c5b7b150a417b57}\label{hashTArt_8c_aca6423869346efb84c5b7b150a417b57}} 
+\index{hash\+T\+Art.\+c@{hash\+T\+Art.\+c}!get\+Top20A@{get\+Top20A}}
+\index{get\+Top20A@{get\+Top20A}!hash\+T\+Art.\+c@{hash\+T\+Art.\+c}}
+\subsubsection{\texorpdfstring{get\+Top20\+A()}{getTop20A()}}
+{\footnotesize\ttfamily long$\ast$ get\+Top20A (\begin{DoxyParamCaption}\item[{\hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List}}]{list }\end{DoxyParamCaption})}
+
+
+
+Devolve em forma de array o uma lista ligada de artigos. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Lista Ligada de artigos \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Array com o top N 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hashTArt_8c_a70b211e30e1e6b9b8b1b6bc7062ee9fb}\label{hashTArt_8c_a70b211e30e1e6b9b8b1b6bc7062ee9fb}} 
+\index{hash\+T\+Art.\+c@{hash\+T\+Art.\+c}!get\+Top20\+NodesA@{get\+Top20\+NodesA}}
+\index{get\+Top20\+NodesA@{get\+Top20\+NodesA}!hash\+T\+Art.\+c@{hash\+T\+Art.\+c}}
+\subsubsection{\texorpdfstring{get\+Top20\+Nodes\+A()}{getTop20NodesA()}}
+{\footnotesize\ttfamily void get\+Top20\+NodesA (\begin{DoxyParamCaption}\item[{\hyperlink{hashTArt_8h_a9c29e263aee730e17fcb7b85a2ab05b0}{hash\+T\+Art}}]{ht,  }\item[{\hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List} $\ast$}]{list }\end{DoxyParamCaption})}
+
+
+
+Percorre uma tabela de Hash de artigos e devolve por referencia uma lista ligada com o top 20 de artigos com maior número de palavras. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ht} & Tabela de Hash de procura \\
+\hline
+{\em list} & Lista Ligada de artigos que conterá o top N \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{hashTArt_8c_a8e5d97762d0b77ee9c5560fe8cc88452}\label{hashTArt_8c_a8e5d97762d0b77ee9c5560fe8cc88452}} 
+\index{hash\+T\+Art.\+c@{hash\+T\+Art.\+c}!hash\+Code@{hash\+Code}}
+\index{hash\+Code@{hash\+Code}!hash\+T\+Art.\+c@{hash\+T\+Art.\+c}}
+\subsubsection{\texorpdfstring{hash\+Code()}{hashCode()}}
+{\footnotesize\ttfamily int hash\+Code (\begin{DoxyParamCaption}\item[{long}]{title\+\_\+\+ID }\end{DoxyParamCaption})}
+
+
+
+Devolve o hash\+Code com base no ID de um artigo. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em title\+\_\+\+ID} & ID do título \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+hash\+Code 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hashTArt_8c_aebe5e67e6d46805b8003545e1f5e7169}\label{hashTArt_8c_aebe5e67e6d46805b8003545e1f5e7169}} 
+\index{hash\+T\+Art.\+c@{hash\+T\+Art.\+c}!hash\+T\+Art\+\_\+\+Add@{hash\+T\+Art\+\_\+\+Add}}
+\index{hash\+T\+Art\+\_\+\+Add@{hash\+T\+Art\+\_\+\+Add}!hash\+T\+Art.\+c@{hash\+T\+Art.\+c}}
+\subsubsection{\texorpdfstring{hash\+T\+Art\+\_\+\+Add()}{hashTArt\_Add()}}
+{\footnotesize\ttfamily int hash\+T\+Art\+\_\+\+Add (\begin{DoxyParamCaption}\item[{\hyperlink{hashTArt_8h_a9c29e263aee730e17fcb7b85a2ab05b0}{hash\+T\+Art}}]{h,  }\item[{char $\ast$}]{title,  }\item[{long}]{title\+\_\+\+ID,  }\item[{int}]{n\+\_\+bytes,  }\item[{int}]{n\+\_\+words,  }\item[{long}]{revision\+\_\+id,  }\item[{char $\ast$}]{timestamp,  }\item[{\hyperlink{avl_8h_a04eef13e46b719914a0c48f282ad1306}{avl\+Art\+Words} $\ast$}]{avl\+Words }\end{DoxyParamCaption})}
+
+
+
+Insere informação de um artigo na tabela de Hash. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em h} & Tabela de Hash \\
+\hline
+{\em title} & Título do artigo \\
+\hline
+{\em title\+\_\+\+ID} & ID do artigo \\
+\hline
+{\em n\+\_\+bytes} & Número de bytes do artigo \\
+\hline
+{\em n\+\_\+words} & Número de palavras \\
+\hline
+{\em revision\+\_\+id} & Id da revisão \\
+\hline
+{\em timestamp} & Data da revisão \\
+\hline
+{\em avl\+Words} & A\+VL ordenada pelo número de palavras \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Código de inserção (0 =$>$ nada de novo; 1 =$>$ Nova Revisão; 2 =$>$ Novo Artigo e Revisão) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hashTArt_8c_a4abf04e2efd3dcfb1487de6f8be233b6}\label{hashTArt_8c_a4abf04e2efd3dcfb1487de6f8be233b6}} 
+\index{hash\+T\+Art.\+c@{hash\+T\+Art.\+c}!hash\+T\+Art\+\_\+\+Clean@{hash\+T\+Art\+\_\+\+Clean}}
+\index{hash\+T\+Art\+\_\+\+Clean@{hash\+T\+Art\+\_\+\+Clean}!hash\+T\+Art.\+c@{hash\+T\+Art.\+c}}
+\subsubsection{\texorpdfstring{hash\+T\+Art\+\_\+\+Clean()}{hashTArt\_Clean()}}
+{\footnotesize\ttfamily void hash\+T\+Art\+\_\+\+Clean (\begin{DoxyParamCaption}\item[{\hyperlink{hashTArt_8h_a9c29e263aee730e17fcb7b85a2ab05b0}{hash\+T\+Art}}]{h }\end{DoxyParamCaption})}
+
+
+
+Limpa a tabela de Hash. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em h} & Tabela de Hash \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{hashTArt_8c_a2d7581027be71aa76bd187e7369eedfd}\label{hashTArt_8c_a2d7581027be71aa76bd187e7369eedfd}} 
+\index{hash\+T\+Art.\+c@{hash\+T\+Art.\+c}!hash\+T\+Art\+\_\+\+Get\+Title@{hash\+T\+Art\+\_\+\+Get\+Title}}
+\index{hash\+T\+Art\+\_\+\+Get\+Title@{hash\+T\+Art\+\_\+\+Get\+Title}!hash\+T\+Art.\+c@{hash\+T\+Art.\+c}}
+\subsubsection{\texorpdfstring{hash\+T\+Art\+\_\+\+Get\+Title()}{hashTArt\_GetTitle()}}
+{\footnotesize\ttfamily char$\ast$ hash\+T\+Art\+\_\+\+Get\+Title (\begin{DoxyParamCaption}\item[{\hyperlink{hashTArt_8h_a9c29e263aee730e17fcb7b85a2ab05b0}{hash\+T\+Art}}]{h,  }\item[{long}]{article\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Procura o título correspondente a um determinado ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em h} & Tabela de Hash \\
+\hline
+{\em article\+\_\+id} & ID do artigo \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String com o título 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hashTArt_8c_abfb903216c61e8b6583b73616da4923f}\label{hashTArt_8c_abfb903216c61e8b6583b73616da4923f}} 
+\index{hash\+T\+Art.\+c@{hash\+T\+Art.\+c}!hash\+T\+Art\+\_\+\+Init@{hash\+T\+Art\+\_\+\+Init}}
+\index{hash\+T\+Art\+\_\+\+Init@{hash\+T\+Art\+\_\+\+Init}!hash\+T\+Art.\+c@{hash\+T\+Art.\+c}}
+\subsubsection{\texorpdfstring{hash\+T\+Art\+\_\+\+Init()}{hashTArt\_Init()}}
+{\footnotesize\ttfamily void hash\+T\+Art\+\_\+\+Init (\begin{DoxyParamCaption}\item[{\hyperlink{hashTArt_8h_a9c29e263aee730e17fcb7b85a2ab05b0}{hash\+T\+Art}}]{h }\end{DoxyParamCaption})}
+
+
+
+Inicializa a Tabela de Hash. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em h} & Tabela de Hash \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{hashTArt_8c_a792ef699fb3869940f0fd3e1e2434c7c}\label{hashTArt_8c_a792ef699fb3869940f0fd3e1e2434c7c}} 
+\index{hash\+T\+Art.\+c@{hash\+T\+Art.\+c}!hash\+T\+Art\+\_\+\+Prefix@{hash\+T\+Art\+\_\+\+Prefix}}
+\index{hash\+T\+Art\+\_\+\+Prefix@{hash\+T\+Art\+\_\+\+Prefix}!hash\+T\+Art.\+c@{hash\+T\+Art.\+c}}
+\subsubsection{\texorpdfstring{hash\+T\+Art\+\_\+\+Prefix()}{hashTArt\_Prefix()}}
+{\footnotesize\ttfamily char$\ast$$\ast$ hash\+T\+Art\+\_\+\+Prefix (\begin{DoxyParamCaption}\item[{\hyperlink{hashTArt_8h_a9c29e263aee730e17fcb7b85a2ab05b0}{hash\+T\+Art}}]{h,  }\item[{char $\ast$}]{prefix }\end{DoxyParamCaption})}
+
+
+
+Procura todos os títulos com um determinado prefixo. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em h} & Tabela de Hash \\
+\hline
+{\em prefix} & Prefixo a ser procurado \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Lista de Strings com os títulos com o prefixo ordenados lexicograficamente 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hashTArt_8c_aa5a061067c1204c1c915ea94484dce2b}\label{hashTArt_8c_aa5a061067c1204c1c915ea94484dce2b}} 
+\index{hash\+T\+Art.\+c@{hash\+T\+Art.\+c}!hash\+T\+Art\+\_\+\+Timestamp@{hash\+T\+Art\+\_\+\+Timestamp}}
+\index{hash\+T\+Art\+\_\+\+Timestamp@{hash\+T\+Art\+\_\+\+Timestamp}!hash\+T\+Art.\+c@{hash\+T\+Art.\+c}}
+\subsubsection{\texorpdfstring{hash\+T\+Art\+\_\+\+Timestamp()}{hashTArt\_Timestamp()}}
+{\footnotesize\ttfamily char$\ast$ hash\+T\+Art\+\_\+\+Timestamp (\begin{DoxyParamCaption}\item[{\hyperlink{hashTArt_8h_a9c29e263aee730e17fcb7b85a2ab05b0}{hash\+T\+Art}}]{h,  }\item[{long}]{article\+\_\+id,  }\item[{long}]{revision\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Procura a data correspondente a uma determinada revisão. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em h} & Tabela de Hash \\
+\hline
+{\em article\+\_\+id} & Id do artigo a que a revisão pertence \\
+\hline
+{\em revision\+\_\+id} & Id da revisão \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String com a data ou null caso não exista a revisão 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hashTArt_8c_a22d2f85ce5bcbc47d0a4959081f81df6}\label{hashTArt_8c_a22d2f85ce5bcbc47d0a4959081f81df6}} 
+\index{hash\+T\+Art.\+c@{hash\+T\+Art.\+c}!insert\+OrderedA@{insert\+OrderedA}}
+\index{insert\+OrderedA@{insert\+OrderedA}!hash\+T\+Art.\+c@{hash\+T\+Art.\+c}}
+\subsubsection{\texorpdfstring{insert\+Ordered\+A()}{insertOrderedA()}}
+{\footnotesize\ttfamily void insert\+OrderedA (\begin{DoxyParamCaption}\item[{\hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List} $\ast$}]{list,  }\item[{\hyperlink{hashTArt_8h_aa0952ee7d4be2db9c3de11ade89c43e3}{art\+Nodo}}]{a }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{hashTArt_8c_a940a7cb92b1e66ad64986f646c422cd2}\label{hashTArt_8c_a940a7cb92b1e66ad64986f646c422cd2}} 
+\index{hash\+T\+Art.\+c@{hash\+T\+Art.\+c}!new\+NodeA@{new\+NodeA}}
+\index{new\+NodeA@{new\+NodeA}!hash\+T\+Art.\+c@{hash\+T\+Art.\+c}}
+\subsubsection{\texorpdfstring{new\+Node\+A()}{newNodeA()}}
+{\footnotesize\ttfamily \hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List} new\+NodeA (\begin{DoxyParamCaption}\item[{\hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List}}]{l,  }\item[{\hyperlink{hashTArt_8h_aa0952ee7d4be2db9c3de11ade89c43e3}{art\+Nodo}}]{a }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{hashTArt_8c_a14acec22cbae3fc2f1dbbb7b0fa64651}\label{hashTArt_8c_a14acec22cbae3fc2f1dbbb7b0fa64651}} 
+\index{hash\+T\+Art.\+c@{hash\+T\+Art.\+c}!string\+Comparator@{string\+Comparator}}
+\index{string\+Comparator@{string\+Comparator}!hash\+T\+Art.\+c@{hash\+T\+Art.\+c}}
+\subsubsection{\texorpdfstring{string\+Comparator()}{stringComparator()}}
+{\footnotesize\ttfamily int string\+Comparator (\begin{DoxyParamCaption}\item[{const void $\ast$}]{a,  }\item[{const void $\ast$}]{b }\end{DoxyParamCaption})}
+

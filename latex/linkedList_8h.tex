@@ -1,0 +1,120 @@
+\hypertarget{linkedList_8h}{}\section{linked\+List.\+h File Reference}
+\label{linkedList_8h}\index{linked\+List.\+h@{linked\+List.\+h}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structrevision}{revision}
+\item 
+struct \hyperlink{structllig}{llig}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structrevision}{revision} $\ast$ \hyperlink{linkedList_8h_a7041733b4bb1a7075b3e29f541b1634a}{Revision}
+\item 
+typedef struct \hyperlink{structllig}{llig} $\ast$ \hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{linkedList_8h_ab485960e6d85b43f4c4cd5e7fd4e4392}{insert\+Revision} (\hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List} $\ast$list, long revision\+\_\+id, char $\ast$timestamp)
+\begin{DoxyCompactList}\small\item\em Insere uma revisão na lista ligada. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{linkedList_8h_a1e980f9c08f0d9c3d1101172ffc8463a}{retrieve\+Timestamp} (\hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List} list, long revision\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Procura na lista pela revisão com um certo ID e devolve timestamp respetivo. \end{DoxyCompactList}\item 
+void \hyperlink{linkedList_8h_a81c6b6ec2619e16864b16a7352f556cb}{clean\+List} (\hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List})
+\begin{DoxyCompactList}\small\item\em Liberta toda a memória alocada pela lista ligada. \end{DoxyCompactList}\item 
+void \hyperlink{linkedList_8h_a4d9f098c5fd89611aa3fcd2e1895a6b1}{clean\+Revision\+List} (\hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List})
+\begin{DoxyCompactList}\small\item\em Liberta toda a memória alocada pela lista ligada. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{linkedList_8h_a2266b5434491632a8342c9f636f413c6}\label{linkedList_8h_a2266b5434491632a8342c9f636f413c6}} 
+\index{linked\+List.\+h@{linked\+List.\+h}!Linked\+List@{Linked\+List}}
+\index{Linked\+List@{Linked\+List}!linked\+List.\+h@{linked\+List.\+h}}
+\subsubsection{\texorpdfstring{Linked\+List}{LinkedList}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structllig}{llig} $\ast$ \hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List}}
+
+\mbox{\Hypertarget{linkedList_8h_a7041733b4bb1a7075b3e29f541b1634a}\label{linkedList_8h_a7041733b4bb1a7075b3e29f541b1634a}} 
+\index{linked\+List.\+h@{linked\+List.\+h}!Revision@{Revision}}
+\index{Revision@{Revision}!linked\+List.\+h@{linked\+List.\+h}}
+\subsubsection{\texorpdfstring{Revision}{Revision}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structrevision}{revision} $\ast$ \hyperlink{linkedList_8h_a7041733b4bb1a7075b3e29f541b1634a}{Revision}}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{linkedList_8h_a81c6b6ec2619e16864b16a7352f556cb}\label{linkedList_8h_a81c6b6ec2619e16864b16a7352f556cb}} 
+\index{linked\+List.\+h@{linked\+List.\+h}!clean\+List@{clean\+List}}
+\index{clean\+List@{clean\+List}!linked\+List.\+h@{linked\+List.\+h}}
+\subsubsection{\texorpdfstring{clean\+List()}{cleanList()}}
+{\footnotesize\ttfamily void clean\+List (\begin{DoxyParamCaption}\item[{\hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List}}]{ }\end{DoxyParamCaption})}
+
+
+
+Liberta toda a memória alocada pela lista ligada. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Lista ligada de revisões. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{linkedList_8h_a4d9f098c5fd89611aa3fcd2e1895a6b1}\label{linkedList_8h_a4d9f098c5fd89611aa3fcd2e1895a6b1}} 
+\index{linked\+List.\+h@{linked\+List.\+h}!clean\+Revision\+List@{clean\+Revision\+List}}
+\index{clean\+Revision\+List@{clean\+Revision\+List}!linked\+List.\+h@{linked\+List.\+h}}
+\subsubsection{\texorpdfstring{clean\+Revision\+List()}{cleanRevisionList()}}
+{\footnotesize\ttfamily void clean\+Revision\+List (\begin{DoxyParamCaption}\item[{\hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List}}]{ }\end{DoxyParamCaption})}
+
+
+
+Liberta toda a memória alocada pela lista ligada. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Lista ligada de revisões. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{linkedList_8h_ab485960e6d85b43f4c4cd5e7fd4e4392}\label{linkedList_8h_ab485960e6d85b43f4c4cd5e7fd4e4392}} 
+\index{linked\+List.\+h@{linked\+List.\+h}!insert\+Revision@{insert\+Revision}}
+\index{insert\+Revision@{insert\+Revision}!linked\+List.\+h@{linked\+List.\+h}}
+\subsubsection{\texorpdfstring{insert\+Revision()}{insertRevision()}}
+{\footnotesize\ttfamily int insert\+Revision (\begin{DoxyParamCaption}\item[{\hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List} $\ast$}]{list,  }\item[{long}]{revision\+\_\+id,  }\item[{char $\ast$}]{timestamp }\end{DoxyParamCaption})}
+
+
+
+Insere uma revisão na lista ligada. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Lista ligada de revisões. \\
+\hline
+{\em revision\+\_\+id} & ID da revisão \\
+\hline
+{\em timestamp} & Timestamp da revisão \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 =$>$ Revisão na cabeça da lista e revisão a inserir coincidem, logo não é inserida nenhuma revisão; 1 =$>$ Nova Revisão inserida 
+\end{DoxyReturn}
+\mbox{\Hypertarget{linkedList_8h_a1e980f9c08f0d9c3d1101172ffc8463a}\label{linkedList_8h_a1e980f9c08f0d9c3d1101172ffc8463a}} 
+\index{linked\+List.\+h@{linked\+List.\+h}!retrieve\+Timestamp@{retrieve\+Timestamp}}
+\index{retrieve\+Timestamp@{retrieve\+Timestamp}!linked\+List.\+h@{linked\+List.\+h}}
+\subsubsection{\texorpdfstring{retrieve\+Timestamp()}{retrieveTimestamp()}}
+{\footnotesize\ttfamily char$\ast$ retrieve\+Timestamp (\begin{DoxyParamCaption}\item[{\hyperlink{linkedList_8h_a2266b5434491632a8342c9f636f413c6}{Linked\+List}}]{list,  }\item[{long}]{revision\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Procura na lista pela revisão com um certo ID e devolve timestamp respetivo. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Lista ligada de revisões. \\
+\hline
+{\em revision\+\_\+id} & ID da revisão \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Timestamp relativo ao ID de revisão, caso a pesquisa seja sucedida. Caso contrário, devolve N\+U\+LL. 
+\end{DoxyReturn}

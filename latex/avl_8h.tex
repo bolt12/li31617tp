@@ -1,0 +1,116 @@
+\hypertarget{avl_8h}{}\section{avl.\+h File Reference}
+\label{avl_8h}\index{avl.\+h@{avl.\+h}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structavl}{avl}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structavl}{avl} $\ast$ \hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL}
+\item 
+typedef struct \hyperlink{structavl}{avl} $\ast$ \hyperlink{avl_8h_a04eef13e46b719914a0c48f282ad1306}{avl\+Art\+Words}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL} \hyperlink{avl_8h_a3f5d8e2b59914880704c2e24bbbcde88}{new\+\_\+\+A\+VL} (void $\ast$nodo)
+\item 
+int \hyperlink{avl_8h_af082905f7eac6d03e92015146bbc1925}{max} (int a, int b)
+\item 
+int \hyperlink{avl_8h_a40ad2b0e6d3fce84305ef93187615a95}{height} (\hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL} \hyperlink{structavl}{avl})
+\item 
+void \hyperlink{avl_8h_a874e7ace772ed54248eea51e8e601918}{recalc} (\hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL} \hyperlink{structavl}{avl})
+\item 
+\hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL} \hyperlink{avl_8h_a18246182a794076c0c50f64102d99793}{rotate\+\_\+right} (\hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL} \hyperlink{structavl}{avl})
+\item 
+\hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL} \hyperlink{avl_8h_abafb5900e525c1b2845334338ec08a47}{rotate\+\_\+left} (\hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL} \hyperlink{structavl}{avl})
+\item 
+\hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL} \hyperlink{avl_8h_a885049c02f9acc010c90a16c4d9aa17c}{balance} (\hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL} \hyperlink{structavl}{avl})
+\item 
+\hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL} \hyperlink{avl_8h_aefb657fd9bf9583a8eb4587d4a00e10b}{find\+\_\+min} (\hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL} \hyperlink{structavl}{avl})
+\item 
+\hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL} \hyperlink{avl_8h_aefae0fad542bfec5635aa1c2199a728f}{remove\+\_\+min} (\hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL} \hyperlink{structavl}{avl})
+\item 
+void \hyperlink{avl_8h_ae5d2b1205bc2c1507e40b90f5ad8ff2d}{avl\+\_\+\+Clean} (\hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL} \hyperlink{structavl}{avl})
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}\label{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}} 
+\index{avl.\+h@{avl.\+h}!A\+VL@{A\+VL}}
+\index{A\+VL@{A\+VL}!avl.\+h@{avl.\+h}}
+\subsubsection{\texorpdfstring{A\+VL}{AVL}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structavl}{avl} $\ast$ \hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL}}
+
+\mbox{\Hypertarget{avl_8h_a04eef13e46b719914a0c48f282ad1306}\label{avl_8h_a04eef13e46b719914a0c48f282ad1306}} 
+\index{avl.\+h@{avl.\+h}!avl\+Art\+Words@{avl\+Art\+Words}}
+\index{avl\+Art\+Words@{avl\+Art\+Words}!avl.\+h@{avl.\+h}}
+\subsubsection{\texorpdfstring{avl\+Art\+Words}{avlArtWords}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structavl}{avl}$\ast$ \hyperlink{avl_8h_a04eef13e46b719914a0c48f282ad1306}{avl\+Art\+Words}}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{avl_8h_ae5d2b1205bc2c1507e40b90f5ad8ff2d}\label{avl_8h_ae5d2b1205bc2c1507e40b90f5ad8ff2d}} 
+\index{avl.\+h@{avl.\+h}!avl\+\_\+\+Clean@{avl\+\_\+\+Clean}}
+\index{avl\+\_\+\+Clean@{avl\+\_\+\+Clean}!avl.\+h@{avl.\+h}}
+\subsubsection{\texorpdfstring{avl\+\_\+\+Clean()}{avl\_Clean()}}
+{\footnotesize\ttfamily void avl\+\_\+\+Clean (\begin{DoxyParamCaption}\item[{\hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL}}]{avl }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{avl_8h_a885049c02f9acc010c90a16c4d9aa17c}\label{avl_8h_a885049c02f9acc010c90a16c4d9aa17c}} 
+\index{avl.\+h@{avl.\+h}!balance@{balance}}
+\index{balance@{balance}!avl.\+h@{avl.\+h}}
+\subsubsection{\texorpdfstring{balance()}{balance()}}
+{\footnotesize\ttfamily \hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL} balance (\begin{DoxyParamCaption}\item[{\hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL}}]{avl }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{avl_8h_aefb657fd9bf9583a8eb4587d4a00e10b}\label{avl_8h_aefb657fd9bf9583a8eb4587d4a00e10b}} 
+\index{avl.\+h@{avl.\+h}!find\+\_\+min@{find\+\_\+min}}
+\index{find\+\_\+min@{find\+\_\+min}!avl.\+h@{avl.\+h}}
+\subsubsection{\texorpdfstring{find\+\_\+min()}{find\_min()}}
+{\footnotesize\ttfamily \hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL} find\+\_\+min (\begin{DoxyParamCaption}\item[{\hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL}}]{avl }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{avl_8h_a40ad2b0e6d3fce84305ef93187615a95}\label{avl_8h_a40ad2b0e6d3fce84305ef93187615a95}} 
+\index{avl.\+h@{avl.\+h}!height@{height}}
+\index{height@{height}!avl.\+h@{avl.\+h}}
+\subsubsection{\texorpdfstring{height()}{height()}}
+{\footnotesize\ttfamily int height (\begin{DoxyParamCaption}\item[{\hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL}}]{avl }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{avl_8h_af082905f7eac6d03e92015146bbc1925}\label{avl_8h_af082905f7eac6d03e92015146bbc1925}} 
+\index{avl.\+h@{avl.\+h}!max@{max}}
+\index{max@{max}!avl.\+h@{avl.\+h}}
+\subsubsection{\texorpdfstring{max()}{max()}}
+{\footnotesize\ttfamily int max (\begin{DoxyParamCaption}\item[{int}]{a,  }\item[{int}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{avl_8h_a3f5d8e2b59914880704c2e24bbbcde88}\label{avl_8h_a3f5d8e2b59914880704c2e24bbbcde88}} 
+\index{avl.\+h@{avl.\+h}!new\+\_\+\+A\+VL@{new\+\_\+\+A\+VL}}
+\index{new\+\_\+\+A\+VL@{new\+\_\+\+A\+VL}!avl.\+h@{avl.\+h}}
+\subsubsection{\texorpdfstring{new\+\_\+\+A\+V\+L()}{new\_AVL()}}
+{\footnotesize\ttfamily \hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL} new\+\_\+\+A\+VL (\begin{DoxyParamCaption}\item[{void $\ast$}]{nodo }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{avl_8h_a874e7ace772ed54248eea51e8e601918}\label{avl_8h_a874e7ace772ed54248eea51e8e601918}} 
+\index{avl.\+h@{avl.\+h}!recalc@{recalc}}
+\index{recalc@{recalc}!avl.\+h@{avl.\+h}}
+\subsubsection{\texorpdfstring{recalc()}{recalc()}}
+{\footnotesize\ttfamily void recalc (\begin{DoxyParamCaption}\item[{\hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL}}]{avl }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{avl_8h_aefae0fad542bfec5635aa1c2199a728f}\label{avl_8h_aefae0fad542bfec5635aa1c2199a728f}} 
+\index{avl.\+h@{avl.\+h}!remove\+\_\+min@{remove\+\_\+min}}
+\index{remove\+\_\+min@{remove\+\_\+min}!avl.\+h@{avl.\+h}}
+\subsubsection{\texorpdfstring{remove\+\_\+min()}{remove\_min()}}
+{\footnotesize\ttfamily \hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL} remove\+\_\+min (\begin{DoxyParamCaption}\item[{\hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL}}]{avl }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{avl_8h_abafb5900e525c1b2845334338ec08a47}\label{avl_8h_abafb5900e525c1b2845334338ec08a47}} 
+\index{avl.\+h@{avl.\+h}!rotate\+\_\+left@{rotate\+\_\+left}}
+\index{rotate\+\_\+left@{rotate\+\_\+left}!avl.\+h@{avl.\+h}}
+\subsubsection{\texorpdfstring{rotate\+\_\+left()}{rotate\_left()}}
+{\footnotesize\ttfamily \hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL} rotate\+\_\+left (\begin{DoxyParamCaption}\item[{\hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL}}]{avl }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{avl_8h_a18246182a794076c0c50f64102d99793}\label{avl_8h_a18246182a794076c0c50f64102d99793}} 
+\index{avl.\+h@{avl.\+h}!rotate\+\_\+right@{rotate\+\_\+right}}
+\index{rotate\+\_\+right@{rotate\+\_\+right}!avl.\+h@{avl.\+h}}
+\subsubsection{\texorpdfstring{rotate\+\_\+right()}{rotate\_right()}}
+{\footnotesize\ttfamily \hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL} rotate\+\_\+right (\begin{DoxyParamCaption}\item[{\hyperlink{avl_8h_a747c435603bede8154b7d4b24ffcd9c7}{A\+VL}}]{avl }\end{DoxyParamCaption})}
+
