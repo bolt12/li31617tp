@@ -33,16 +33,16 @@ ser acedidos de forma eficiente aquando da chamada das várias queries.
 
 ![Diagrama do projeto em C](http://i.imgur.com/IDyEz4V.png "Diagrama do projeto em C")
 
+![Diagrama do projeto em Java](http://i.imgur.com/3unyLnV.png "Diagrama do projeto em Java")
+
 Tal como mencionado em cima, utilizamos a biblioteca StAX para realizar
-o parsing do XML. Esta usa o modelo de pull Streaming invés do modelo
+o parsing do XML em Java. Esta usa o modelo de pull Streaming invés do modelo
 DOM. Este modelo permite um menor uso da memória, menos requisitos
 de processamento e, por vezes, maior performance. No entanto, apenas te-
 mos acesso ao elemento onde nos encontramos que, após iterarmos para o
 próximo, é descartado e recolhido pelo garbage collector.
 O processo de parsing está ordenado da forma apresentada no seguinte dia-
 grama.
-
-![Diagrama do projeto em Java](http://i.imgur.com/3unyLnV.png "Diagrama do projeto em Java")
 
 ## Estruturas
 Para responder a queries de procura não ordenada utlizamos tabelas de hash (HashMap's)
