@@ -31,7 +31,7 @@ almente, com o auxı́lio da biblioteca libxml2 (em C) e da API StAX (em Java) .
 são organizados e carregados nas respetivas estruturas que, por fim, poderão
 ser acedidos de forma eficiente aquando da chamada das várias queries.
 
-![Diagrama do projeto em C](http://i.imgur.com/IDyEz4V.png)
+![Diagrama do projeto em C](http://i.imgur.com/IDyEz4V.png "Diagrama do projeto em C")
 
 Tal como mencionado em cima, utilizamos a biblioteca StAX para realizar
 o parsing do XML. Esta usa o modelo de pull Streaming invés do modelo
@@ -42,7 +42,7 @@ próximo, é descartado e recolhido pelo garbage collector.
 O processo de parsing está ordenado da forma apresentada no seguinte dia-
 grama.
 
-![Diagrama do projeto em Java](http://i.imgur.com/3unyLnV.png)
+![Diagrama do projeto em Java](http://i.imgur.com/3unyLnV.png "Diagrama do projeto em Java")
 
 ## Estruturas
 Para responder a queries de procura não ordenada utlizamos tabelas de hash (HashMap's)
@@ -67,9 +67,9 @@ da nossa decisão são apresentados os tempos de execução de cada uma das
 queries solicitadas.
 
 
-![Desempenho programa C](http://i.imgur.com/7Ovw5Fz.png)
+![Desempenho programa C](http://i.imgur.com/7Ovw5Fz.png "Desempenho programa C")
 
-![Desempenho programa Java](http://i.imgur.com/oVbWOBJ.png)
+![Desempenho programa Java](http://i.imgur.com/oVbWOBJ.png "Desempenho programa Java")
 
 ## Paralelização
 Para conseguir minimizar os tempos, principalmente no parsing que eram os
