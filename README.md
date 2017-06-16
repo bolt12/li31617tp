@@ -1,7 +1,7 @@
 # li31617tp
 Projeto de LI3 16/17
 
-#Introdução
+# Introdução
 O objetivo deste projeto é criar um sistema que permita analisar artigos pre-
 sentes em backups da Wikipedia, realizados em diversos momentos temporais
 e extrair informação útil bem como dados estatı́sticos dos mesmos. Para tal,
@@ -9,13 +9,13 @@ utilizámos diferentes estruturas de dados que nos permitiram dar resposta
 em tempo útil às queries propostas.
 Este trabalho envolve duas versões semelhantes, sendo que uma é escrita em C e outra em Java.
 
-#Desenho
+# Desenho
 Neste projeto respondemos a vários tipos de queries. Tendo em conta a
 natureza das mesmas, foi necessária uma abordagem que visa conjugar da
 melhor maneira a utilização de memória central e o tempo de resposta do
 sistema.
 
-##Abordagem
+## Abordagem
 Deparamo-nos com várias abordagens possı́veis no que diz respeito à com-
 plexidade de tempo e espaço do sistema.
 O objetivo do sistema é efetuar o load de uma lista de backups e o utili-
@@ -44,7 +44,7 @@ grama.
 
 ![Diagrama do projeto em Java](http://i.imgur.com/3unyLnV.png)
 
-##Estruturas
+## Estruturas
 Para responder a queries de procura não ordenada utlizamos tabelas de hash (HashMap's)
 por nos permitirem pesquisas em tempo constante. Para queries que im-
 pliquem ordenação utilizamos árvores balanceadas de procura (TreeSet's), que propor-
@@ -52,7 +52,7 @@ cionam acesso a dados ordenados em tempo logaritmico. Utilizamos ainda
 como estruturas auxiliares listas ligadas (ArrayList's) que permitem manter um pequeno
 registo de dados ordenados.
 
-#Desempenho
+# Desempenho
 Para conseguirmos apresentar um sistema não só funcional mas também efi-
 caz na forma como apresenta os resultados tivemos em grande conta o de-
 sempenho por ele apresentado.
@@ -60,7 +60,7 @@ Como dito anteriormente, priorizámos o tempo em função da memória uti-
 lizando assim estruturas que nos permitiram obter uma rápida resposta às
 queries
 
-##Tempo
+## Tempo
 O tempo de resposta foi um dos aspectos que mais pesou na conceção deste
 projeto e na forma como foi conduzido. Para melhor percebermos as razões
 da nossa decisão são apresentados os tempos de execução de cada uma das
@@ -78,7 +78,7 @@ lização tendo em conta as arquiteturas multicore dos processadores atuais.
 Para proceder à paralelização do código utilizámos o OpenMP no caso do 
 programa em C e parallel Streams em Java.
 
-#Conclusão
+# Conclusão
 A implementação deste sistema cumpre com os objetivos pretendidos com
 um desempenho dentro do previsto, no entanto talvez seja possı́vel fazer
 uma melhor gestão dos recursos.
